@@ -137,7 +137,7 @@
     "eslint-plugin-storybook": "0.8.0",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "husky": "9.0.11",
-    "lint-staged": "15.2.2",
+    "lint-staged": "15.4.3",
     "phaser3spectorjs": "^0.0.8",
     "postcss": "8.4.38",
     "storybook": "8.0.8",
