@@ -198,8 +198,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0(webpack@5.96.1(esbuild@0.20.2))
       phaser3-rex-plugins:
-        specifier: 1.1.85
-        version: 1.1.85
+        specifier: 1.80.13
+        version: 1.80.13(graphology-types@0.24.8)
       pixi-scrollbox:
         specifier: ^2.3.1
         version: 2.3.1(pixi-viewport@6.0.3(pixi.js@7.4.2))(pixi.js@7.4.2)
@@ -4021,6 +4021,9 @@ packages:
   d3-zoom@2.0.0:
     resolution: {integrity: sha512-fFg7aoaEm9/jf+qfstak0IYpnesZLiMX6GZvXtUSdv8RH2o4E2qeelgdU09eKS6wGuiGMfcnMI0nTIqWzRHGpw==}
 
+  dagre@0.8.5:
+    resolution: {integrity: sha512-/aTqmnRta7x7MCCpExk7HQL2O4owCT2h8NT//9I1OQ9vt29Pa0BzSAkR5lwFUcQ7491yVi/3CXU9jQ5o0Mn2Sw==}
+
   daisyui@4.10.1:
     resolution: {integrity: sha512-Ds0Z0Fv+Xf6ZEqV4Q5JIOeKfg83xxnww0Lzid0V94vPtlQ0yYmucEa33zSctsX2VEgBALtmk5zVEqd59pnUbuQ==}
     engines: {node: '>=16.9.0'}
@@ -4977,6 +4980,17 @@ packages:
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
 
+  graphlib@2.1.8:
+    resolution: {integrity: sha512-jcLLfkpoVGmH7/InMC/1hIvOPSUh38oJtGhvrOFGzioE1DZ+0YW16RgmOJhHiuWTvGiJQ9Z1Ik43JvkRPRvE+A==}
+
+  graphology-types@0.24.8:
+    resolution: {integrity: sha512-hDRKYXa8TsoZHjgEaysSRyPdT6uB78Ci8WnjgbStlQysz7xR52PInxNsmnB7IBOM1BhikxkNyCVEFgmPKnpx3Q==}
+
+  graphology@0.25.4:
+    resolution: {integrity: sha512-33g0Ol9nkWdD6ulw687viS8YJQBxqG5LWII6FI6nul0pq6iM2t5EKquOTFDbyTblRB3O9I+7KX4xI8u5ffekAQ==}
+    peerDependencies:
+      graphology-types: '>=0.24.0'
+
   gunzip-maybe@1.4.2:
     resolution: {integrity: sha512-4haO1M4mLO91PW57BMsDFf75UmwoRX0GkdD+Faw+Lr+r/OZrOCS0pIBwOL1xCKQqnQzbNFGgK2V2CpBUPeFNTw==}
     hasBin: true
@@ -5929,6 +5943,10 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
+  mustache@4.2.0:
+    resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
+    hasBin: true
+
   mz@2.7.0:
     resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
@@ -6108,6 +6126,9 @@ packages:
 
   objectorarray@1.0.5:
     resolution: {integrity: sha512-eJJDYkhJFFbBBAxeh8xW+weHlkI28n2ZdQV/J/DNfWfSKlGEf2xcfAbZTv3riEXHAhL9SVOTs2pRmXiSTf78xg==}
+
+  obliterator@2.0.5:
+    resolution: {integrity: sha512-42CPE9AhahZRsMNslczq0ctAEtqk8Eka26QofnqC346BZdHDySk3LWka23LI7ULIw11NmltpiLagIq8gBozxTw==}
 
   ohash@1.1.4:
     resolution: {integrity: sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==}
@@ -6309,8 +6330,8 @@ packages:
   phaser3-nineslice@0.5.0:
     resolution: {integrity: sha512-QLzkvvyinNYczZ++W4kp+WYd0dQQWGQ2Odw5leaQiEdCPpEtVv5hS1T0Fn7JsYQt/riJW0ELMd6BywDackM2FQ==}
 
-  phaser3-rex-plugins@1.1.85:
-    resolution: {integrity: sha512-NQOp0sRLmDqDn5OgrjsWh0naGwcQiL2rF8WV56DR9PsNBp196F5OSqtgxjYYKjYTDc6FphrDGejZJ6g99w0Iwg==}
+  phaser3-rex-plugins@1.80.13:
+    resolution: {integrity: sha512-d2P3c+0r7h/GXtOZIjB6DLjBQ2rSEeZ+AOG1D6jgGGn/Txb+PiDmFMhBF3qJ6YoPlVarSE8lw6V8Jy7K7xPnLg==}
 
   phaser3spectorjs@0.0.8:
     resolution: {integrity: sha512-0dSO7/aMjEUPrp5EcjRvRRsEf+jXDbmzalPeJ6VtTB2Pn1PeaKc+qlL/DmO3l1Dvc5lkzc+Sil1Ta+Hkyi5cbA==}
@@ -12600,6 +12621,11 @@ snapshots:
       d3-selection: 2.0.0
       d3-transition: 2.0.0(d3-selection@2.0.0)
 
+  dagre@0.8.5:
+    dependencies:
+      graphlib: 2.1.8
+      lodash: 4.17.21
+
   daisyui@4.10.1(postcss@8.4.38):
     dependencies:
       css-selector-tokenizer: 0.8.0
@@ -13893,6 +13919,18 @@ snapshots:
 
   graphemer@1.4.0: {}
 
+  graphlib@2.1.8:
+    dependencies:
+      lodash: 4.17.21
+
+  graphology-types@0.24.8: {}
+
+  graphology@0.25.4(graphology-types@0.24.8):
+    dependencies:
+      events: 3.3.0
+      graphology-types: 0.24.8
+      obliterator: 2.0.5
+
   gunzip-maybe@1.4.2:
     dependencies:
       browserify-zlib: 0.1.4
@@ -14800,6 +14838,8 @@ snapshots:
 
   ms@2.1.3: {}
 
+  mustache@4.2.0: {}
+
   mz@2.7.0:
     dependencies:
       any-promise: 1.3.0
@@ -15020,6 +15060,8 @@ snapshots:
 
   objectorarray@1.0.5: {}
 
+  obliterator@2.0.5: {}
+
   ohash@1.1.4: {}
 
   on-finished@2.4.1:
@@ -15224,16 +15266,20 @@ snapshots:
     transitivePeerDependencies:
       - webpack
 
-  phaser3-rex-plugins@1.1.85:
+  phaser3-rex-plugins@1.80.13(graphology-types@0.24.8):
     dependencies:
+      dagre: 0.8.5
       eventemitter3: 3.1.2
+      graphology: 0.25.4(graphology-types@0.24.8)
       i18next: 22.5.1
       i18next-http-backend: 2.7.1
       js-yaml: 4.1.0
+      mustache: 4.2.0
       papaparse: 5.4.1
       webfontloader: 1.6.28
     transitivePeerDependencies:
       - encoding
+      - graphology-types
 
   phaser3spectorjs@0.0.8: {}
 
