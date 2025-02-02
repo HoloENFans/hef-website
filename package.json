@@ -104,8 +104,8 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.2.2",
-    "@commitlint/config-conventional": "19.2.2",
+    "@commitlint/cli": "19.7.1",
+    "@commitlint/config-conventional": "19.7.1",
     "@next/eslint-plugin-next": "^14.2.18",
     "@pixi/graphics": "^7.4.2",
     "@storybook/addon-essentials": "8.0.8",
