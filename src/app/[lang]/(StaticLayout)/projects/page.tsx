@@ -6,10 +6,12 @@ import useTranslation from '@/lib/i18n/server';
 import { Language } from '@/lib/i18n/languages';
 import ProjectCard from '@/components/ui/ProjectCard';
 
+import type { JSX } from "react";
+
 interface IProps {
-	params: {
+	params: Promise<{
 		lang: Language;
-	}
+	}>
 }
 
 async function fetchProjects(lang: Language): Promise<Project[]> {
@@ -55,12 +57,18 @@ function formatProjects(projects: Project[], lang: Language): JSX.Element[] {
 	));
 }
 
-export default async function Page({ params: { lang } }: IProps) {
-	const { t } = await useTranslation(lang, 'projects', 'page');
-	const projects = await fetchProjects(lang);
-	const projectsHtml = formatProjects(projects, lang);
+export default async function Page(props: IProps) {
+    const params = await props.params;
 
-	return (
+    const {
+        lang
+    } = params;
+
+    const { t } = await useTranslation(lang, 'projects', 'page');
+    const projects = await fetchProjects(lang);
+    const projectsHtml = formatProjects(projects, lang);
+
+    return (
 		<div className="flex h-full min-h-screen flex-col bg-skin-background dark:bg-skin-background-dark">
 			<Header
 				title="Projects"
@@ -83,14 +91,20 @@ export default async function Page({ params: { lang } }: IProps) {
 	);
 }
 
-export async function generateMetadata({ params: { lang } }: IProps): Promise<Metadata> {
-	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const { t } = await useTranslation(lang, 'projects', 'head');
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+    const params = await props.params;
 
-	const title = t('title');
-	const description = t('description');
+    const {
+        lang
+    } = params;
 
-	return {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { t } = await useTranslation(lang, 'projects', 'head');
+
+    const title = t('title');
+    const description = t('description');
+
+    return {
 		title,
 		description,
 		alternates: {

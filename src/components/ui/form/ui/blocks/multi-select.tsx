@@ -85,7 +85,7 @@ function MultiSelectFabric(props: {
 		time: 0,
 	});
 	const scrollIntoView = useRef(false);
-	const ref = useRef<HTMLInputElement | null>();
+	const ref = useRef<HTMLInputElement | null>(undefined);
 	const componentRef = useRef<HTMLDivElement>(null);
 	const optionsRef = useRef<HTMLDivElement>(null);
 	const scrollToRef = useRef<HTMLDivElement>(null);
@@ -125,8 +125,8 @@ function MultiSelectFabric(props: {
 	}
 
 	return (
-		// eslint-disable-next-line jsx-a11y/interactive-supports-focus
-		<div
+        // eslint-disable-next-line jsx-a11y/interactive-supports-focus
+        (<div
 			className="rounded-md border border-skin-primary bg-transparent dark:border-skin-primary-dark"
 			ref={componentRef}
 			onMouseDown={(e: MouseEvent<HTMLDivElement>) => {
@@ -155,7 +155,7 @@ function MultiSelectFabric(props: {
 			aria-expanded={focus}
 			aria-describedby={props.ariaDescribedBy}
 		>
-			<div
+            <div
 				className="flex flex-wrap items-center"
 			>
 				{selected.map((option, index) => (
@@ -187,7 +187,7 @@ function MultiSelectFabric(props: {
 					</div>
 				))}
 				<input
-					className="min-w-16 flex-[1_1_0%] rounded-lg !bg-transparent px-4 py-2 focus:bg-transparent focus:outline-none active:bg-transparent"
+					className="min-w-16 flex-[1_1_0%] rounded-lg bg-transparent! px-4 py-2 focus:bg-transparent focus:outline-hidden active:bg-transparent"
 					ref={setRef}
 					id={props.id}
 					type="search"
@@ -276,7 +276,7 @@ function MultiSelectFabric(props: {
 					}}
 				/>
 			</div>
-			{focus && options.length > 0 && (
+            {focus && options.length > 0 && (
 				<Overlay
 					onEffect={() => {
 						const updatePosition = () => {
@@ -382,7 +382,7 @@ function MultiSelectFabric(props: {
 							{options.map((option, index) => (
 								// eslint-disable-next-line max-len
 								// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
-								<div
+								(<div
 									className={`flex w-full flex-col px-4 py-1 pr-16 hover:bg-skin-primary hover:text-skin-primary-foreground dark:hover:bg-skin-primary-dark dark:hover:text-skin-primary-foreground ${option.disabled ? 'opacity-50' : ''}`}
 									key={option.id || index}
 									ref={(scrollIntoView.current && cursor === option.id && scrollToRef) || undefined}
@@ -411,16 +411,16 @@ function MultiSelectFabric(props: {
 										}
 									}}
 								>
-									<div>{option.label || option.name}</div>
-									{option.description && <div className="text-sm">{option.description}</div>}
-								</div>
+                                    <div>{option.label || option.name}</div>
+                                    {option.description && <div className="text-sm">{option.description}</div>}
+                                </div>)
 							))}
 						</div>
 					</div>
 				</Overlay>
 			)}
-		</div>
-	);
+        </div>)
+    );
 }
 /* eslint-enable */
 

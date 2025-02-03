@@ -305,7 +305,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 				<label className="swap swap-flip">
 					<input
 						type="checkbox"
-						className="!bg-inherit text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
+						className="bg-inherit! text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
 						checked={muted}
 						onChange={() => setMuted(!muted)}
 					/>
@@ -321,7 +321,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 					step={0.01}
 					value={volume}
 					onChange={(e) => setVolume(Number.parseFloat(e.target.value))}
-					className="range-s range range-accent !bg-inherit disabled:range-xs"
+					className="range-s range range-accent bg-inherit! disabled:range-xs"
 				/>
 			</div>
 
@@ -331,7 +331,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 				>
 					<input
 						type="checkbox"
-						className="!bg-inherit text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
+						className="bg-inherit! text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
 						checked={resolvedTheme === 'dark'}
 						onChange={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
 					/>

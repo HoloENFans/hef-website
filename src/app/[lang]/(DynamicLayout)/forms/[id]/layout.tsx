@@ -9,25 +9,36 @@ import fetchForm from '@/lib/fetchForm';
 
 interface IProps {
 	children: React.ReactNode;
-	params: {
+	params: Promise<{
 		id: string;
 		lang: Language;
-	}
+	}>
 }
 
-export default async function RootLayout({ children, params: { id, lang } }: IProps) {
-	const form = await fetchForm(id, lang);
+export default async function RootLayout(props: IProps) {
+    const params = await props.params;
 
-	const descriptionSplit = (form?.description ?? '').split('\n');
-	const description = [];
+    const {
+        id,
+        lang
+    } = params;
 
-	for (let i = 0; i < descriptionSplit.length - 1; i++) {
+    const {
+        children
+    } = props;
+
+    const form = await fetchForm(id, lang);
+
+    const descriptionSplit = (form?.description ?? '').split('\n');
+    const description = [];
+
+    for (let i = 0; i < descriptionSplit.length - 1; i++) {
 		description.push(descriptionSplit[i]);
 		description.push(<br />);
 	}
-	description.push(descriptionSplit[descriptionSplit.length - 1]);
+    description.push(descriptionSplit[descriptionSplit.length - 1]);
 
-	return (
+    return (
 		<body className={form ? skins[form.skin] ?? undefined : undefined}>
 			<DarkModeProvider>
 				<Navbar

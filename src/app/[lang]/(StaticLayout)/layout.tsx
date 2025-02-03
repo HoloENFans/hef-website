@@ -6,13 +6,23 @@ import DarkModeProvider from '@/components/contexts/DarkModeProvider';
 
 interface IProps {
 	children: React.ReactNode;
-	params: {
+	params: Promise<{
 		lang: Language;
-	}
+	}>
 }
 
-export default function RootLayout({ children, params: { lang } }: IProps) {
-	return (
+export default async function RootLayout(props: IProps) {
+    const params = await props.params;
+
+    const {
+        lang
+    } = params;
+
+    const {
+        children
+    } = props;
+
+    return (
 		<body>
 			<DarkModeProvider>
 				<Navbar

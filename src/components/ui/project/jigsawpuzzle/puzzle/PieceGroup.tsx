@@ -14,7 +14,7 @@ import { PieceActions } from './Piece';
 
 interface PieceGroupProps {
 	groupKey: string;
-	pieces: Record<string, { ref: React.MutableRefObject<PieceActions>, piece: ReactElement }>;
+	pieces: Record<string, { ref: React.MutableRefObject<PieceActions>, piece: ReactElement<any> }>;
 	initialX: number;
 	initialY: number;
 	playTick: () => void;

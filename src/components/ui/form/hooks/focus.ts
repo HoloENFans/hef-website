@@ -55,10 +55,10 @@ export const useFocus = (props: {
 	readonly page?: number;
 }) => {
 	const [focus, setFocus] = useState<IFocus>(props.initialFocus || {});
-	const frameRef = useRef<HTMLDivElement>();
+	const frameRef = useRef<HTMLDivElement>(undefined);
 	const gainRef = useRef(true);
-	const pageRef = useRef<number>();
-	const autoFocusRef = useRef<string>();
+	const pageRef = useRef<number>(undefined);
+	const autoFocusRef = useRef<string>(undefined);
 	const elementsRef = useRef<{
 		[key: string]: HTMLElement | undefined;
 	}>({});

@@ -38,7 +38,7 @@ import { IRunnerProps as IHookRunnerProps, TRunnerViews } from '@tripetto/runner
 import {
 	IDefinition, ISnapshot, L10n, TL10n,
 } from '@tripetto/runner';
-import { MutableRefObject } from 'react';
+import { MutableRefObject, type JSX } from 'react';
 import { IRunnerController } from '../hooks/controller';
 import { IBuilderInstance } from './builder';
 import { IRunnerSnapshot } from './snapshot';

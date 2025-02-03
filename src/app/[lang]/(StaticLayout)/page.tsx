@@ -8,9 +8,9 @@ import ProjectFeaturedCard from '@/components/ui/ProjectFeaturedCard';
 import ButtonLink from '@/components/ui/ButtonLink';
 
 interface IProps {
-	params: {
+	params: Promise<{
 		lang: Language;
-	}
+	}>
 }
 
 interface PageData {
@@ -73,16 +73,22 @@ async function fetchData(lang: Language) {
 	} as PageData;
 }
 
-export default async function Page({ params: { lang } }: IProps) {
-	const { t } = await useTranslation(lang, 'home');
-	const { featuredProjects } = await fetchData(lang);
+export default async function Page(props: IProps) {
+    const params = await props.params;
 
-	const featuredProjectsHtml = featuredProjects
+    const {
+        lang
+    } = params;
+
+    const { t } = await useTranslation(lang, 'home');
+    const { featuredProjects } = await fetchData(lang);
+
+    const featuredProjectsHtml = featuredProjects
 		.map((project) => (
 			<ProjectFeaturedCard project={project} lang={lang} key={project.id} />
 		));
 
-	/* const guildHtml = guilds.map((guild) => (
+    /* const guildHtml = guilds.map((guild) => (
 		<Card
 			key={`guild-${guild.id}`}
 			img={guild.icon.url}
@@ -94,7 +100,7 @@ export default async function Page({ params: { lang } }: IProps) {
 		/>
 	)); */
 
-	return (
+    return (
 		<div className="flex h-full min-h-screen flex-col overflow-hidden bg-skin-background text-skin-text dark:bg-skin-background-dark dark:text-skin-text-dark">
 			<Header title={t('hero.title')} description={t('hero.description')} />
 			<div className="grow">

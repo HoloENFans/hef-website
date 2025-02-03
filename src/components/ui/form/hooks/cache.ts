@@ -51,7 +51,7 @@ export interface ICache {
 }
 
 export function useCache(): ICache {
-	const cacheRef = useRef<ICache>();
+	const cacheRef = useRef<ICache>(undefined);
 
 	if (!cacheRef.current) {
 		const cache: {

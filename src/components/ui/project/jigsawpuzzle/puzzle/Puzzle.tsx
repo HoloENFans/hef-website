@@ -247,7 +247,7 @@ export default function Puzzle({
 	const puzzlePieces = useMemo(() => {
 		if (!assetBundle || !difficulty || !difficultyName || !puzzlePiecesRefs) return null;
 
-		const temp: Record<string, { ref: React.MutableRefObject<any>, piece: ReactElement }> = {};
+		const temp: Record<string, { ref: React.MutableRefObject<any>, piece: ReactElement<any> }> = {};
 
 		for (let r = 0; r < difficulty.rows; r++) {
 			for (let c = 0; c < difficulty.cols; c++) {

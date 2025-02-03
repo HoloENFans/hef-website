@@ -35,7 +35,7 @@ SOFTWARE.
 /* eslint-enable */
 
 import { L10n, NodeBlock } from '@tripetto/runner';
-import { type FocusEvent, ReactNode } from 'react';
+import { type FocusEvent, ReactNode, type JSX } from 'react';
 import { TOverlayContext } from '@tripetto/runner-fabric/overlay';
 import { IRunnerAttachments } from '@tripetto/runner-react-hook';
 

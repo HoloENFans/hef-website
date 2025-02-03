@@ -13,10 +13,10 @@ import { ArrowLeftIcon, LinkIcon } from '@heroicons/react/20/solid';
 import ButtonLink from '@/components/ui/ButtonLink';
 
 interface IProps {
-	params: {
+	params: Promise<{
 		slug: string;
 		lang: Language;
-	}
+	}>
 }
 
 async function fetchProject(slug: string, lang: Language) {
@@ -129,15 +129,22 @@ export function RandomSubmissions({ submissions }: { submissions: ISubmission[] 
 	));
 }
 
-export default async function SubmissionsPage({ params: { slug, lang } }: IProps) {
-	const project = await fetchProject(slug, lang);
-	if (!project || !project.hasSubmissions) {
+export default async function SubmissionsPage(props: IProps) {
+    const params = await props.params;
+
+    const {
+        slug,
+        lang
+    } = params;
+
+    const project = await fetchProject(slug, lang);
+    if (!project || !project.hasSubmissions) {
 		notFound();
 	}
 
-	const submissions = await fetchSubmissions(project);
+    const submissions = await fetchSubmissions(project);
 
-	return (
+    return (
 		<div className="flex h-full min-h-screen flex-col bg-skin-background text-skin-text dark:bg-skin-background-dark dark:text-skin-text-dark">
 			<div className="grow">
 				<div className="my-16 flex w-full flex-col items-center px-4 md:px-16 lg:px-24 2xl:px-56">
@@ -300,8 +307,15 @@ export default async function SubmissionsPage({ params: { slug, lang } }: IProps
 	);
 }
 
-export async function generateMetadata({ params: { slug, lang } }: IProps): Promise<Metadata> {
-	const projectRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/projects?where[slug][like]=${slug}&depth=2&locale=${lang}&fallback-locale=en`, {
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+    const params = await props.params;
+
+    const {
+        slug,
+        lang
+    } = params;
+
+    const projectRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/projects?where[slug][like]=${slug}&depth=2&locale=${lang}&fallback-locale=en`, {
 		headers: {
 			'X-RateLimit-Bypass': process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY ?? undefined,
 			Authorization: process.env.PAYLOAD_API_KEY ? `users API-Key ${process.env.PAYLOAD_API_KEY}` : undefined,
@@ -310,14 +324,14 @@ export async function generateMetadata({ params: { slug, lang } }: IProps): Prom
 			tags: [slug],
 		},
 	});
-	const parsedProjectRes = (await projectRes.json() as PayloadResponse<Project>);
-	if (parsedProjectRes.totalDocs === 0) return notFound();
+    const parsedProjectRes = (await projectRes.json() as PayloadResponse<Project>);
+    if (parsedProjectRes.totalDocs === 0) return notFound();
 
-	const {
+    const {
 		title, shortDescription, ogImage, image,
 	} = parsedProjectRes.docs[0];
 
-	return {
+    return {
 		title: `${title} - Submissions`,
 		description: shortDescription,
 		alternates: {

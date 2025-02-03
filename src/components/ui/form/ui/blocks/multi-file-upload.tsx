@@ -37,7 +37,7 @@ SOFTWARE.
 import { MultiFileUpload } from '@holoenfans/tripetto-block-multi-file-upload/runner';
 import { IFileService } from '@tripetto/runner-fabric/components/file';
 import { Num, Str, tripetto } from '@tripetto/runner';
-import type { DragEvent, FocusEvent, KeyboardEvent } from 'react';
+import type { DragEvent, FocusEvent, KeyboardEvent, JSX } from 'react';
 import {
 	ReactNode, useEffect, useMemo, useRef, useState,
 } from 'react';
@@ -151,7 +151,7 @@ export function MultiFileFabric(props: {
 	const [progress, setProgress] = useState(-1);
 	const [error, setError] = useState<'invalid-amount' | 'invalid-extension' | 'invalid-size' | string>('');
 	const [errorVisible, makeErrorVisible] = useState(false);
-	const inputRef = useRef<HTMLInputElement | null>();
+	const inputRef = useRef<HTMLInputElement | null>(undefined);
 
 	const disabled = (
 		props.disabled
@@ -206,10 +206,10 @@ export function MultiFileFabric(props: {
 	};
 
 	return (
-		// eslint-disable-next-line max-len
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
-		<div
-			className="relative box-border block h-56 w-full overflow-hidden rounded-md border-2 border-skin-primary bg-skin-secondary px-1.5 py-3 font-normal text-skin-secondary-foreground outline-none dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:text-skin-primary-foreground-dark"
+        // eslint-disable-next-line max-len
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
+        (<div
+			className="relative box-border block h-56 w-full overflow-hidden rounded-md border-2 border-skin-primary bg-skin-secondary px-1.5 py-3 font-normal text-skin-secondary-foreground outline-hidden dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:text-skin-primary-foreground-dark"
 			ref={props.onAutoFocus}
 			tabIndex={props.tabIndex || 0}
 			onFocus={props.onFocus}
@@ -244,7 +244,7 @@ export function MultiFileFabric(props: {
 				}
 			}}
 		>
-			{!slotsInfo.hasValue && !error && progress === -1 && (
+            {!slotsInfo.hasValue && !error && progress === -1 && (
 				<label
 					className="absolute inset-1.5 flex cursor-pointer flex-col items-center justify-center"
 					onDragEnter={(e: DragEvent<HTMLLabelElement>) => {
@@ -324,7 +324,7 @@ export function MultiFileFabric(props: {
 					)}
 				</label>
 			)}
-			{!error && progress !== -1 && (
+            {!error && progress !== -1 && (
 				<div
 					onDragOver={(e: DragEvent<HTMLDivElement>) => {
 						e.preventDefault();
@@ -349,7 +349,7 @@ export function MultiFileFabric(props: {
 					<span className="text-center">{props.labels('progress', `${Num.range(progress, 0, 100)}%`)}</span>
 				</div>
 			)}
-			{error && (
+            {error && (
 				<div
 					className="grid h-full place-items-center"
 					onDragOver={(e: DragEvent<HTMLDivElement>) => {
@@ -381,7 +381,7 @@ export function MultiFileFabric(props: {
 					</button>
 				</div>
 			)}
-			{slotsInfo.hasValue && !error && progress === -1 && (
+            {slotsInfo.hasValue && !error && progress === -1 && (
 				<div
 					className="flex flex-wrap items-center gap-4 px-4"
 					onDragOver={(e: DragEvent<HTMLDivElement>) => {
@@ -419,8 +419,8 @@ export function MultiFileFabric(props: {
 					</button>
 				</div>
 			)}
-		</div>
-	);
+        </div>)
+    );
 }
 
 /* eslint-enable */

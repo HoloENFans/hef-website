@@ -87,7 +87,6 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [require("daisyui")],
     daisyui: {
         themes: [
             "light",

@@ -101,7 +101,7 @@ export interface IRunner {
 
 	/** Specifies a function that is invoked when the user performs an action. */
 	readonly onAction?: (
-		type: 'start' | 'stage' | 'unstage' | 'focus' | 'blur' | 'pause' | 'complete',
+		type: 'start' | 'stage' | 'unstage' | 'focus' | 'blur-sm' | 'pause' | 'complete',
 		definition: {
 			readonly fingerprint: string;
 			readonly name: string;

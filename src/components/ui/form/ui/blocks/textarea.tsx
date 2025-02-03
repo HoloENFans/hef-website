@@ -111,8 +111,8 @@ function TextareaFabric(props: {
 		: [focusValue, setFocusValue];
 	const [, makeErrorVisible] = useState(!!value);
 	const [height, setHeight] = useState('auto');
-	const minHeight = useRef<number>();
-	const ref = useRef<HTMLTextAreaElement | null>();
+	const minHeight = useRef<number>(undefined);
+	const ref = useRef<HTMLTextAreaElement | null>(undefined);
 	const setRef = (el: HTMLTextAreaElement | null) => {
 		if (props.onAutoFocus) {
 			props.onAutoFocus(el);

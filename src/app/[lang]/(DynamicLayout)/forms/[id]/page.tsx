@@ -18,20 +18,27 @@ export interface IForm {
 }
 
 interface IProps {
-	params: {
+	params: Promise<{
 		id: string;
 		lang: Language;
-	};
+	}>;
 }
 
-export default async function FormPage({ params: { id, lang } }: IProps) {
-	const form = await fetchForm(id, lang);
+export default async function FormPage(props: IProps) {
+    const params = await props.params;
 
-	if (!form) {
+    const {
+        id,
+        lang
+    } = params;
+
+    const form = await fetchForm(id, lang);
+
+    if (!form) {
 		notFound();
 	}
 
-	if (form.status !== 'open') {
+    if (form.status !== 'open') {
 		return (
 			<div className="flex h-full min-h-screen flex-col bg-skin-background text-skin-text dark:bg-skin-background-dark dark:text-skin-text-dark">
 				<div className="grow">
@@ -55,7 +62,7 @@ export default async function FormPage({ params: { id, lang } }: IProps) {
 		);
 	}
 
-	return (
+    return (
 		<div
 			className="flex h-full min-h-screen flex-col bg-skin-background text-skin-text dark:bg-skin-background-dark dark:text-skin-text-dark"
 		>
@@ -119,8 +126,15 @@ export async function generateStaticParams({ params: { lang } }: IProps) {
 	));
 }
 
-export async function generateMetadata({ params: { id, lang } }: IProps): Promise<Metadata> {
-	const formsRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/forms?where[id][equals]=${id}&depth=0&locale=${lang}&fallback-locale=en`, {
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+    const params = await props.params;
+
+    const {
+        id,
+        lang
+    } = params;
+
+    const formsRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/forms?where[id][equals]=${id}&depth=0&locale=${lang}&fallback-locale=en`, {
 		headers: {
 			'X-RateLimit-Bypass': process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY ?? undefined,
 			Authorization: process.env.PAYLOAD_API_KEY ? `users API-Key ${process.env.PAYLOAD_API_KEY}` : undefined,
@@ -129,14 +143,14 @@ export async function generateMetadata({ params: { id, lang } }: IProps): Promis
 			tags: [id],
 		},
 	});
-	const parsedProjectRes = (await formsRes.json() as PayloadResponse<Form>);
-	if (parsedProjectRes.totalDocs === 0) return notFound();
+    const parsedProjectRes = (await formsRes.json() as PayloadResponse<Form>);
+    if (parsedProjectRes.totalDocs === 0) return notFound();
 
-	const {
+    const {
 		name, description,
 	} = parsedProjectRes.docs[0];
 
-	return {
+    return {
 		title: name,
 		description,
 		alternates: {

@@ -108,7 +108,7 @@ export default function SelectBox({ value, label }: SelectBoxProps) {
 						'mt-2 p-1 bg-skin-secondary dark:bg-skin-secondary-dark border border-skin-secondary-foreground dark:border-skin-secondary-foreground-dark rounded-md transition-all',
 					),
 					menuList: () => 'scroll-smooth',
-					option: ({ isFocused, isSelected }) => classNames('hover:cursor-pointer p-2 font-sm rounded truncate', {
+					option: ({ isFocused, isSelected }) => classNames('hover:cursor-pointer p-2 font-sm rounded-sm truncate', {
 						'bg-skin-header dark:bg-skin-header-dark text-skin-header-foreground dark:text-skin-header-foreground-dark':
                                 isSelected,
 						'hover:bg-[color-mix(in_srgb,rgb(var(--color-secondary))_90%,black)] dark:hover:bg-[color-mix(in_srgb,rgb(var(--color-secondary-dark))_90%,black)]':

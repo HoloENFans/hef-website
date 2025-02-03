@@ -10,10 +10,10 @@ import skins from '@/styles/skins.module.css';
 
 interface IProps {
 	children: React.ReactNode;
-	params: {
+	params: Promise<{
 		slug?: string;
 		lang: Language;
-	}
+	}>
 }
 
 interface PropsProject {
@@ -48,14 +48,25 @@ async function getProject(slug: string, lang: Language): Promise<PropsProject | 
 	};
 }
 
-export default async function RootLayout({ children, params: { slug, lang } }: IProps) {
-	let project: PropsProject | null = null;
+export default async function RootLayout(props: IProps) {
+    const params = await props.params;
 
-	if (slug) {
+    const {
+        slug,
+        lang
+    } = params;
+
+    const {
+        children
+    } = props;
+
+    let project: PropsProject | null = null;
+
+    if (slug) {
 		project = await getProject(slug, lang);
 	}
 
-	return (
+    return (
 		<body className={project ? skins[project.skin] ?? undefined : undefined}>
 			<DarkModeProvider>
 				<Navbar

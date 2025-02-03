@@ -98,7 +98,7 @@ const useFormRunner = (props: IRunnerUIProps) => {
 		initialFocus: props.snapshot && props.snapshot.b && props.snapshot.b.b,
 	});
 
-	const turnstileRef = useRef<TurnstileInstance>();
+	const turnstileRef = useRef<TurnstileInstance>(undefined);
 
 	const blocksRef = useRef<{
 		[key: string]: HTMLElement | undefined;
@@ -146,9 +146,9 @@ const useFormRunner = (props: IRunnerUIProps) => {
 			<>
 				{runner.storyline.map((moment, page) => (
 					// eslint-disable-next-line react/no-array-index-key
-					<div key={`form-page-${page}`}>
-						<h1 className="text-4xl font-bold">{moment.section.props.name}</h1>
-						<div className="flex flex-col gap-4">
+					(<div key={`form-page-${page}`}>
+                        <h1 className="text-4xl font-bold">{moment.section.props.name}</h1>
+                        <div className="flex flex-col gap-4">
 							{moment.nodes.map(
 								(node) => {
 									// eslint-disable-next-line no-plusplus
@@ -326,7 +326,7 @@ const useFormRunner = (props: IRunnerUIProps) => {
 														);
 													},
 													focus: handleFocus(node, true, () => doAction('focus', node)),
-													blur: handleFocus(node, false, () => doAction('blur', node)),
+													blur: handleFocus(node, false, () => doAction('blur-sm', node)),
 													autoFocus: handleAutoFocus(node),
 													onSubmit:
 														(allowSubmit
@@ -377,7 +377,7 @@ const useFormRunner = (props: IRunnerUIProps) => {
 												);
 
 											return (
-												<div
+                                                (<div
 													key={node.key}
 													className="flex flex-col gap-1"
 													ref={(el: HTMLDivElement) => {
@@ -385,28 +385,28 @@ const useFormRunner = (props: IRunnerUIProps) => {
 													}}
 													data-block={node.block?.type.identifier || undefined}
 												>
-													{block || (
+                                                    {block || (
 														<>
 															{isString(node.props.name)
 																&& castToBoolean(node.props.nameVisible, true)
 																&& (
 																	// eslint-disable-next-line max-len
 																	// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-																	<h2 onClick={fnEdit}>
-																		{markdownifyToJSX(node.props.name, node.context)}
-																	</h2>
+																	(<h2 onClick={fnEdit}>
+                                                                        {markdownifyToJSX(node.props.name, node.context)}
+                                                                    </h2>)
 																)}
 															{node.props.description && (
 																// eslint-disable-next-line max-len
 																// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-																<p onClick={fnEdit}>
-																	{markdownifyToJSX(node.props.description, node.context)}
-																</p>
+																(<p onClick={fnEdit}>
+                                                                    {markdownifyToJSX(node.props.description, node.context)}
+                                                                </p>)
 															)}
 														</>
 													)}
-												</div>
-											);
+                                                </div>)
+                                            );
 										},
 										node,
 										status,
@@ -415,10 +415,10 @@ const useFormRunner = (props: IRunnerUIProps) => {
 								},
 							)}
 						</div>
-						<nav className="mt-8 flex gap-4">
+                        <nav className="mt-8 flex gap-4">
 							<button
 								type="button"
-								className="rounded-md bg-skin-primary px-4 py-2 text-skin-primary-foreground disabled:bg-skin-secondary disabled:text-skin-secondary-foreground dark:bg-skin-primary-dark dark:text-skin-primary-foreground-dark disabled:dark:bg-skin-secondary-dark disabled:dark:text-skin-secondary-foreground-dark"
+								className="rounded-md bg-skin-primary px-4 py-2 text-skin-primary-foreground disabled:bg-skin-secondary disabled:text-skin-secondary-foreground dark:bg-skin-primary-dark dark:text-skin-primary-foreground-dark dark:disabled:bg-skin-secondary-dark dark:disabled:text-skin-secondary-foreground-dark"
 								disabled={runner.storyline?.isAtStart}
 								onClick={() => runner.storyline?.stepBackward()}
 							>
@@ -426,7 +426,7 @@ const useFormRunner = (props: IRunnerUIProps) => {
 							</button>
 							<button
 								type="button"
-								className="rounded-md bg-skin-primary px-4 py-2 text-skin-primary-foreground disabled:bg-skin-secondary disabled:text-skin-secondary-foreground dark:bg-skin-primary-dark dark:text-skin-primary-foreground-dark disabled:dark:bg-skin-secondary-dark disabled:dark:text-skin-secondary-foreground-dark"
+								className="rounded-md bg-skin-primary px-4 py-2 text-skin-primary-foreground disabled:bg-skin-secondary disabled:text-skin-secondary-foreground dark:bg-skin-primary-dark dark:text-skin-primary-foreground-dark dark:disabled:bg-skin-secondary-dark dark:disabled:text-skin-secondary-foreground-dark"
 								disabled={
 									runner.storyline?.isFailed
 									|| (runner.storyline?.isAtFinish
@@ -437,7 +437,7 @@ const useFormRunner = (props: IRunnerUIProps) => {
 								{runner.storyline?.isAtFinish ? 'Finish' : 'Next'}
 							</button>
 						</nav>
-					</div>
+                    </div>)
 				))}
 				<OverlayProvider />
 			</>

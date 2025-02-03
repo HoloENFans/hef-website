@@ -9,6 +9,8 @@ import {
 } from '@heroicons/react/24/outline';
 import { Contributor } from '../utils/types';
 
+import type { JSX } from "react";
+
 const iconWidth = '1.5rem';
 const contributorIcons: { [key: string]: JSX.Element } = {
 	organizers: <LightBulbIcon width={iconWidth} />,

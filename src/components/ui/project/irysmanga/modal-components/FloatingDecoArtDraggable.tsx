@@ -6,7 +6,7 @@ interface IProps {
 	src: string;
 	className: string;
 	width?: string;
-	containerRef: React.RefObject<HTMLDivElement>;
+	containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const initialAnimation = {

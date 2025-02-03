@@ -37,9 +37,7 @@ SOFTWARE.
 import { FileUpload } from '@tripetto/block-file-upload/runner';
 import { IFileController, IFileService } from '@tripetto/runner-fabric/components/file';
 import { Num, tripetto, Str } from '@tripetto/runner';
-import {
-	ReactNode, useEffect, useRef, useState,
-} from 'react';
+import { ReactNode, useEffect, useRef, useState, type JSX } from 'react';
 import type { KeyboardEvent, DragEvent, FocusEvent } from 'react';
 import { fileIcon } from '@tripetto/runner-fabric/icons/file';
 import { IFormNodeBlockProps, IFormNodeBlock } from '../../interfaces/block';
@@ -127,7 +125,7 @@ export function FileFabric(props: {
 	const [progress, setProgress] = useState(-1);
 	const [error, setError] = useState<'invalid-amount' | 'invalid-extension' | 'invalid-size' | string>('');
 	const [errorVisible, makeErrorVisible] = useState(false);
-	const inputRef = useRef<HTMLInputElement | null>();
+	const inputRef = useRef<HTMLInputElement | null>(undefined);
 	const disabled = (props.disabled
 		|| props.controller.fileSlot.isFrozen || props.controller.fileSlot.isLocked || false);
 
@@ -159,10 +157,10 @@ export function FileFabric(props: {
 	};
 
 	return (
-		// eslint-disable-next-line max-len
-		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
-		<div
-			className="relative box-border block h-56 w-full overflow-hidden rounded-md border-2 border-skin-primary bg-skin-secondary px-1.5 py-3 font-normal text-skin-secondary-foreground outline-none dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:text-skin-primary-foreground-dark"
+        // eslint-disable-next-line max-len
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
+        (<div
+			className="relative box-border block h-56 w-full overflow-hidden rounded-md border-2 border-skin-primary bg-skin-secondary px-1.5 py-3 font-normal text-skin-secondary-foreground outline-hidden dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:text-skin-primary-foreground-dark"
 			ref={props.onAutoFocus}
 			tabIndex={props.tabIndex || 0}
 			onFocus={props.onFocus}
@@ -202,7 +200,7 @@ export function FileFabric(props: {
 			}}
 
 		>
-			{!props.controller.fileSlot.hasValue && !error && progress === -1 && (
+            {!props.controller.fileSlot.hasValue && !error && progress === -1 && (
 				<label
 					className="absolute inset-1.5 flex cursor-pointer flex-col items-center justify-center"
 					onDragEnter={(e: DragEvent<HTMLLabelElement>) => {
@@ -282,7 +280,7 @@ export function FileFabric(props: {
 					)}
 				</label>
 			)}
-			{!error && progress !== -1 && (
+            {!error && progress !== -1 && (
 				<div
 					onDragOver={(e: DragEvent<HTMLDivElement>) => {
 						e.preventDefault();
@@ -307,7 +305,7 @@ export function FileFabric(props: {
 					<span className="text-center">{props.labels('progress', `${Num.range(progress, 0, 100)}%`)}</span>
 				</div>
 			)}
-			{error && (
+            {error && (
 				<div
 					className="grid h-full place-items-center"
 					onDragOver={(e: DragEvent<HTMLDivElement>) => {
@@ -339,7 +337,7 @@ export function FileFabric(props: {
 					</button>
 				</div>
 			)}
-			{props.controller.fileSlot.hasValue && !error && progress === -1 && (
+            {props.controller.fileSlot.hasValue && !error && progress === -1 && (
 				<div
 					onDragOver={(e: DragEvent<HTMLDivElement>) => {
 						e.preventDefault();
@@ -371,8 +369,8 @@ export function FileFabric(props: {
 					</button>
 				</div>
 			)}
-		</div>
-	);
+        </div>)
+    );
 }
 
 /* eslint-enable */
