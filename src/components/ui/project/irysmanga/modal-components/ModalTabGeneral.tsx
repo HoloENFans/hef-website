@@ -31,7 +31,7 @@ export default function ModalTabGeneral() {
 			<div className="relative">
 				<h2 className="mb-4 text-3xl font-bold underline">{t('credits')}</h2>
 				{manga.contributors && (
-					<div className="-z--1 grid w-full lg:grid-rows-2 min-[1260px]:grid-cols-2">
+					<div className="-z-1 grid w-full lg:grid-rows-2 min-[1260px]:grid-cols-2">
 						<CreditBlock
 							label="organizers"
 							contributors={manga.contributors.filter((e) => e.role === 'organizer')}

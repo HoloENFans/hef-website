@@ -12,6 +12,7 @@ interface IProps {
 }
 
 export default async function Submission({ submission, index, lang }: IProps) {
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { t } = await useTranslation(lang, 'project', 'submission');
 
 	return (

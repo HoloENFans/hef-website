@@ -38,9 +38,9 @@ import { FileUpload } from '@tripetto/block-file-upload/runner';
 import { IFileController, IFileService } from '@tripetto/runner-fabric/components/file';
 import { Num, tripetto, Str } from '@tripetto/runner';
 import {
-	ReactNode, useEffect, useRef, useState,
+	ReactNode, useEffect, useRef, useState, type JSX,
+	KeyboardEvent, DragEvent, FocusEvent,
 } from 'react';
-import type { KeyboardEvent, DragEvent, FocusEvent } from 'react';
 import { fileIcon } from '@tripetto/runner-fabric/icons/file';
 import { IFormNodeBlockProps, IFormNodeBlock } from '../../interfaces/block';
 
@@ -127,7 +127,7 @@ export function FileFabric(props: {
 	const [progress, setProgress] = useState(-1);
 	const [error, setError] = useState<'invalid-amount' | 'invalid-extension' | 'invalid-size' | string>('');
 	const [errorVisible, makeErrorVisible] = useState(false);
-	const inputRef = useRef<HTMLInputElement | null>();
+	const inputRef = useRef<HTMLInputElement | null>(undefined);
 	const disabled = (props.disabled
 		|| props.controller.fileSlot.isFrozen || props.controller.fileSlot.isLocked || false);
 
@@ -162,7 +162,7 @@ export function FileFabric(props: {
 		// eslint-disable-next-line max-len
 		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions,jsx-a11y/no-static-element-interactions
 		<div
-			className="relative box-border block h-56 w-full overflow-hidden rounded-md border-2 border-skin-primary bg-skin-secondary px-1.5 py-3 font-normal text-skin-secondary-foreground outline-none dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:text-skin-primary-foreground-dark"
+			className="relative box-border block h-56 w-full overflow-hidden rounded-md border-2 border-skin-primary bg-skin-secondary px-1.5 py-3 font-normal text-skin-secondary-foreground outline-hidden dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:text-skin-primary-foreground-dark"
 			ref={props.onAutoFocus}
 			tabIndex={props.tabIndex || 0}
 			onFocus={props.onFocus}
@@ -200,7 +200,6 @@ export function FileFabric(props: {
 					handleDelete();
 				}
 			}}
-
 		>
 			{!props.controller.fileSlot.hasValue && !error && progress === -1 && (
 				<label
@@ -372,6 +371,7 @@ export function FileFabric(props: {
 				</div>
 			)}
 		</div>
+
 	);
 }
 

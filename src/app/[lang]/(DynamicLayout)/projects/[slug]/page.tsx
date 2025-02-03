@@ -25,10 +25,10 @@ import ButtonLink from '@/components/ui/ButtonLink';
 import IrysMangaDataWrapper from '@/components/ui/project/irysmanga/IrysMangaDataWrapper';
 
 interface IProps {
-	params: {
+	params: Promise<{
 		slug: string;
 		lang: Language;
-	}
+	}>
 }
 
 type ProjectData = Omit<Project, 'flags' | 'devprops'> & {
@@ -75,7 +75,12 @@ async function fetchProject(slug: string, lang: Language): Promise<ProjectData |
 }
 
 // eslint-disable-next-line max-len
-export default async function ProjectPage({ params: { slug, lang } }: IProps) {
+export default async function ProjectPage({ params }: IProps) {
+	const {
+		slug,
+		lang,
+	} = await params;
+
 	const project = await fetchProject(slug, lang);
 	if (project === null) {
 		notFound();
@@ -128,7 +133,7 @@ export default async function ProjectPage({ params: { slug, lang } }: IProps) {
 		<div className="flex h-full min-h-screen flex-col bg-skin-background text-skin-text dark:bg-skin-background-dark dark:text-skin-text-dark">
 			<div className="grow">
 				<div className="my-16 flex w-full flex-col items-center px-4 md:px-16 lg:px-24 2xl:px-56">
-					<div className="w-full max-w-full break-words px-4 sm:!max-w-6xl md:break-normal">
+					<div className="w-full max-w-full break-words px-4 sm:max-w-6xl! md:break-normal">
 						<div className="flex justify-between">
 							<TextHeader>
 								{t('description.left')}
@@ -215,7 +220,9 @@ export default async function ProjectPage({ params: { slug, lang } }: IProps) {
 	);
 }
 
-export async function generateStaticParams({ params: { lang } }: IProps) {
+export async function generateStaticParams({ params }: IProps) {
+	const { lang } = await params;
+
 	let projects: Project[] = [];
 	let moreProjects = true;
 	let page = 1;
@@ -252,7 +259,14 @@ export async function generateStaticParams({ params: { lang } }: IProps) {
 	));
 }
 
-export async function generateMetadata({ params: { slug, lang } }: IProps): Promise<Metadata> {
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+	const params = await props.params;
+
+	const {
+		slug,
+		lang,
+	} = params;
+
 	const projectRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/projects?where[slug][like]=${slug}&depth=2&locale=${lang}&fallback-locale=en`, {
 		headers: {
 			'X-RateLimit-Bypass': process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY ?? undefined,

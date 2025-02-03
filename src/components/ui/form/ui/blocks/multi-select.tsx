@@ -85,7 +85,7 @@ function MultiSelectFabric(props: {
 		time: 0,
 	});
 	const scrollIntoView = useRef(false);
-	const ref = useRef<HTMLInputElement | null>();
+	const ref = useRef<HTMLInputElement | null>(undefined);
 	const componentRef = useRef<HTMLDivElement>(null);
 	const optionsRef = useRef<HTMLDivElement>(null);
 	const scrollToRef = useRef<HTMLDivElement>(null);
@@ -187,7 +187,7 @@ function MultiSelectFabric(props: {
 					</div>
 				))}
 				<input
-					className="min-w-16 flex-[1_1_0%] rounded-lg !bg-transparent px-4 py-2 focus:bg-transparent focus:outline-none active:bg-transparent"
+					className="min-w-16 flex-[1_1_0%] rounded-lg bg-transparent! px-4 py-2 focus:bg-transparent focus:outline-hidden active:bg-transparent"
 					ref={setRef}
 					id={props.id}
 					type="search"
@@ -285,7 +285,7 @@ function MultiSelectFabric(props: {
 								const optionsRect = optionsRef.current.getBoundingClientRect();
 								const scrollRect = optionsRef.current.firstElementChild?.getBoundingClientRect()
 									|| optionsRect;
-								// eslint-disable-next-line max-len
+									// eslint-disable-next-line max-len
 								const viewportHeight = componentRef.current.ownerDocument.documentElement.clientHeight
 									|| window.innerHeight;
 								const availableHeight = viewportHeight - componentRect.bottom;
@@ -380,40 +380,43 @@ function MultiSelectFabric(props: {
 							}}
 						>
 							{options.map((option, index) => (
+								(
 								// eslint-disable-next-line max-len
 								// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/interactive-supports-focus
-								<div
-									className={`flex w-full flex-col px-4 py-1 pr-16 hover:bg-skin-primary hover:text-skin-primary-foreground dark:hover:bg-skin-primary-dark dark:hover:text-skin-primary-foreground ${option.disabled ? 'opacity-50' : ''}`}
-									key={option.id || index}
-									ref={(scrollIntoView.current && cursor === option.id && scrollToRef) || undefined}
-									data-id={option.id}
-									role="option"
-									aria-selected={cursor === option.id}
-									onMouseMove={() => setCursor(option.id)}
-									onMouseDown={(e: MouseEvent<HTMLDivElement>) => {
-										e.preventDefault();
-										e.stopPropagation();
-									}}
-									onClick={() => {
-										if (
-											option.value
+									<div
+										className={`flex w-full flex-col px-4 py-1 pr-16 hover:bg-skin-primary hover:text-skin-primary-foreground dark:hover:bg-skin-primary-dark dark:hover:text-skin-primary-foreground ${option.disabled ? 'opacity-50' : ''}`}
+										key={option.id || index}
+										// eslint-disable-next-line max-len
+										ref={(scrollIntoView.current && cursor === option.id && scrollToRef) || undefined}
+										data-id={option.id}
+										role="option"
+										aria-selected={cursor === option.id}
+										onMouseMove={() => setCursor(option.id)}
+										onMouseDown={(e: MouseEvent<HTMLDivElement>) => {
+											e.preventDefault();
+											e.stopPropagation();
+										}}
+										onClick={() => {
+											if (
+												option.value
 											&& !option.disabled
 											&& !option.value.isFrozen
 											&& !option.value.isLocked
 											&& (!props.maxSelected || selected.length < props.maxSelected)
-										) {
-											// eslint-disable-next-line no-param-reassign
-											option.value.value = true;
+											) {
+												// eslint-disable-next-line no-param-reassign
+												option.value.value = true;
 
-											updateScrollPosition();
-											setCursor(arrayItem(options, index + 1)?.id || '');
-											makeErrorVisible(true);
-										}
-									}}
-								>
-									<div>{option.label || option.name}</div>
-									{option.description && <div className="text-sm">{option.description}</div>}
-								</div>
+												updateScrollPosition();
+												setCursor(arrayItem(options, index + 1)?.id || '');
+												makeErrorVisible(true);
+											}
+										}}
+									>
+										<div>{option.label || option.name}</div>
+										{option.description && <div className="text-sm">{option.description}</div>}
+									</div>
+								)
 							))}
 						</div>
 					</div>

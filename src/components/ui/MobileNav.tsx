@@ -49,7 +49,7 @@ export default function MobileNav({ noticeBanner }: IProps) {
 						<div className="relative flex w-full items-center justify-between sm:hidden">
 							<Link
 								href="/"
-								className="rounded-lg focus:outline-none focus:ring-2 focus:ring-white/80"
+								className="rounded-lg focus:outline-hidden focus:ring-2 focus:ring-white/80"
 								aria-label="Home"
 							>
 								<Icon />

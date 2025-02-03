@@ -14,7 +14,7 @@ export default function LocaleSelect() {
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger asChild>
 				<button
-					className="w-22 inline-flex justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+					className="w-22 inline-flex justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white/75"
 					type="button"
 					aria-label="Select language"
 				>
@@ -26,8 +26,8 @@ export default function LocaleSelect() {
 				</button>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Portal>
-				<DropdownMenu.Content className="rounded-lg border border-white/20 bg-skin-secondary px-1 py-1.5 shadow shadow-white/40 dark:bg-skin-secondary-dark dark:shadow-white/20">
-					<DropdownMenu.Item className="rounded-lg text-black focus:bg-skin-primary/60 focus:outline-none dark:text-white dark:focus:bg-white/40">
+				<DropdownMenu.Content className="rounded-lg border border-white/20 bg-skin-secondary px-1 py-1.5 shadow-sm shadow-white/40 dark:bg-skin-secondary-dark dark:shadow-white/20">
+					<DropdownMenu.Item className="rounded-lg text-black focus:bg-skin-primary/60 focus:outline-hidden dark:text-white dark:focus:bg-white/40">
 						<Link
 							href={localizePathname('en', pathName)}
 							hrefLang="en"
@@ -44,7 +44,7 @@ export default function LocaleSelect() {
 							<span className="pl-2">English</span>
 						</Link>
 					</DropdownMenu.Item>
-					<DropdownMenu.Item className="rounded-lg text-black focus:bg-skin-primary/60 focus:outline-none dark:text-white dark:focus:bg-white/40">
+					<DropdownMenu.Item className="rounded-lg text-black focus:bg-skin-primary/60 focus:outline-hidden dark:text-white dark:focus:bg-white/40">
 						<Link
 							href={localizePathname('jp', pathName)}
 							hrefLang="jp"

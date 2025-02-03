@@ -10,10 +10,10 @@ import skins from '@/styles/skins.module.css';
 
 interface IProps {
 	children: React.ReactNode;
-	params: {
+	params: Promise<{
 		slug?: string;
 		lang: Language;
-	}
+	}>
 }
 
 interface PropsProject {
@@ -48,7 +48,12 @@ async function getProject(slug: string, lang: Language): Promise<PropsProject | 
 	};
 }
 
-export default async function RootLayout({ children, params: { slug, lang } }: IProps) {
+export default async function RootLayout({ params, children }: IProps) {
+	const {
+		slug,
+		lang,
+	} = await params;
+
 	let project: PropsProject | null = null;
 
 	if (slug) {

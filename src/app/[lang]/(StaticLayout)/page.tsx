@@ -8,9 +8,9 @@ import ProjectFeaturedCard from '@/components/ui/ProjectFeaturedCard';
 import ButtonLink from '@/components/ui/ButtonLink';
 
 interface IProps {
-	params: {
+	params: Promise<{
 		lang: Language;
-	}
+	}>
 }
 
 interface PageData {
@@ -73,7 +73,12 @@ async function fetchData(lang: Language) {
 	} as PageData;
 }
 
-export default async function Page({ params: { lang } }: IProps) {
+export default async function Page({ params }: IProps) {
+	const {
+		lang,
+	} = await params;
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { t } = await useTranslation(lang, 'home');
 	const { featuredProjects } = await fetchData(lang);
 

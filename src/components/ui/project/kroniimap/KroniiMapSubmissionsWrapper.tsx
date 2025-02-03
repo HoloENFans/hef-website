@@ -1,8 +1,8 @@
 import { Project, SubmissionMedia } from '@/types/payload-types';
-import dynamic from 'next/dynamic';
 import { MarkerMap } from '@/components/ui/project/kroniimap/KroniiMap';
 import fetchSubmissions, { ISubmission } from '@/lib/fetchSubmissions';
 import { getImageUrl } from '@/components/ui/legacy/Image';
+import TabsClientWrapper from './TabsClientWrapper';
 
 interface IProps {
 	project: Omit<Project, 'flags' | 'devprops'> & {
@@ -112,12 +112,8 @@ export default async function KroniiMapSubmissionWrapper({ project }: IProps) {
 		};
 	});
 
-	const Tabs = dynamic(() => import('./Tabs'), {
-		ssr: false,
-	});
-
 	return (
-		<Tabs
+		<TabsClientWrapper
 			project={{ ...project, description: { root: { children: descriptionWithProxy } } } as any}
 			submissions={submissions}
 			markerMap={markerMap}

@@ -4,6 +4,7 @@
  * @type {import('next').NextConfig}
  **/
 const nextConfig = {
+    reactStrictMode: false,
     images: {
         loader: 'custom', loaderFile: './imageLoader.js', unoptimized: true,
     }, webpack: {

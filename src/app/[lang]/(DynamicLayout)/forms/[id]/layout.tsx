@@ -9,13 +9,18 @@ import fetchForm from '@/lib/fetchForm';
 
 interface IProps {
 	children: React.ReactNode;
-	params: {
+	params: Promise<{
 		id: string;
 		lang: Language;
-	}
+	}>
 }
 
-export default async function RootLayout({ children, params: { id, lang } }: IProps) {
+export default async function RootLayout({ params, children }: IProps) {
+	const {
+		id,
+		lang,
+	} = await params;
+
 	const form = await fetchForm(id, lang);
 
 	const descriptionSplit = (form?.description ?? '').split('\n');

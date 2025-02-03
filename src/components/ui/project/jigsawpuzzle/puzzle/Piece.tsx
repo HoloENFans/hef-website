@@ -3,8 +3,7 @@
 import React, {
 	useContext, useEffect, useImperativeHandle, useMemo, useRef,
 } from 'react';
-import { Container, Sprite } from '@pixi/react';
-import { Container as PixiContainer, DisplayObject, Texture } from 'pixi.js';
+import { Container, Texture } from 'pixi.js';
 import { PUZZLE_WIDTH } from '@/components/ui/project/jigsawpuzzle/puzzle/PuzzleConfig';
 import PuzzleStoreContext from '../providers/PuzzleStoreContext';
 import Message from './Message';
@@ -45,7 +44,7 @@ const Piece = React.forwardRef<PieceActions, PieceProps>(({
 	setSelectedPiece,
 	message,
 }, ref) => {
-	const pieceContainerRef = useRef<PixiContainer<DisplayObject> | null>(null);
+	const pieceContainerRef = useRef<Container | null>(null);
 
 	const puzzleStore = useContext(PuzzleStoreContext)!;
 
@@ -252,19 +251,19 @@ const Piece = React.forwardRef<PieceActions, PieceProps>(({
 	}));
 
 	return (
-		<Container
+		<pixiContainer
 			x={thisPiece.localPosition.x}
 			y={thisPiece.localPosition.y}
 			ref={pieceContainerRef}
 		>
-			<Sprite
+			<pixiSprite
 				texture={texture}
 				x={-pieceMargin}
 				y={-pieceMargin}
 				width={pieceSize + 2 * pieceMargin}
 				height={pieceSize + 2 * pieceMargin}
 			/>
-		</Container>
+		</pixiContainer>
 	);
 });
 

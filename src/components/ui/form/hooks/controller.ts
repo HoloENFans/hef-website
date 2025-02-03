@@ -89,8 +89,8 @@ export const useRunnerController = (
 		readonly onScrollIntoView?: (id: string) => boolean;
 	},
 ) => {
-	const previewRef = useRef<string>();
-	const onRestartRef = useRef<() => void>();
+	const previewRef = useRef<string>(undefined);
+	const onRestartRef = useRef<() => void>(undefined);
 
 	const runner = useRunner<IFormNodeBlock>(props, {
 		mode: 'paginated',
@@ -119,9 +119,9 @@ export const useRunnerController = (
 	// const [hasLicense] = useState(() => (props.license && verify(PACKAGE_NAME, props.license)) || false);
 	// eslint-disable-next-line max-len
 	const [l10n, setL10n, updateL10n] = useL10n(props.l10n, props.onL10n, runner, () => cache.purge());
-	const controllerRef = useRef<IRunnerController>();
-	const snapshotRef = useRef<ISnapshot<IRunnerSnapshot>>();
-	const pauseRef = useRef<IPausingRecipeEmail>();
+	const controllerRef = useRef<IRunnerController>(undefined);
+	const snapshotRef = useRef<ISnapshot<IRunnerSnapshot>>(undefined);
+	const pauseRef = useRef<IPausingRecipeEmail>(undefined);
 	const reloadRef = useRef(false);
 
 	const pause = () => {

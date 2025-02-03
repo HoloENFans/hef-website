@@ -48,11 +48,12 @@ SOFTWARE.
  */
 
 /* eslint-disable @typescript-eslint/no-dupe-class-members,max-len */
-import * as PIXI from 'pixi.js';
+import {
+	Container, Graphics, type FederatedPointerEvent, type Application,
+} from 'pixi.js';
 import { Viewport } from 'pixi-viewport';
 import Penner from 'penner';
 import type { Scrollbox, ScrollBoxOptions } from 'pixi-scrollbox';
-import { DisplayObject, FederatedPointerEvent } from 'pixi.js';
 
 const scrollboxOptions = {
 	boxWidth: 100,
@@ -76,22 +77,22 @@ const scrollboxOptions = {
 };
 
 interface FixedScrollBoxOptions extends ScrollBoxOptions {
-	app: PIXI.Application;
+	app: Application;
 }
 
 /**
  * pixi.js scrollbox: a masked content box that can scroll vertically or horizontally with scrollbars
  */
-export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
+export default class PixiScrollbox extends Container implements Scrollbox {
 	content: Viewport;
 
-	scrollbar: PIXI.Graphics;
+	scrollbar: Graphics;
 
 	options: FixedScrollBoxOptions;
 
 	ease: any;
 
-	private _maskContent: PIXI.Graphics;
+	private _maskContent: Graphics;
 
 	// @ts-ignore
 	private tickerFunction: () => void;
@@ -145,10 +146,10 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 		this.options.ticker = this.options.app.ticker;
 
 		/**
-         * graphics element for drawing the scrollbars
-         * @type {PIXI.Graphics}
-         */
-		this.scrollbar = super.addChild(new PIXI.Graphics());
+				 * graphics element for drawing the scrollbars
+				 * @type {PIXI.Graphics}
+				 */
+		this.scrollbar = super.addChild(new Graphics());
 		this.scrollbar.eventMode = 'static';
 		this.scrollbar.on('pointerdown', this.scrollbarDown, this);
 		this.eventMode = 'static';
@@ -156,7 +157,7 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 		this.on('pointerup', this.scrollbarUp, this);
 		this.on('pointercancel', this.scrollbarUp, this);
 		this.on('pointerupoutside', this.scrollbarUp, this);
-		this._maskContent = super.addChild(new PIXI.Graphics());
+		this._maskContent = super.addChild(new Graphics());
 		this.update();
 
 		if (!this.options.noTicker) {
@@ -167,9 +168,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * offset of horizontal scrollbar (in pixels)
-     * @type {number}
-     */
+		 * offset of horizontal scrollbar (in pixels)
+		 * @type {number}
+		 */
 	get scrollbarOffsetHorizontal() {
 		return this.options.scrollbarOffsetHorizontal!;
 	}
@@ -180,9 +181,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * offset of vertical scrollbar (in pixels)
-     * @type {number}
-     */
+		 * offset of vertical scrollbar (in pixels)
+		 * @type {number}
+		 */
 	get scrollbarOffsetVertical() {
 		return this.options.scrollbarOffsetVertical!;
 	}
@@ -192,9 +193,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * disable the scrollbox (if set to true this will also remove the mask)
-     * @type {boolean}
-     */
+		 * disable the scrollbox (if set to true this will also remove the mask)
+		 * @type {boolean}
+		 */
 	get disable() {
 		return this._disabled;
 	}
@@ -207,9 +208,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * call stopPropagation on any events that impact scrollbox
-     * @type {boolean}
-     */
+		 * call stopPropagation on any events that impact scrollbox
+		 * @type {boolean}
+		 */
 	get stopPropagation() {
 		return this.options.stopPropagation!;
 	}
@@ -219,9 +220,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * user may drag the content area to scroll content
-     * @type {boolean}
-     */
+		 * user may drag the content area to scroll content
+		 * @type {boolean}
+		 */
 	get dragScroll() {
 		return this.options.dragScroll!;
 	}
@@ -237,9 +238,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * width of scrollbox including the scrollbar (if visible)- this changes the size and not the scale of the box
-     * @type {number}
-     */
+		 * width of scrollbox including the scrollbar (if visible)- this changes the size and not the scale of the box
+		 * @type {number}
+		 */
 	get boxWidth() {
 		return this.options.boxWidth!;
 	}
@@ -251,12 +252,12 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * sets overflowX and overflowY to (scroll, hidden, auto) changing whether the scrollbar is shown
-     * scroll = always show scrollbar
-     * hidden = hide overflow and do not show scrollbar
-     * auto = if content is larger than box size, then show scrollbar
-     * @type {string}
-     */
+		 * sets overflowX and overflowY to (scroll, hidden, auto) changing whether the scrollbar is shown
+		 * scroll = always show scrollbar
+		 * hidden = hide overflow and do not show scrollbar
+		 * auto = if content is larger than box size, then show scrollbar
+		 * @type {string}
+		 */
 	get overflow() {
 		return this.options.overflow!;
 	}
@@ -269,12 +270,12 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * sets overflowX to (scroll, hidden, auto) changing whether the scrollbar is shown
-     * scroll = always show scrollbar
-     * hidden = hide overflow and do not show scrollbar
-     * auto = if content is larger than box size, then show scrollbar
-     * @type {string}
-     */
+		 * sets overflowX to (scroll, hidden, auto) changing whether the scrollbar is shown
+		 * scroll = always show scrollbar
+		 * hidden = hide overflow and do not show scrollbar
+		 * auto = if content is larger than box size, then show scrollbar
+		 * @type {string}
+		 */
 	get overflowX() {
 		return this.options.overflowX!;
 	}
@@ -285,12 +286,12 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * sets overflowY to (scroll, hidden, auto) changing whether the scrollbar is shown
-     * scroll = always show scrollbar
-     * hidden = hide overflow and do not show scrollbar
-     * auto = if content is larger than box size, then show scrollbar
-     * @type {string}
-     */
+		 * sets overflowY to (scroll, hidden, auto) changing whether the scrollbar is shown
+		 * scroll = always show scrollbar
+		 * hidden = hide overflow and do not show scrollbar
+		 * auto = if content is larger than box size, then show scrollbar
+		 * @type {string}
+		 */
 	get overflowY() {
 		return this.options.overflowY!;
 	}
@@ -301,9 +302,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * height of scrollbox including the scrollbar (if visible) - this changes the size and not the scale of the box
-     * @type {number}
-     */
+		 * height of scrollbox including the scrollbar (if visible) - this changes the size and not the scale of the box
+		 * @type {number}
+		 */
 	get boxHeight() {
 		return this.options.boxHeight!;
 	}
@@ -315,9 +316,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * scrollbar size in pixels
-     * @type {number}
-     */
+		 * scrollbar size in pixels
+		 * @type {number}
+		 */
 	get scrollbarSize() {
 		return this.options.scrollbarSize!;
 	}
@@ -327,44 +328,44 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * width of scrollbox less the scrollbar (if visible)
-     * @type {number}
-     * @readonly
-     */
+		 * width of scrollbox less the scrollbar (if visible)
+		 * @type {number}
+		 * @readonly
+		 */
 	get contentWidth() {
 		return this.options.boxWidth! - (this.isScrollbarVertical ? this.options.scrollbarSize! : 0);
 	}
 
 	/**
-     * height of scrollbox less the scrollbar (if visible)
-     * @type {number}
-     * @readonly
-     */
+		 * height of scrollbox less the scrollbar (if visible)
+		 * @type {number}
+		 * @readonly
+		 */
 	get contentHeight() {
 		return this.options.boxHeight! - (this.isScrollbarHorizontal ? this.options.scrollbarSize! : 0);
 	}
 
 	/**
-     * is the vertical scrollbar visible
-     * @type {boolean}
-     * @readonly
-     */
+		 * is the vertical scrollbar visible
+		 * @type {boolean}
+		 * @readonly
+		 */
 	get isScrollbarVertical() {
 		return this._isScrollbarVertical;
 	}
 
 	/**
-     * is the horizontal scrollbar visible
-     * @type {boolean}
-     * @readonly
-     */
+		 * is the horizontal scrollbar visible
+		 * @type {boolean}
+		 * @readonly
+		 */
 	get isScrollbarHorizontal() {
 		return this._isScrollbarHorizontal;
 	}
 
 	/**
-     * top coordinate of scrollbar
-     */
+		 * top coordinate of scrollbar
+		 */
 	get scrollTop() {
 		return this.content.top;
 	}
@@ -375,8 +376,8 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * left coordinate of scrollbar
-     */
+		 * left coordinate of scrollbar
+		 */
 	get scrollLeft() {
 		return this.content.left;
 	}
@@ -387,9 +388,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * width of content area
-     * if not set then it uses content.width to calculate width
-     */
+		 * width of content area
+		 * if not set then it uses content.width to calculate width
+		 */
 	get scrollWidth() {
 		return this._scrollWidth || this.content.width;
 	}
@@ -399,9 +400,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * height of content area
-     * if not set then it uses content.height to calculate height
-     */
+		 * height of content area
+		 * if not set then it uses content.height to calculate height
+		 */
 	get scrollHeight() {
 		return this._scrollHeight || this.content.height;
 	}
@@ -411,9 +412,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * draws scrollbars
-     * @private
-     */
+		 * draws scrollbars
+		 * @private
+		 */
 	_drawScrollbars() {
 		this.content.x = 0;
 
@@ -439,47 +440,42 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 		this.scrollbarWidth = this.scrollbarWidth + this.scrollbarLeft > this.boxWidth ? this.boxWidth - this.scrollbarLeft : this.scrollbarWidth;
 		if (this.isScrollbarVertical) {
 			this.scrollbar
-				.beginFill(this.options.scrollbarBackground, this.options.scrollbarBackgroundAlpha)
-				.drawRect(this.boxWidth - this.scrollbarSize + this.options.scrollbarOffsetVertical!, 0, this.scrollbarSize, this.boxHeight)
-				.endFill();
+				.rect(this.boxWidth - this.scrollbarSize + this.options.scrollbarOffsetVertical!, 0, this.scrollbarSize, this.boxHeight)
+				.fill({ color: this.options.scrollbarBackground, alpha: this.options.scrollbarBackgroundAlpha });
 		}
 		if (this.isScrollbarHorizontal) {
 			this.scrollbar
-				.beginFill(this.options.scrollbarBackground, this.options.scrollbarBackgroundAlpha)
-				.drawRect(0, this.boxHeight - this.scrollbarSize + this.options.scrollbarOffsetHorizontal!, this.boxWidth, this.scrollbarSize)
-				.endFill();
+				.rect(0, this.boxHeight - this.scrollbarSize + this.options.scrollbarOffsetHorizontal!, this.boxWidth, this.scrollbarSize)
+				.fill({ color: this.options.scrollbarBackground, alpha: this.options.scrollbarBackgroundAlpha });
 		}
 		if (this.isScrollbarVertical) {
 			this.scrollbar
-				.beginFill(this.options.scrollbarForeground, this.options.scrollbarForegroundAlpha)
-				.drawRect(this.boxWidth - this.scrollbarSize + this.options.scrollbarOffsetVertical!, this.scrollbarTop, this.scrollbarSize, this.scrollbarHeight)
-				.endFill();
+				.rect(this.boxWidth - this.scrollbarSize + this.options.scrollbarOffsetVertical!, this.scrollbarTop, this.scrollbarSize, this.scrollbarHeight)
+				.fill({ color: this.options.scrollbarBackground, alpha: this.options.scrollbarBackgroundAlpha });
 		}
 		if (this.isScrollbarHorizontal) {
 			this.scrollbar
-				.beginFill(this.options.scrollbarForeground, this.options.scrollbarForegroundAlpha)
-				.drawRect(this.scrollbarLeft, this.boxHeight - this.scrollbarSize + this.options.scrollbarOffsetHorizontal!, this.scrollbarWidth, this.scrollbarSize)
-				.endFill();
+				.rect(this.scrollbarLeft, this.boxHeight - this.scrollbarSize + this.options.scrollbarOffsetHorizontal!, this.scrollbarWidth, this.scrollbarSize)
+				.fill({ color: this.options.scrollbarBackground, alpha: this.options.scrollbarBackgroundAlpha });
 		}
 		// this.content.forceHitArea = new PIXI.Rectangle(0, 0 , this.boxWidth, this.boxHeight)
 		this.activateFade();
 	}
 
 	/**
-     * draws mask layer
-     * @private
-     */
+		 * draws mask layer
+		 * @private
+		 */
 	_drawMask() {
 		this._maskContent
-			.beginFill(0)
-			.drawRect(0, 0, this.boxWidth, this.boxHeight)
-			.endFill();
+			.rect(0, 0, this.boxWidth, this.boxHeight)
+			.fill(0);
 		this.content.mask = this._maskContent;
 	}
 
 	/**
-     * call when scrollbox content changes
-     */
+		 * call when scrollbox content changes
+		 */
 	update() {
 		this.content.mask = null;
 		this._maskContent.clear();
@@ -490,17 +486,23 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 			const direction = this.isScrollbarHorizontal && this.isScrollbarVertical ? 'all' : this.isScrollbarHorizontal ? 'x' : 'y';
 			if (direction !== null) {
 				if (this.options.dragScroll) {
-					this.content.drag({ clampWheel: this.options.clampWheel, direction });
+					this.content.drag({
+						clampWheel: this.options.clampWheel,
+						direction,
+					});
 				}
-				this.content.clamp({ direction, underflow: this.options.underflow });
+				this.content.clamp({
+					direction,
+					underflow: this.options.underflow,
+				});
 			}
 		}
 	}
 
 	/**
-     * called on each frame to update fade scrollbars (if enabled)
-     * @param {number} elapsed since last frame in milliseconds (usually capped at 16.6667)
-     */
+		 * called on each frame to update fade scrollbars (if enabled)
+		 * @param {number} elapsed since last frame in milliseconds (usually capped at 16.6667)
+		 */
 	updateLoop(elapsed: number) {
 		if (this.fade) {
 			if (this.fade.wait > 0) {
@@ -524,9 +526,9 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * dirty value (used for optimizing draws) for underlying viewport (scrollbox.content)
-     * @type {boolean}
-     */
+		 * dirty value (used for optimizing draws) for underlying viewport (scrollbox.content)
+		 * @type {boolean}
+		 */
 	get dirty() {
 		return this.content.dirty;
 	}
@@ -536,26 +538,32 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * show the scrollbar and restart the timer for fade if options.fade is set
-     */
+		 * show the scrollbar and restart the timer for fade if options.fade is set
+		 */
 	activateFade() {
 		if (!this.fade && this.options.fade) {
 			this.scrollbar.alpha = 1;
-			this.fade = { wait: this.options.fadeScrollboxWait, duration: 0 };
+			this.fade = {
+				wait: this.options.fadeScrollboxWait,
+				duration: 0,
+			};
 		}
 	}
 
 	/**
-     * handle pointer down on scrollbar
-     * @param {FederatedPointerEvent} e
-     * @private
-     */
+		 * handle pointer down on scrollbar
+		 * @param {FederatedPointerEvent} e
+		 * @private
+		 */
 	scrollbarDown(e: FederatedPointerEvent) {
 		const local = this.toLocal(e.global);
 		if (this.isScrollbarHorizontal) {
 			if (local.y > this.boxHeight - this.scrollbarSize) {
 				if (local.x >= this.scrollbarLeft! && local.x <= this.scrollbarLeft! + this.scrollbarWidth!) {
-					this.pointerDown = { type: 'horizontal', last: local };
+					this.pointerDown = {
+						type: 'horizontal',
+						last: local,
+					};
 				} else if (local.x > this.scrollbarLeft!) {
 					this.content.left += this.content.worldScreenWidth;
 					this.update();
@@ -572,7 +580,10 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 		if (this.isScrollbarVertical) {
 			if (local.x > this.boxWidth - this.scrollbarSize) {
 				if (local.y >= this.scrollbarTop! && local.y <= this.scrollbarTop! + this.scrollbarWidth!) {
-					this.pointerDown = { type: 'vertical', last: local };
+					this.pointerDown = {
+						type: 'vertical',
+						last: local,
+					};
 				} else if (local.y > this.scrollbarTop!) {
 					this.content.top += this.content.worldScreenHeight;
 					this.update();
@@ -588,10 +599,10 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * handle pointer move on scrollbar
-     * @param {FederatedPointerEvent} e
-     * @private
-     */
+		 * handle pointer move on scrollbar
+		 * @param {FederatedPointerEvent} e
+		 * @private
+		 */
 	scrollbarMove(e: FederatedPointerEvent) {
 		if (this.pointerDown) {
 			if (this.pointerDown.type === 'horizontal') {
@@ -618,21 +629,21 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * handle pointer down on scrollbar
-     * @private
-     */
+		 * handle pointer down on scrollbar
+		 * @private
+		 */
 	scrollbarUp() {
 		this.pointerDown = null;
 	}
 
 	/**
-     * resize the mask for the container
-     * @param {object} options
-     * @param {number} [options.boxWidth] width of scrollbox including scrollbar (in pixels)
-     * @param {number} [options.boxHeight] height of scrollbox including scrollbar (in pixels)
-     * @param {number} [options.scrollWidth] set the width of the inside of the scrollbox (leave null to use content.width)
-     * @param {number} [options.scrollHeight] set the height of the inside of the scrollbox (leave null to use content.height)
-     */
+		 * resize the mask for the container
+		 * @param {object} options
+		 * @param {number} [options.boxWidth] width of scrollbox including scrollbar (in pixels)
+		 * @param {number} [options.boxHeight] height of scrollbox including scrollbar (in pixels)
+		 * @param {number} [options.scrollWidth] set the width of the inside of the scrollbox (leave null to use content.width)
+		 * @param {number} [options.scrollHeight] set the height of the inside of the scrollbox (leave null to use content.height)
+		 */
 	resize(options: any) {
 		this.options.boxWidth = typeof options.boxWidth !== 'undefined' ? options.boxWidth : this.options.boxWidth;
 		this.options.boxHeight = typeof options.boxHeight !== 'undefined' ? options.boxHeight : this.options.boxHeight;
@@ -647,107 +658,110 @@ export default class PixiScrollbox extends PIXI.Container implements Scrollbox {
 	}
 
 	/**
-     * ensure that the bounding box is visible
-     * @param {number} x - relative to content's coordinate system
-     * @param {number} y
-     * @param {number} width
-     * @param {number} height
-     */
+		 * ensure that the bounding box is visible
+		 * @param {number} x - relative to content's coordinate system
+		 * @param {number} y
+		 * @param {number} width
+		 * @param {number} height
+		 */
 	ensureVisible(x: number, y: number, width: number, height: number) {
 		this.content.ensureVisible(x, y, width, height);
 		this._drawScrollbars();
 	}
 
 	/**
-	 * Redirecting addChild method to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param children
-	 * @returns {*}
-	 */
+		 * Redirecting addChild method to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param children
+		 * @returns {*}
+		 */
 	// @ts-ignore
 	addChild(...children: DisplayObject[]) {
 		return this.content.addChild(...children);
 	}
 
 	/**
-	 * Redirecting addChildAt methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param child
-	 * @param index
-	 * @returns {*}
-	 */
+		 * Redirecting addChildAt methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param child
+		 * @param index
+		 * @returns {*}
+		 */
 	// @ts-ignore
 	addChildAt(child: DisplayObject, index: number) {
 		return this.content.addChildAt(child, index);
 	}
 
 	/**
-	 * Redirecting removeChild methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param child
-	 * @returns {*}
-	 */
+		 * Redirecting removeChild methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param child
+		 * @returns {*}
+		 */
 	// @ts-ignore
 	removeChild(child: any) {
 		return this.content.removeChild(child);
 	}
 
 	/**
-	 * Redirecting swapChildren methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param child
-	 * @param child2
-	 */
-	swapChildren(child: DisplayObject, child2: DisplayObject) {
+		 * Redirecting swapChildren methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param child
+		 * @param child2
+		 */
+	// @ts-ignore
+	swapChildren(child: Container, child2: Container) {
 		this.content.swapChildren(child, child2);
 	}
 
 	/**
-	 * Redirecting getChildIndex methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param child
-	 * @returns {*}
-	 */
-	getChildIndex(child: DisplayObject) {
+		 * Redirecting getChildIndex methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param child
+		 * @returns {*}
+		 */
+	getChildIndex(child: Container) {
 		return this.content.getChildIndex(child);
 	}
 
 	/**
-	 * Redirecting setChildIndex methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param child
-	 * @param index
-	 */
+		 * Redirecting setChildIndex methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param child
+		 * @param index
+		 */
 	// @ts-ignore
 	setChildIndex(child: DisplayObject, index: number) {
 		this.content.setChildIndex(child, index);
 	}
 
 	/**
-	 * Redirecting getChildAt methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param index
-	 * @returns {*}
-	 */
+		 * Redirecting getChildAt methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param index
+		 * @returns {*}
+		 */
+	// @ts-ignore
 	getChildAt(index: number) {
 		return this.content.getChildAt(index);
 	}
 
 	/**
-	 * Redirecting removeChildren methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 * @param beginIndex
-	 * @param endIndex
-	 * @returns {*}
-	 */
+		 * Redirecting removeChildren methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 * @param beginIndex
+		 * @param endIndex
+		 * @returns {*}
+		 */
 	removeChildren(beginIndex: number, endIndex: number) {
 		return this.content.removeChildren(beginIndex, endIndex);
 	}
 
 	/**
-	 * Redirecting sortChildren methods to the Viewport to make it easy to wrap scrollbox into a react component,
-	 * because the Viewport is the real container for child elements
-	 */
+		 * Redirecting sortChildren methods to the Viewport to make it easy to wrap scrollbox into a react component,
+		 * because the Viewport is the real container for child elements
+		 */
+	// @ts-ignore
 	sortChildren() {
 		this.content.sortChildren();
 	}

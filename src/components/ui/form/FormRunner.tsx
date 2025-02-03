@@ -161,39 +161,41 @@ export function FormRunnerUI(props: IRunnerUIProps) {
 	});
 
 	return (
-		<div
-			ref={frameRef}
-		>
-			{
+		(
+			<div
+				ref={frameRef}
+			>
+				{
 				// eslint-disable-next-line react/jsx-props-no-spreading
-				(prologue && <Prologue {...prologue} />)
+					(prologue && <Prologue {...prologue} />)
 				|| (
 					blocks && (
 						// eslint-disable-next-line react/jsx-no-useless-fragment
 						<>
 							{blocks}
 						</>
+
 					)
 				)
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				|| (epilogue && <Epilogue {...epilogue} />)
-			}
-
-			{turnstileRef && (
-				<Turnstile
-					className="mt-4"
-					siteKey={process.env.NEXT_PUBLIC_TURNSTILE_KEY as string}
-					ref={turnstileRef}
-					options={{
-						execution: 'render',
-						appearance: 'always',
-						responseField: false,
-						refreshExpired: 'manual',
-					}}
-					onError={() => {}}
-				/>
-			)}
-		</div>
+				}
+				{turnstileRef && (
+					<Turnstile
+						className="mt-4"
+						siteKey={process.env.NEXT_PUBLIC_TURNSTILE_KEY as string}
+						ref={turnstileRef}
+						options={{
+							execution: 'render',
+							appearance: 'always',
+							responseField: false,
+							refreshExpired: 'manual',
+						}}
+						onError={() => {}}
+					/>
+				)}
+			</div>
+		)
 	);
 }
 
@@ -207,20 +209,20 @@ export default function FormRunner(props: IRunnerProps) {
 		},
 	} as IDefinition;
 
-	const definition = useRef<IDefinition | false>();
-	const snapshot = useRef<ISnapshot<IRunnerSnapshot> | false>();
-	const l10n = useRef<TL10n | false>();
-	const license = useRef<string | false>();
-	const isReady = useRef<true>();
-	const runOnce = useRef<true>();
-	const builderRef = useRef<IBuilderInstance>();
-	const builderAwait = useRef<boolean>();
+	const definition = useRef<IDefinition | false>(undefined);
+	const snapshot = useRef<ISnapshot<IRunnerSnapshot> | false>(undefined);
+	const l10n = useRef<TL10n | false>(undefined);
+	const license = useRef<string | false>(undefined);
+	const isReady = useRef<true>(undefined);
+	const runOnce = useRef<true>(undefined);
+	const builderRef = useRef<IBuilderInstance>(undefined);
+	const builderAwait = useRef<boolean>(undefined);
 	const isLive = props.view !== 'test' && props.view !== 'preview';
-	const controllerInternal = useRef<IRunnerController>();
+	const controllerInternal = useRef<IRunnerController>(undefined);
 	const controller = props.controller || controllerInternal;
 	const [, updateProc] = useState({});
-	const componentState = useRef<'mounted' | 'dirty'>();
-	const updateRef = useRef<typeof updateProc>();
+	const componentState = useRef<'mounted' | 'dirty'>(undefined);
+	const updateRef = useRef<typeof updateProc>(undefined);
 	const update = (apply: () => void) => {
 		apply();
 
@@ -280,7 +282,7 @@ export default function FormRunner(props: IRunnerProps) {
 		}
 	}
 
-	const l10nNamespace = useRef<L10n.Namespace>();
+	const l10nNamespace = useRef<L10n.Namespace>(undefined);
 	const l10nCache = useRef<{
 		locales: {
 			[domain: string]: {

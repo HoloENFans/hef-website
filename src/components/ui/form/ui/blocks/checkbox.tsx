@@ -35,7 +35,7 @@ SOFTWARE.
 /* eslint-enable */
 
 import {
-	FocusEvent, ReactNode, useEffect, useRef, useState,
+	FocusEvent, ReactNode, useEffect, useRef, useState, type JSX,
 } from 'react';
 import { cancelUITimeout, scheduleUITimeout, tripetto } from '@tripetto/runner';
 import { Checkbox } from '@tripetto/block-checkbox/runner';
@@ -166,7 +166,7 @@ export function CheckboxFabric(props: {
 					)}
 				</span>
 				<span
-					className={`absolute left-0 top-[0.095em] box-content size-4 rounded-sm border border-skin-primary bg-skin-secondary after:absolute after:left-[0.428571em] after:top-1 after:h-2 after:w-1 after:rotate-45 after:border-b-[0.142857em] after:border-r-[0.142857em] after:border-solid after:border-skin-secondary-foreground after:transition-transform after:content-[''] hover:shadow-[0_0_0_0.2rem_rgba(0,0,0,0.2)] active:shadow-[0_0_0_0.2rem_rgba(0,0,0,0.2)] dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:after:border-skin-secondary-foreground-dark ${value ? 'after:scale-100' : 'after:scale-0'}`}
+					className={`absolute left-0 top-[0.095em] box-content size-4 rounded-xs border border-skin-primary bg-skin-secondary after:absolute after:left-[0.428571em] after:top-1 after:h-2 after:w-1 after:rotate-45 after:border-b-[0.142857em] after:border-r-[0.142857em] after:border-solid after:border-skin-secondary-foreground after:transition-transform after:content-[''] hover:shadow-[0_0_0_0.2rem_rgba(0,0,0,0.2)] active:shadow-[0_0_0_0.2rem_rgba(0,0,0,0.2)] dark:border-skin-primary-dark dark:bg-skin-secondary-dark dark:after:border-skin-secondary-foreground-dark ${value ? 'after:scale-100' : 'after:scale-0'}`}
 				/>
 			</label>
 		</div>

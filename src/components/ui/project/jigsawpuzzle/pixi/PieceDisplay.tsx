@@ -1,17 +1,13 @@
 import React, {
 	useCallback, useContext, useEffect, useRef, useState,
 } from 'react';
-import { TextStyle } from 'pixi.js';
-import type { Graphics as PixiGraphics } from '@pixi/graphics';
 import {
-	Container, Graphics, Sprite, Text, useApp,
-} from '@pixi/react';
-import PixiTaggedText from 'pixi-tagged-text';
+	type Graphics, type Text, Texture, TextStyle,
+} from 'pixi.js';
+import { useApplication } from '@pixi/react';
 import ThemeContext from '../providers/ThemeContext';
 import PieceInfo from '../puzzle/PieceInfo';
-import TaggedText from './TaggedText';
-import Scrollbox from './Scrollbox';
-import PixiScrollbox from './PixiScrollbox';
+import type PixiScrollbox from './PixiScrollbox';
 
 interface PieceDisplayProps {
 	x?: number;
@@ -33,13 +29,13 @@ export default function PieceDisplay({
 ${pieceInfo.message.favoriteMoment}
 ` : '';
 	const text: string | undefined = pieceInfo?.message
-		&& `<h><b>From: ${pieceInfo.message.from}</b></h>
+		&& `From: ${pieceInfo.message.from}
 ${congratulations}${favoriteMoment}`;
 
-	const app = useApp();
+	const { app } = useApplication();
 
 	const scrollboxRef = useRef<PixiScrollbox>(null);
-	const taggedTextRef = useRef<PixiTaggedText>(null);
+	const textRef = useRef<Text>(null);
 
 	const [spriteY, setSpriteY] = useState(height);
 
@@ -48,45 +44,48 @@ ${congratulations}${favoriteMoment}`;
 	useEffect(() => {
 		scrollboxRef.current?.update();
 
-		if (taggedTextRef.current) {
-			taggedTextRef.current.update();
-			taggedTextRef.current.draw();
-
-			setSpriteY(taggedTextRef.current.getLocalBounds().height);
+		if (textRef.current) {
+			setSpriteY(textRef.current.getLocalBounds().height);
 			scrollboxRef.current?.update();
 		}
 	}, [pieceInfo]);
 
-	const drawColorForPieceDisplay = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].secondary);
-		g.drawRoundedRect(0, 0, width, height, 8);
-		g.endFill();
+	const drawColorForPieceDisplay = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.roundRect(0, 0, width, height, 8)
+			.fill(themeColors[resolvedTheme].secondary);
 	}, [width, height, resolvedTheme, themeColors]);
 
 	return (
-		<Container
+		<pixiContainer
 			x={x}
 			y={y}
 		>
-			<Graphics
+			<pixiGraphics
 				draw={drawColorForPieceDisplay}
 				x={0}
 				y={0}
 			/>
-			<Scrollbox
+			<scrollbox
 				boxWidth={width}
+				scrollWidth={width}
 				boxHeight={height - 16}
 				app={app}
-				scrollboxRef={scrollboxRef}
+				ref={scrollboxRef}
 				x={0}
 				y={8}
+				scrollbarForeground={0x00000}
+				scrollbarOffsetHorizontal={-4}
+				overflowX="none"
+				overflowY="auto"
+				passiveWheel
 			>
 				{!pieceInfo && (
-					<Text
+					<pixiText
 						text="No puzzle piece has been selected"
 						style={{
-							fill: themeColors[resolvedTheme].secondaryForeground,
+							fill: 0x000,
 							align: 'center',
 							fontSize: 25,
 							fontWeight: 'bold',
@@ -96,15 +95,12 @@ ${congratulations}${favoriteMoment}`;
 						y={height / 2}
 						x={width / 2}
 						width={width - 32}
-						anchor={{
-							x: 0.5,
-							y: 0.5,
-						}}
+						anchor={0.5}
 						scale={1}
 					/>
 				)}
 				{pieceInfo && !pieceInfo.message && (
-					<Text
+					<pixiText
 						text="This puzzle piece has no message"
 						style={{
 							fill: themeColors[resolvedTheme].secondaryForeground,
@@ -117,68 +113,55 @@ ${congratulations}${favoriteMoment}`;
 						y={height / 2}
 						x={width / 2}
 						width={width - 32}
-						anchor={{
-							x: 0.5,
-							y: 0.5,
-						}}
+						anchor={0.5}
 						scale={1}
 					/>
 				)}
 				{text
 				&& (
-					<TaggedText
+					<pixiText
 						text={text}
-						styles={{
-							default: {
-								fill: themeColors[resolvedTheme].secondaryForeground,
-								fontSize: 20,
-								wordWrap: true,
-								wordWrapWidth: width - 32,
-							},
-							b: {
-								fontWeight: 'bold',
-							},
-							i: {
-								fontStyle: 'italic',
-							},
-							h: {
-								fontSize: 24,
-							},
+						style={{
+							fill: themeColors[resolvedTheme].secondaryForeground,
+							fontSize: 20,
+							wordWrap: true,
+							wordWrapWidth: width - 32,
 						}}
 						x={16}
 						y={16}
 						width={width - 32}
 						height={height - 16}
 						scale={{ x: 1, y: 1 }}
-						ref={taggedTextRef}
+						ref={textRef}
 					/>
 				)}
 				{pieceInfo?.message?.kronie
 				&& (
 					<>
-						<Sprite
-							image={pieceInfo.message.kronie}
+						<pixiSprite
+							texture={Texture.from(pieceInfo.message.kronie)}
 							x={16}
 							y={pieceInfo.message
 								? Math.max(height - 250, spriteY + 75)
 								: 16}
-							scale={[1, 1]}
+							scale={1}
 						/>
-						<Graphics
+						<pixiGraphics
 							x={16}
 							y={pieceInfo.message
 								? Math.max(height - 250, spriteY + 75)
 								: 16}
 							draw={(g) => {
-								g.clear();
-								g.beginFill(0, 1);
-								g.drawRect(0, 0, 0, 74);
+								g
+									.clear()
+									.rect(0, 0, 0, 74)
+									.fill(0);
 							}}
 						/>
 					</>
 				)}
 				{children}
-			</Scrollbox>
-		</Container>
+			</scrollbox>
+		</pixiContainer>
 	);
 }

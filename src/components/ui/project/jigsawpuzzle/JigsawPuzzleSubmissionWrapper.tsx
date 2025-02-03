@@ -1,7 +1,7 @@
 import { Project, SubmissionMedia } from '@/types/payload-types';
-import dynamic from 'next/dynamic';
 import fetchSubmissions, { ISubmission } from '@/lib/fetchSubmissions';
 import { getImageUrl } from '@/components/ui/legacy/Image';
+import PixiRejectClientWrapper from './PixiRejectClientWrapper';
 
 interface IProps {
 	project: Omit<Project, 'flags' | 'devprops'> & {
@@ -50,11 +50,7 @@ async function fetchSubmissionsWithImageProxy(project: { id: string, slug: strin
 export default async function JigsawPuzzleSubmissionWrapper({ project }: IProps) {
 	const submissions = await fetchSubmissionsWithImageProxy(project);
 
-	const PixiRejectWrapper = dynamic(() => import('./PixiRejectWrapper'), {
-		ssr: false,
-	});
-
 	return (
-		<PixiRejectWrapper project={project} submissions={submissions} />
+		<PixiRejectClientWrapper project={project} submissions={submissions} />
 	);
 }

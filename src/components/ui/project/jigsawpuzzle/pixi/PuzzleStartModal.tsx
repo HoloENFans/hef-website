@@ -1,7 +1,4 @@
-import {
-	Container, Graphics, Sprite, Text,
-} from '@pixi/react';
-import { Graphics as PixiGraphics, TextStyle } from 'pixi.js';
+import { Graphics, Texture, TextStyle } from 'pixi.js';
 import React, { useCallback, useContext } from 'react';
 import ThemeContext from '@/components/ui/project/jigsawpuzzle/providers/ThemeContext';
 import Button from './Button';
@@ -18,24 +15,24 @@ export default function PuzzleStartModal({
 }: ModalProps) {
 	const { colors: themeColors, resolvedTheme } = useContext(ThemeContext);
 
-	const drawExitButton = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].secondary);
-		g.drawCircle(16, 16, 20);
-		g.endFill();
+	const drawExitButton = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.circle(16, 16, 20)
+			.fill(themeColors[resolvedTheme].secondary);
 	}, [resolvedTheme, themeColors]);
 
 	return (
-		<Container>
-			<Graphics
-				draw={(g: PixiGraphics) => {
-					g.clear();
-					g.beginFill(0x222222);
-					g.drawRect(0, 0, width, height);
-					g.endFill();
+		<pixiContainer>
+			<pixiGraphics
+				draw={(g: Graphics) => {
+					g
+						.clear()
+						.rect(0, 0, width, height)
+						.fill(0x222222);
 				}}
 			/>
-			<Text
+			<pixiText
 				text={text}
 				style={{
 					fill: 'white',
@@ -43,11 +40,11 @@ export default function PuzzleStartModal({
 					wordWrap: true,
 					wordWrapWidth: Math.min(width * 0.6, 1000),
 				} as TextStyle}
-				anchor={[0.5, 0.5]}
+				anchor={0.5}
 				width={Math.min(width * 0.6, 1000)}
 				x={width / 2}
 				y={height / 2 - 60}
-				scale={[1, 1]}
+				scale={1}
 			/>
 			<Button
 				x={width / 2 - 110}
@@ -61,23 +58,23 @@ export default function PuzzleStartModal({
 				onClick={closeModal}
 			/>
 
-			<Container
+			<pixiContainer
 				x={width - 64}
 				y={32}
 				eventMode="static"
-				onclick={closeModal}
+				onClick={closeModal}
 				cursor="pointer"
 			>
-				<Graphics
+				<pixiGraphics
 					draw={drawExitButton}
 				/>
-				<Sprite
-					image="https://cdn.holoen.fans/hefw/assets/jigsawpuzzle/x-mark.svg"
+				<pixiSprite
+					texture={Texture.from('https://cdn.holoen.fans/hefw/assets/jigsawpuzzle/x-mark.svg')}
 					tint={themeColors[resolvedTheme].secondaryForeground}
 					width={32}
 					height={32}
 				/>
-			</Container>
-		</Container>
+			</pixiContainer>
+		</pixiContainer>
 	);
 }

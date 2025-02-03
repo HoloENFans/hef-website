@@ -14,7 +14,7 @@ import styles from '../styles/Sidebar.module.css';
 import ModalTabLicences from './ModalTabLicences';
 
 interface IProps {
-	modalRef: RefObject<HTMLDialogElement>;
+	modalRef: RefObject<HTMLDialogElement | null>;
 }
 
 export default function ReaderModal({ modalRef }: IProps) {
@@ -38,7 +38,7 @@ export default function ReaderModal({ modalRef }: IProps) {
 	}, [setShowMobileCloseButton]);
 
 	return (
-		<dialog id="info_modal" className="modal invisible bg-gradient-to-r" ref={modalRef}>
+		<dialog id="info_modal" className="modal invisible bg-linear-to-r" ref={modalRef}>
 			<div className="modal-box relative flex h-[85%] max-h-[65rem] min-w-[50%] max-w-[80%] flex-col justify-between overflow-hidden">
 				<button
 					className="absolute right-4 top-4"

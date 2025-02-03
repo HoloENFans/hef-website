@@ -6,10 +6,12 @@ import useTranslation from '@/lib/i18n/server';
 import { Language } from '@/lib/i18n/languages';
 import ProjectCard from '@/components/ui/ProjectCard';
 
+import type { JSX } from 'react';
+
 interface IProps {
-	params: {
+	params: Promise<{
 		lang: Language;
-	}
+	}>
 }
 
 async function fetchProjects(lang: Language): Promise<Project[]> {
@@ -55,7 +57,12 @@ function formatProjects(projects: Project[], lang: Language): JSX.Element[] {
 	));
 }
 
-export default async function Page({ params: { lang } }: IProps) {
+export default async function Page({ params }: IProps) {
+	const {
+		lang,
+	} = await params;
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { t } = await useTranslation(lang, 'projects', 'page');
 	const projects = await fetchProjects(lang);
 	const projectsHtml = formatProjects(projects, lang);
@@ -83,7 +90,13 @@ export default async function Page({ params: { lang } }: IProps) {
 	);
 }
 
-export async function generateMetadata({ params: { lang } }: IProps): Promise<Metadata> {
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+	const params = await props.params;
+
+	const {
+		lang,
+	} = params;
+
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { t } = await useTranslation(lang, 'projects', 'head');
 

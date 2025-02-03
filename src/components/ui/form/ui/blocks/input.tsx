@@ -140,7 +140,7 @@ export default function Input({
 			},
 		]
 		: [focusValue, setFocusValue];
-	const ref = useRef<HTMLInputElement | null>();
+	const ref = useRef<HTMLInputElement | null>(undefined);
 	const setRef = (el: HTMLInputElement | null) => {
 		if (onAutoFocus) {
 			onAutoFocus(el);

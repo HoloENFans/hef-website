@@ -1,3 +1,5 @@
+@reference '../../../../../styles/globals.css';
+
 .header {
     @apply flex w-full min-h-[64px] bg-skin-header dark:bg-skin-header-dark text-skin-header-foreground dark:text-skin-header-foreground-dark shrink-0 justify-between items-center px-4 py-1 absolute z-10 transition-all border-b-[1px] border-neutral;
 }

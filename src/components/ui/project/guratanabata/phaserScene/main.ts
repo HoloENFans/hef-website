@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 // eslint-disable-next-line import/no-cycle
 import { TanabataSubmission } from '@/components/ui/project/guratanabata/PhaserSubmissionWrapper';
 
+// @ts-ignore
 const match = window.location.pathname?.match(/\/projects\/(?<slug>[a-zA-Z0-9\-_]+)/i);
 const MILLION = match?.groups?.slug === 'gura3mil' ? '3' : '4';
 
@@ -30,7 +31,7 @@ const BG_KEYS = [
 	'zoomed3',
 ];
 
-const FOOTER_MESSAGE = `[shadow]You've reached the bottom of the submissions! We hope you enjoyed reading the notes, and looking at the art.
+const FOOTER_MESSAGE = `[shadow-sm]You've reached the bottom of the submissions! We hope you enjoyed reading the notes, and looking at the art.
 
 ${MILLION} Million subscribers is one heck of an achievement, and we're glad we could make you something to commemorate your achievement.[/shadow]`;
 
@@ -404,7 +405,7 @@ class Main extends Phaser.Scene {
 			: [this.width / 1.6, this.height * 1.2];
 		const textBigSize = this.game.device.os.desktop ? 120 : 100;
 		const textBigWrapWidth = this.game.device.os.desktop ? 1500 : 1200;
-		const textBig = this.ui.text(...textBigPos, `[shadow]Happy ${MILLION} Million, Same-chan, and here's to the next milestone.[/shadow]`, textBigSize, textBigWrapWidth, {
+		const textBig = this.ui.text(...textBigPos, `[shadow-sm]Happy ${MILLION} Million, Same-chan, and here's to the next milestone.[/shadow]`, textBigSize, textBigWrapWidth, {
 			color: '#fefefe',
 			shadow: {
 				offsetY: 2,

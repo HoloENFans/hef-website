@@ -3,7 +3,9 @@
 import { Submission } from '@/types/payload-types';
 import React, { ReactNode, useEffect, useState } from 'react';
 import { CheckIcon, ChevronUpDownIcon, FunnelIcon } from '@heroicons/react/20/solid';
-import { Listbox, Transition } from '@headlessui/react';
+import {
+	Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition,
+} from '@headlessui/react';
 import { debounce } from 'lodash';
 
 interface IProps {
@@ -97,11 +99,11 @@ export default function SubmissionsWithFilter({ submissions, filterOptions }: IP
 							<span>Submission type:</span>
 							<Listbox
 								value={filter.type ?? []}
-								onChange={(newValue) => setFilter({ ...filter, type: newValue })}
+								onChange={(newValue: any) => setFilter({ ...filter, type: newValue })}
 								multiple
 							>
 								<div className="relative mt-1 w-[300px] text-black">
-									<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm">
+									<ListboxButton className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm">
 										<span className="block truncate text-black">{filter.type?.length > 0 ? filter.type.join(', ') : 'All'}</span>
 										<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 											<ChevronUpDownIcon
@@ -109,41 +111,33 @@ export default function SubmissionsWithFilter({ submissions, filterOptions }: IP
 												aria-hidden="true"
 											/>
 										</span>
-									</Listbox.Button>
+									</ListboxButton>
 									<Transition
 										as={React.Fragment}
 										leave="transition ease-in duration-100"
 										leaveFrom="opacity-100"
 										leaveTo="opacity-0"
 									>
-										<Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+										<ListboxOptions className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm">
 											{['Messages', 'Images', 'Videos'].map((type) => (
-												<Listbox.Option
+												<ListboxOption
 													key={`type-filter-${type}`}
-													className={({ active }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${
-														active ? 'bg-red-100' : ''
-													}`}
+													className="relative cursor-default select-none py-2 pl-10 pr-4 data-[active]:bg-red-100"
 													value={type}
 												>
-													{({ selected }) => (
-														<>
-															<span
-																className={`block truncate ${
-																	selected ? 'font-medium' : 'font-normal'
-																}`}
-															>
-																{type}
-															</span>
-															{selected ? (
-																<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600">
-																	<CheckIcon className="size-5" aria-hidden="true" />
-																</span>
-															) : null}
-														</>
-													)}
-												</Listbox.Option>
+													<span
+														className="block truncate group-data-[selected]:font-medium"
+													>
+														{type}
+													</span>
+													<span
+														className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600 invisible group-data-[selected]:visible"
+													>
+														<CheckIcon className="size-5" aria-hidden="true" />
+													</span>
+												</ListboxOption>
 											))}
-										</Listbox.Options>
+										</ListboxOptions>
 									</Transition>
 								</div>
 							</Listbox>
@@ -161,11 +155,11 @@ export default function SubmissionsWithFilter({ submissions, filterOptions }: IP
 											</span>
 											<Listbox
 												value={filter[key] ?? []}
-												onChange={(newValue) => setFilter({ ...filter, [key]: newValue })}
+												onChange={(newValue: any) => setFilter({ ...filter, [key]: newValue })}
 												multiple
 											>
 												<div className="relative mt-1 w-[300px] text-black">
-													<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm">
+													<ListboxButton className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md sm:text-sm">
 														<span className="block truncate text-black">{filter[key]?.length > 0 ? filter[key].join(', ') : 'All'}</span>
 														<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 															<ChevronUpDownIcon
@@ -173,41 +167,33 @@ export default function SubmissionsWithFilter({ submissions, filterOptions }: IP
 																aria-hidden="true"
 															/>
 														</span>
-													</Listbox.Button>
+													</ListboxButton>
 													<Transition
 														as={React.Fragment}
 														leave="transition ease-in duration-100"
 														leaveFrom="opacity-100"
 														leaveTo="opacity-0"
 													>
-														<Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+														<ListboxOptions className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-hidden sm:text-sm">
 															{filterOptions[key].map((value) => (
-																<Listbox.Option
+																<ListboxOption
 																	key={`${key}-filter-${value}`}
-																	className={({ active }) => `relative cursor-default select-none py-2 pl-10 pr-4 ${
-																		active ? 'bg-red-100' : ''
-																	}`}
+																	className="relative cursor-default select-none py-2 pl-10 pr-4 data-[active]:bg-red-100"
 																	value={value}
 																>
-																	{({ selected }) => (
-																		<>
-																			<span
-																				className={`block truncate ${
-																					selected ? 'font-medium' : 'font-normal'
-																				}`}
-																			>
-																				{value}
-																			</span>
-																			{selected ? (
-																				<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600">
-																					<CheckIcon className="size-5" aria-hidden="true" />
-																				</span>
-																			) : null}
-																		</>
-																	)}
-																</Listbox.Option>
+																	<span
+																		className="block truncate group-data-[selected]:font-medium"
+																	>
+																		{value}
+																	</span>
+																	<span
+																		className="absolute inset-y-0 left-0 flex items-center pl-3 text-red-600 invisible group-data-[selected]:visible"
+																	>
+																		<CheckIcon className="size-5" aria-hidden="true" />
+																	</span>
+																</ListboxOption>
 															))}
-														</Listbox.Options>
+														</ListboxOptions>
 													</Transition>
 												</div>
 											</Listbox>

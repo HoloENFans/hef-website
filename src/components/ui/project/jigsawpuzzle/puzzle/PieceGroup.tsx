@@ -1,11 +1,9 @@
 'use client';
 
-import { Container } from '@pixi/react';
 import React, {
-	ReactElement,
-	useContext, useEffect, useMemo, useRef, useState,
+	ReactElement, useContext, useEffect, useMemo, useRef, useState,
 } from 'react';
-import { Container as PixiContainer, FederatedPointerEvent } from 'pixi.js';
+import { Container, FederatedPointerEvent } from 'pixi.js';
 import PuzzleStoreContext from '../providers/PuzzleStoreContext';
 import usePuzzleStore from '../providers/PuzzleStoreConsumer';
 import { PUZZLE_WIDTH } from './PuzzleConfig';
@@ -14,7 +12,7 @@ import { PieceActions } from './Piece';
 
 interface PieceGroupProps {
 	groupKey: string;
-	pieces: Record<string, { ref: React.MutableRefObject<PieceActions>, piece: ReactElement }>;
+	pieces: Record<string, { ref: React.RefObject<PieceActions>, piece: ReactElement<any> }>;
 	initialX: number;
 	initialY: number;
 	playTick: () => void;
@@ -36,7 +34,7 @@ export default function PieceGroup({
 	const difficulty = usePuzzleStore((state) => state.difficulty!);
 	const pieceSize = useMemo(() => PUZZLE_WIDTH / difficulty.cols, [difficulty.cols]);
 
-	const containerRef = useRef<PixiContainer>(null);
+	const containerRef = useRef<Container>(null);
 
 	const { setDisableDragging } = useContext(ViewportContext);
 
@@ -235,24 +233,24 @@ export default function PieceGroup({
 	};
 
 	return (
-		<Container
+		<pixiContainer
 			x={currentPosition.x}
 			y={currentPosition.y}
 			eventMode="static"
-			onpointerdown={handleDragStart}
-			onpointermove={handleDragMove}
-			onglobalpointermove={handleDragMove}
-			onpointerup={handleDragEnd}
-			onpointerupoutside={handleDragEnd}
-			touchstart={handleDragEnd}
-			touchmove={handleDragEnd}
-			touchend={handleDragEnd}
-			touchendoutside={handleDragEnd}
+			onPointerDown={handleDragStart}
+			onPointerMove={handleDragMove}
+			onGlobalPointerMove={handleDragMove}
+			onPointerUp={handleDragEnd}
+			onPointerUpOutside={handleDragEnd}
+			onTouchStart={handleDragEnd}
+			onTouchMove={handleDragEnd}
+			onTouchEnd={handleDragEnd}
+			onTouchEndOutside={handleDragEnd}
 			zIndex={lastUpdatedAt}
 			ref={containerRef}
 			cursor={thisPieceGroup.correct ? undefined : 'pointer'}
 		>
 			{pieceElements}
-		</Container>
+		</pixiContainer>
 	);
 }

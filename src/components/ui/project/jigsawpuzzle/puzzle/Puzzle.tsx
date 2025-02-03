@@ -4,8 +4,7 @@
 import React, {
 	createRef, ReactElement, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
-import * as PIXI from 'pixi.js';
-import { Container, Graphics } from '@pixi/react';
+import { Assets, Graphics, Spritesheet } from 'pixi.js';
 import { IMediaInstance, Sound } from '@pixi/sound';
 import { shallow } from 'zustand/shallow';
 import { Submission, SubmissionMedia } from '@/types/payload-types';
@@ -70,8 +69,9 @@ export default function Puzzle({
 	// eslint-disable-next-line max-len
 	x, y, width, height, kroniiEnabled, bgmConfig, resetTrigger, puzzleFinished, onPieceSelected, submissions,
 }: PuzzleProps) {
-	const [assetBundle, setAssetBundle] = useState<null | any>(null);
-	const [sounds, setSounds] = useState<null | Record<string, Sound>>(null);
+	const [sounds, setSounds] = useState<Record<string, Sound> | null>(null);
+	const [spritesheet, setSpritesheet] = useState<Spritesheet | null>(null);
+	const [spritesheetDifficulty, setSpritesheetDifficulty] = useState('');
 	const [currentBgmInstance, setCurrentBgmInstance] = useState<IMediaInstance>();
 
 	const { volume, muted } = usePuzzleStore((state) => state.audio);
@@ -92,23 +92,13 @@ export default function Puzzle({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [difficulty, correctCount]);
 
-	const drawPuzzleBounds = useCallback((g: PIXI.Graphics) => {
+	const drawPuzzleBounds = useCallback((g: Graphics) => {
 		const lineWidth = 8;
-		g.clear();
-		g.lineStyle(lineWidth, themeColors.light.headerForeground);
-
-		g.drawRect(-lineWidth / 2, -lineWidth / 2, width + lineWidth, height + lineWidth);
+		g
+			.clear()
+			.rect(-lineWidth / 2, -lineWidth / 2, width + lineWidth, height + lineWidth)
+			.stroke({ width: lineWidth, color: themeColors.light.headerForeground });
 	}, [height, width, themeColors]);
-
-	useEffect(() => {
-		// Sound doubling bug when auto pause is disabled
-		// PixiSound.disableAutoPause = true;
-
-		PIXI.Assets.loadBundle('puzzle')
-			.then((loadedBundle) => {
-				setAssetBundle(loadedBundle);
-			});
-	}, []);
 
 	useEffect(() => {
 		const bgmTrackNames = Object.keys(bgmConfig.tracks);
@@ -230,10 +220,20 @@ export default function Puzzle({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [muted]);
 
+	useEffect(() => {
+		if (!difficultyName || spritesheetDifficulty === difficultyName) return;
+
+		(async () => {
+			const newSpritesheet: Spritesheet = await Assets.load(`pieces${difficultyName !== 'default' ? `-${difficultyName.toLowerCase()}` : ''}`);
+			setSpritesheet(newSpritesheet);
+			setSpritesheetDifficulty(difficultyName);
+		})();
+	}, [difficultyName]);
+
 	const puzzlePiecesRefs = useMemo(() => {
 		if (!difficulty) return null;
 
-		const refs: Record<string, React.MutableRefObject<PieceActions>> = {};
+		const refs: Record<string, React.RefObject<PieceActions>> = {};
 
 		for (let r = 0; r < difficulty.rows; r++) {
 			for (let c = 0; c < difficulty.cols; c++) {
@@ -245,9 +245,15 @@ export default function Puzzle({
 	}, [difficulty]);
 
 	const puzzlePieces = useMemo(() => {
-		if (!assetBundle || !difficulty || !difficultyName || !puzzlePiecesRefs) return null;
+		if (
+			spritesheetDifficulty !== difficultyName
+			|| !spritesheet
+			|| !difficulty
+			|| !difficultyName
+			|| !puzzlePiecesRefs
+		) return null;
 
-		const temp: Record<string, { ref: React.MutableRefObject<any>, piece: ReactElement }> = {};
+		const temp: Record<string, { ref: React.RefObject<any>, piece: ReactElement<any> }> = {};
 
 		for (let r = 0; r < difficulty.rows; r++) {
 			for (let c = 0; c < difficulty.cols; c++) {
@@ -260,7 +266,7 @@ export default function Puzzle({
 						key={`piece-${r}-${c}`}
 						c={c}
 						r={r}
-						texture={assetBundle[`pieces${difficultyName !== 'default' ? `-${difficultyName.toLowerCase()}` : ''}`].textures[`${r}-${c}`]}
+						texture={spritesheet.textures[`${r}-${c}`]}
 						setSelectedPiece={onPieceSelected}
 						message={message ? {
 							from: message.author,
@@ -284,7 +290,7 @@ export default function Puzzle({
 
 		return temp;
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [assetBundle, difficulty, difficultyName, puzzlePiecesRefs]);
+	}, [spritesheet, spritesheetDifficulty, difficulty, difficultyName, puzzlePiecesRefs]);
 
 	const groupElements = useMemo(() => {
 		if (!puzzlePieces) return null;
@@ -308,17 +314,18 @@ export default function Puzzle({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [resetTrigger, puzzlePieces, pieceGroups, sounds?.tick, sounds?.tock]);
 
-	if (!assetBundle || !puzzlePieces) return null;
+	if (!puzzlePieces) return null;
 
 	return (
-		<Container x={x} y={y} sortableChildren>
-			<Graphics
+		// eslint-disable-next-line react/jsx-boolean-value
+		<pixiContainer x={x} y={y} sortableChildren={true}>
+			<pixiGraphics
 				width={width}
 				height={height}
 				draw={drawPuzzleBounds}
 				zIndex={-2}
 			/>
 			{groupElements}
-		</Container>
+		</pixiContainer>
 	);
 }

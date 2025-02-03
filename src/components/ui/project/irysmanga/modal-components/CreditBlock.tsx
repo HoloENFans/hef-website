@@ -7,6 +7,7 @@ import {
 	PencilIcon,
 	StarIcon,
 } from '@heroicons/react/24/outline';
+import type { JSX } from 'react';
 import { Contributor } from '../utils/types';
 
 const iconWidth = '1.5rem';

@@ -1,23 +1,28 @@
 'use client';
 
-import '@pixi/gif';
 import { Project, Submission } from '@/types/payload-types';
-import { Stage } from '@pixi/react';
+import { Application, extend } from '@pixi/react';
 import React, {
 	useContext, useEffect, useMemo, useState,
 } from 'react';
-import * as PIXI from 'pixi.js';
+import {
+	Assets, Container, Graphics, GraphicsContextSystem, Sprite, Text,
+} from 'pixi.js';
 import OS from 'phaser/src/device/OS';
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/solid';
-import PuzzleStoreContext from '@/components/ui/project/jigsawpuzzle/providers/PuzzleStoreContext';
 import { useTheme } from 'next-themes';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
 import ReactPlayer from 'react-player/file';
 import { XMarkIcon } from '@heroicons/react/20/solid';
+import { GifSprite } from 'pixi.js/gif';
+import PuzzleStoreContext from './providers/PuzzleStoreContext';
 import ThemeContext, { IThemeContext } from './providers/ThemeContext';
 import PixiPuzzleContainer from './PixiPuzzleContainer';
 import usePuzzleStore from './providers/PuzzleStoreConsumer';
 import SubmissionsModal from './SubmissionsModal';
+import Viewport from './pixi/Viewport';
+import Scrollbox from './pixi/PixiScrollbox';
+import IntermittentGif from './pixi/IntermittentGif';
 
 interface IProps {
 	project: Omit<Project, 'flags' | 'devprops'> & {
@@ -35,7 +40,7 @@ export interface StageSize {
 }
 
 function rgbToHex(rgb: string) {
-	const [r, g, b] = rgb.split(' ');
+	const [r, g, b] = rgb.substring(4, rgb.length - 1).split(' ');
 	const red = parseInt(r, 10);
 	const green = parseInt(g, 10);
 	const blue = parseInt(b, 10);
@@ -44,6 +49,19 @@ function rgbToHex(rgb: string) {
 	return (red << 16) + (green << 8) + blue;
 }
 
+GraphicsContextSystem.defaultOptions.bezierSmoothness = 0.8;
+
+extend({
+	Graphics,
+	Container,
+	Text,
+	Sprite,
+	Viewport,
+	Scrollbox,
+	GifSprite,
+	IntermittentGIF: IntermittentGif,
+});
+
 export default function PixiWrapper({ project, submissions }: IProps) {
 	const [stageSize, setStageSize] = useState<StageSize | null>(null);
 	const [ready, setReady] = useState(false);
@@ -51,6 +69,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 	const [orientation, setOrientation] = useState('');
 	const [showAllSubmissions, setShowAllSubmissions] = useState(false);
 	const [showVictoryVideo, setShowVictoryVideo] = useState(false);
+	const [assetsHasBeenInit, setAssetsHasBeenInit] = useState(false);
 
 	const puzzleStore = useContext(PuzzleStoreContext);
 	const { volume, muted } = usePuzzleStore((state) => state.audio);
@@ -100,9 +119,16 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 	}, []);
 
 	useEffect(() => {
+		GraphicsContextSystem.defaultOptions.bezierSmoothness = 0.8;
+		let firstRun = true;
+
 		(async () => {
-			await PIXI.Assets.init({ manifest: project.devprops.manifestUrl });
-			await PIXI.Assets.loadBundle('puzzle', (progress) => {
+			if (firstRun && !assetsHasBeenInit) {
+				setAssetsHasBeenInit(true);
+				firstRun = false;
+				await Assets.init({ manifest: '/assets/dev/gura-xmas-2024/manifest.json' });
+			}
+			await Assets.loadBundle('puzzle', (progress) => {
 				setLoadProgress(progress * 100);
 			});
 
@@ -272,12 +298,11 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 				</button>
 			)}
 
-			<Stage
-				options={{
-					backgroundColor: themeColors.light.header,
-					antialias: true,
-				}}
+			<Application
+				backgroundColor={themeColors.light.header}
+				antialias
 				className={`${((!OS.desktop && orientation.startsWith('portrait')) || showAllSubmissions) ? 'hidden' : ''} cursor-none`}
+				resizeTo={window}
 			>
 				<ThemeContext.Provider value={themeContextValue}>
 					<PuzzleStoreContext.Provider value={puzzleStore}>
@@ -297,7 +322,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 						/>
 					</PuzzleStoreContext.Provider>
 				</ThemeContext.Provider>
-			</Stage>
+			</Application>
 
 			<div
 				className="text-secondary-foreground fixed bottom-6 left-6 z-50 flex h-16 w-[350px] items-center justify-between gap-2 rounded-lg bg-skin-secondary px-4 py-2 dark:bg-skin-secondary-dark dark:text-skin-secondary-foreground-dark"
@@ -305,7 +330,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 				<label className="swap swap-flip">
 					<input
 						type="checkbox"
-						className="!bg-inherit text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
+						className="bg-inherit! text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
 						checked={muted}
 						onChange={() => setMuted(!muted)}
 					/>
@@ -321,7 +346,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 					step={0.01}
 					value={volume}
 					onChange={(e) => setVolume(Number.parseFloat(e.target.value))}
-					className="range-s range range-accent !bg-inherit disabled:range-xs"
+					className="range-s range range-accent bg-inherit! disabled:range-xs"
 				/>
 			</div>
 
@@ -331,7 +356,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 				>
 					<input
 						type="checkbox"
-						className="!bg-inherit text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
+						className="bg-inherit! text-skin-secondary-foreground dark:text-skin-secondary-foreground-dark"
 						checked={resolvedTheme === 'dark'}
 						onChange={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
 					/>

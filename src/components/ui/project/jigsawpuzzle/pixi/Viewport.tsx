@@ -1,14 +1,14 @@
 // eslint-disable-next-line max-classes-per-file
-import { PixiComponent, applyDefaultProps } from '@pixi/react';
-import type { Application, Rectangle } from 'pixi.js';
-import { InputManager as PixiViewportInputManager, IViewportOptions, Viewport as PixiViewport } from 'pixi-viewport';
-import type * as React from 'react';
-import { MutableRefObject } from 'react';
+import {
+	InputManager,
+	IViewportOptions,
+	Viewport,
+} from 'pixi-viewport';
 import { SIDEBAR_WIDTH } from '../puzzle/PuzzleConfig';
 
-class FixedInputManager extends PixiViewportInputManager {
+class FixedInputManager extends InputManager {
 	public override handleWheel(event: WheelEvent): void {
-		if (this.viewport.pause || !this.viewport.worldVisible) {
+		if (this.viewport.pause || !this.viewport.visible) {
 			return;
 		}
 
@@ -31,142 +31,53 @@ class FixedInputManager extends PixiViewportInputManager {
 	}
 }
 
-class FixedPixiViewport extends PixiViewport {
+export default class FixedPixiViewport extends Viewport {
 	public override readonly input: FixedInputManager;
+
+	private draggingDisabled = false;
 
 	constructor(options: IViewportOptions) {
 		super(options);
 		// Destroy the input manager created by the super call
 		// @ts-expect-error
-		this.input.destroy();
+		this.input?.destroy();
 
 		// Create our own
 		this.input = new FixedInputManager(this);
-	}
-}
 
-interface PixiComponentViewportProps {
-	width?: number;
-	height?: number;
-	worldWidth?: number;
-	worldHeight?: number;
-	disableDragging?: boolean;
-	x?: number;
-	y?: number;
-	forceHitArea?: Rectangle | undefined | null;
-	app: Application;
-	children?: React.ReactNode;
-	viewportRef?: MutableRefObject<PixiViewport | null>
-}
-
-const Viewport = PixiComponent('Viewport', {
-	create({
-		width, height, worldWidth, worldHeight, forceHitArea, x, y, app, viewportRef,
-	}: PixiComponentViewportProps) {
-		const viewport = new FixedPixiViewport({
-			screenWidth: width,
-			screenHeight: height,
-			worldWidth: worldWidth ?? width,
-			worldHeight: worldHeight ?? height,
-			forceHitArea,
-			ticker: app.ticker,
-			events: app.renderer.events,
-			passiveWheel: true,
-		});
-		if (x) viewport.x = x;
-		if (y) viewport.y = y;
-
-		viewport
-			.drag()
+		this.drag()
 			.pinch()
 			.decelerate()
 			.wheel()
 			.bounce({
+				// @ts-ignore
 				bounceBox: {
-					x: -viewport.worldWidth,
-					width: viewport.worldWidth * 2,
-					y: -viewport.worldHeight,
-					height: viewport.worldHeight * 2,
-				} as Rectangle,
+					x: -this.worldWidth,
+					width: this.worldWidth * 2,
+					y: -this.worldHeight,
+					height: this.worldHeight * 2,
+				},
 			})
 			.clamp({
-				left: -(viewport.worldWidth / 2),
-				right: viewport.worldWidth * 1.5,
-				top: -(viewport.worldHeight / 2),
-				bottom: viewport.worldHeight * 1.5,
+				left: -(this.worldWidth / 2),
+				right: this.worldWidth * 1.5,
+				top: -(this.worldHeight / 2),
+				bottom: this.worldHeight * 1.5,
 				underflow: 'none',
 			})
 			.clampZoom({ minScale: 0.2, maxScale: 10 });
+	}
 
-		if (viewportRef) {
-			// eslint-disable-next-line no-param-reassign
-			viewportRef.current = viewport;
-		}
+	public get disableDragging() {
+		return this.draggingDisabled;
+	}
 
-		return viewport;
-	},
-	applyProps(viewport, _oldProps, _newProps) {
-		/* eslint-disable @typescript-eslint/naming-convention */
-		const {
-			children: oldChildren,
-			disableDragging: _disableDragging,
-			width: oldWidth,
-			height: oldHeight,
-			worldWidth: oldWorldWidth,
-			worldHeight: oldWorldHeight,
-			viewportRef: _oldRef,
-			...oldProps
-		} = _oldProps;
-		/* eslint-enable */
-		const {
-			children: newChildren,
-			disableDragging,
-			width,
-			height,
-			worldWidth,
-			worldHeight,
-			viewportRef,
-			...newProps
-		} = _newProps;
-
-		if (
-			oldWidth !== width
-			|| oldHeight !== height
-			|| oldWorldWidth !== worldWidth
-			|| oldWorldHeight !== worldHeight
-		) {
-			viewport.resize(
-				width,
-				height,
-				worldWidth ?? width,
-				worldHeight ?? worldHeight,
-			);
-		}
-
-		if (disableDragging) {
-			viewport.plugins.pause('drag');
+	public set disableDragging(disabled: boolean) {
+		this.draggingDisabled = disabled;
+		if (disabled) {
+			this.plugins.pause('drag');
 		} else {
-			viewport.plugins.resume('drag');
+			this.plugins.resume('drag');
 		}
-
-		applyDefaultProps(viewport, oldProps, newProps);
-
-		if (viewportRef) {
-			viewportRef.current = viewport;
-		}
-	},
-	willUnmount(instance: PixiViewport) {
-		// workaround because the ticker is already destroyed by this point by the stage
-		// eslint-disable-next-line no-param-reassign
-		instance.options.noTicker = true;
-		try {
-			instance.destroy({ children: true, texture: true, baseTexture: true });
-		} catch { /* */ }
-	},
-	config: {
-		destroy: false,
-		destroyChildren: false,
-	},
-});
-
-export default Viewport;
+	}
+}

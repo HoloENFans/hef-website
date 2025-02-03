@@ -86,6 +86,7 @@ class Splash extends Phaser.Scene {
 			};
 		}
 
+		// @ts-ignore
 		const match = window.location.pathname?.match(/\/projects\/(?<slug>[a-zA-Z0-9\-_]+)/i);
 		this.title = this.add.image(this.width / 2, -550, `title${match?.groups?.slug === 'gura3mil' ? '3' : '4'}`)
 			.setOrigin(0.5, 0)

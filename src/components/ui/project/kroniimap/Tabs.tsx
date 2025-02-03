@@ -104,7 +104,7 @@ export default function Tabs({ project, submissions, markerMap }: IProps) {
 										className="my-16 flex w-full flex-col items-center px-4 md:px-16 lg:px-24 2xl:px-56"
 									>
 										<div
-											className="w-full max-w-full break-words px-4 sm:!max-w-4xl md:break-normal"
+											className="w-full max-w-full break-words px-4 sm:max-w-4xl! md:break-normal"
 										>
 											<div className="flex justify-between">
 												<TextHeader>
@@ -173,7 +173,7 @@ export default function Tabs({ project, submissions, markerMap }: IProps) {
 								<div className="grow">
 									<div className="my-16 flex w-full flex-col items-center px-4 md:px-16 lg:px-24 2xl:px-56">
 										<div
-											className="flex w-full max-w-full flex-col items-center gap-10 break-words px-4 sm:!max-w-4xl md:break-normal"
+											className="flex w-full max-w-full flex-col items-center gap-10 break-words px-4 sm:max-w-4xl! md:break-normal"
 										>
 											<div className="flex flex-col items-center gap-4">
 												<h3 className="text-2xl font-semibold text-skin-text dark:text-skin-text-dark">Organizers</h3>

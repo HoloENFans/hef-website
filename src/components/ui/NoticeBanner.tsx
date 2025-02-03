@@ -76,7 +76,7 @@ export default function NoticeBanner({ data }: { data: APINoticeBanner }) {
 										<div className="mt-6">
 											<button
 												type="button"
-												className="inline-flex justify-center rounded-full border border-transparent bg-skin-primary px-4 py-2 font-medium text-white  hover:bg-skin-primary/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:bg-skin-primary-dark dark:hover:bg-skin-primary-dark/80"
+												className="inline-flex justify-center rounded-full border border-transparent bg-skin-primary px-4 py-2 font-medium text-white  hover:bg-skin-primary/80 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 dark:bg-skin-primary-dark dark:hover:bg-skin-primary-dark/80"
 												onClick={() => setDialogOpen(false)}
 											>
 												{t('close')}

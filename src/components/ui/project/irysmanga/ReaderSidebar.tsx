@@ -30,7 +30,7 @@ import ReaderModal from './modal-components/ReaderModal';
 interface IProps {
 	openSidebar: boolean;
 	setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-	modalRef: React.RefObject<HTMLDialogElement>;
+	modalRef: React.RefObject<HTMLDialogElement | null>;
 }
 
 export default function ReaderSidebar({

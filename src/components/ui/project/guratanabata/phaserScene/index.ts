@@ -124,6 +124,7 @@ class Index extends Phaser.Scene {
 	}
 
 	create() {
+		// @ts-ignore
 		const match = window.location.pathname?.match(/\/projects\/(?<slug>[a-zA-Z0-9\-_]+)/i);
 
 		this.progressBar.destroy();
@@ -212,6 +213,7 @@ class Index extends Phaser.Scene {
 		this.game.destroy(true);
 
 		this.game.events.once('destroy', () => {
+			// @ts-ignore
 			const match = window.location.pathname?.match(/\/projects\/(?<slug>[a-zA-Z0-9\-_]+)/i);
 
 			// NOTE: This uses location.pathname because we need a full reload, for

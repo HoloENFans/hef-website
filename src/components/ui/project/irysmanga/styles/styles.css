@@ -1,3 +1,5 @@
+@reference '../../../../../styles/globals.css';
+
 :root {
     --header-height: 64px;
     --sidebar-width: 300px;
@@ -156,12 +158,12 @@ SOFTWARE.
     /* disabled */
     &-disabled,
     &[disabled] {
-        @apply cursor-not-allowed text-opacity-20;
+        @apply cursor-not-allowed text-skin-primary-foreground/20;
     }
     @media (hover: hover) {
         &[disabled],
         &[disabled]:hover {
-            @apply cursor-not-allowed text-opacity-20;
+            @apply cursor-not-allowed text-skin-primary-foreground/20;
         }
     }
 }
@@ -172,27 +174,27 @@ SOFTWARE.
 }
 @media (max-width: 576px) {
     .tab {
-        @apply text-xs px-[8px] !important;
+        @apply text-xs! px-[8px]!;
     }
 }
 
 .tab:hover {
-    @apply bg-[color-mix(in_srgb,rgb(var(--color-background))_90%,black)] !important;
+    @apply bg-[color-mix(in_srgb,rgb(var(--color-background))_90%,black)]!;
 
     &:is(input:checked) {
-        @apply bg-[color-mix(in_srgb,rgb(var(--color-primary))_90%,black)] !important;
+        @apply bg-[color-mix(in_srgb,rgb(var(--color-primary))_90%,black)]!;
     }
 }
 .dark .tab:hover {
-    @apply bg-[color-mix(in_srgb,rgb(var(--color-background-dark))_90%,white)] !important;
+    @apply bg-[color-mix(in_srgb,rgb(var(--color-background-dark))_90%,white)]!;
 
     &:is(input:checked) {
-        @apply bg-[color-mix(in_srgb,rgb(var(--color-primary-dark))_90%,black)] !important;
+        @apply bg-[color-mix(in_srgb,rgb(var(--color-primary-dark))_90%,black)]!;
     }
 }
 
 .tabs-bordered > .tab {
-    @apply border-base-content border-opacity-20;
+    @apply border-base-content border-(--tab-border-color)/20;
     border-style: solid;
     border-bottom-width: calc(var(--tab-border, 1px) + 1px);
 }

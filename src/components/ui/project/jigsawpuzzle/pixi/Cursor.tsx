@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import * as PIXI from 'pixi.js';
-import { FederatedPointerEvent } from 'pixi.js';
-import { useApp } from '@pixi/react';
-import AnimatedGIF from './AnimatedGIF';
+import { Assets, FederatedPointerEvent } from 'pixi.js';
+import { useApplication } from '@pixi/react';
 
 export interface CursorOffsets {
 	offsets: {
@@ -18,18 +16,21 @@ export interface CursorOffsets {
 }
 
 export default function Cursor({ offsets }: CursorOffsets) {
-	const app = useApp();
+	return null;
 
-	const [assetBundle, setAssetBundle] = useState<null | any>(null);
-	const [currentCursor, setCurrentCursor] = useState('default');
-	const [cursorLocation, setCursorLocation] = useState({ x: 0, y: 0 });
+	const { app } = useApplication();
+
+	const [assetsLoaded, setAssetsLoaded] = useState(false);
 
 	useEffect(() => {
-		PIXI.Assets.loadBundle('puzzle')
-			.then((loadedBundle) => {
-				setAssetBundle(loadedBundle);
-			});
+		(async () => {
+			await Assets.load(['cursor-default', 'cursor-pointer']);
+			setAssetsLoaded(true);
+		})();
 	}, []);
+
+	const [currentCursor, setCurrentCursor] = useState('default');
+	const [cursorLocation, setCursorLocation] = useState({ x: 0, y: 0 });
 
 	useEffect(() => {
 		app.renderer.events.cursorStyles.default = () => {
@@ -46,20 +47,22 @@ export default function Cursor({ offsets }: CursorOffsets) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	if (!assetBundle) return null;
+	return null;
+
+	if (!assetsLoaded) return null;
 
 	return (
 		<>
-			<AnimatedGIF
-				gif={assetBundle['cursor-default']}
+			<gifSprite
+				source={Assets.get('cursor-default')}
 				x={cursorLocation.x + offsets.default.x}
 				y={cursorLocation.y + offsets.default.y}
 				width={96}
 				height={86}
 				visible={currentCursor === 'default'}
 			/>
-			<AnimatedGIF
-				gif={assetBundle['cursor-pointer']}
+			<gifSprite
+				source={Assets.get('cursor-pointer')}
 				x={cursorLocation.x + offsets.pointer.x}
 				y={cursorLocation.y + offsets.pointer.y}
 				width={96}

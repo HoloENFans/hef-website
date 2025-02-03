@@ -17,6 +17,7 @@ interface IProps {
 
 export default async function Submissions({ project, lang }: IProps) {
 	const submissions = await fetchSubmissions(project);
+	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { t } = await useTranslation(lang, 'project', 'submissions');
 
 	if (project.flags.includes('tiledSubmissions')) {

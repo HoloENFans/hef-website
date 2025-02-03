@@ -1,60 +1,87 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "daisyui";
 
-:root {
-  --color-background: 254 240 240;
-  --color-primary: 239 68 68;
-  --color-primary-foreground: 252 252 252;
-  --color-secondary: 238 206 206;
-  --color-secondary-foreground: 48 48 48;
-  --color-accent: 166 48 48;
-  --color-text: 48 48 48;
-  --color-header: 239 68 68;
-  --color-header-foreground: 252 252 252;
-  --color-heading: 210 20 20;
-  --color-link: 210 20 20;
+@custom-variant dark (&:where(.dark, .dark *));
 
-  --color-background-dark: 20 3 3;
-  --color-primary-dark: 159 15 15;
-  --color-primary-foreground-dark: 252 252 252;
-  --color-secondary-dark: 140 56 56;
-  --color-secondary-foreground-dark: 252 252 252;
-  --color-accent-dark: 147 83 83;
-  --color-text-dark: 253 236 236;
-  --color-header-dark: 140 52 52;
-  --color-header-foreground-dark: 252 252 252;
-  --color-heading-dark: 254 203 203;
-  --color-link-dark: 254 203 203;
+@theme inline {
+    --font-nunito: "Nunito";
+    --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  --color-holoen-red: #EF4444;
+    --spacing-1\/12: 8.333333%;
+    --spacing-2\/12: 16.666667%;
+    --spacing-3\/12: 25%;
+    --spacing-4\/12: 33.333333%;
+    --spacing-5\/12: 41.666667%;
+    --spacing-6\/12: 50%;
+    --spacing-7\/12: 58.333333%;
+    --spacing-8\/12: 66.666667%;
+    --spacing-9\/12: 75%;
+    --spacing-10\/12: 83.333333%;
+    --spacing-11\/12: 91.666667%;
 
-  --color-icon-primary: #FFF;
-  --color-icon-secondary: var(--color-holoen-red);
+    --color-skin-background: var(--color-skin-background);
+    --color-skin-primary: var(--color-skin-primary);
+    --color-skin-primary-foreground: var(--color-skin-primary-foreground);
+    --color-skin-secondary: var(--color-skin-secondary);
+    --color-skin-secondary-foreground: var(--color-skin-secondary-foreground);
+    --color-skin-accent: var(--color-skin-accent);
+    --color-skin-text: var(--color-skin-text);
+    --color-skin-header: var(--color-skin-header);
+    --color-skin-header-foreground: var(--color-skin-header-foreground);
+    --color-skin-heading: var(--color-skin-heading);
+    --color-skin-link: var(--color-skin-link);
 
-  --color-icon-primary-dark: #FFF;
-  --color-icon-secondary-dark: var(--color-holoen-red);
+    --color-skin-background-dark: var(--color-skin-background-dark);
+    --color-skin-primary-dark: var(--color-skin-primary-dark);
+    --color-skin-primary-foreground-dark: var(--color-skin-primary-foreground-dark);
+    --color-skin-secondary-dark: var(--color-skin-secondary-dark);
+    --color-skin-secondary-foreground-dark: var(--color-skin-secondary-foreground-dark);
+    --color-skin-accent-dark: var(--color-skin-accent-dark);
+    --color-skin-text-dark: var(--color-skin-text-dark);
+    --color-skin-header-dark: var(--color-skin-header-dark);
+    --color-skin-header-foreground-dark: var(--color-skin-header-foreground-dark);
+    --color-skin-heading-dark: var(--color-skin-heading-dark);
+    --color-skin-link-dark: var(--color-skin-link-dark);
+
+    --color-holoen-red: var(--color-holoen-red);
 }
 
-@layer components {
-  /* CSS for DarkModeToggle */
-  /* The switch - the box around the slider */
-  .switch {
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+@utility switch {
+    /* CSS for DarkModeToggle */
+    /* The switch - the box around the slider */
     position: relative;
     display: inline-block;
     width: 56px;
     height: 32px;
-  }
 
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+    /* Hide default HTML checkbox */
+    & input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+}
 
-  /* The slider */
-  .slider {
+@utility slider {
+    /* The slider */
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -62,150 +89,198 @@
     right: 0;
     bottom: 0;
     /* background-color: #ccc; */
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 24px;
-    width: 24px;
-    left: 5px;
-    bottom: 4px;
-    background-color: white;
-    box-shadow: 0 0 4px #999;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
+    &:before {
+        position: absolute;
+        content: '';
+        height: 24px;
+        width: 24px;
+        left: 5px;
+        bottom: 4px;
+        background-color: white;
+        box-shadow: 0 0 4px #999;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+    }
 
-  /* input:checked + .slider {
-    background-color: #2196F3;
-  } */
+    /* input:checked + .slider {
+      background-color: #2196F3;
+    } */
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
+    input:focus + & {
+        box-shadow: 0 0 1px #2196f3;
+    }
 
-  input:checked + .slider:before {
-    -webkit-transform: translateX(22px);
-    -ms-transform: translateX(22px);
-    transform: translateX(22px);
-  }
+    input:checked + &:before {
+        -webkit-transform: translateX(22px);
+        -ms-transform: translateX(22px);
+        transform: translateX(22px);
+    }
 
-  .description-body {
+    /* Rounded sliders */
+    &.round {
+        border-radius: 34px;
+    }
+
+    &.round:before {
+        border-radius: 50%;
+    }
+}
+
+@utility description-body {
     @apply flex flex-col gap-4 text-lg;
 
     h1 {
-      @apply my-8 text-center text-3xl font-semibold text-skin-text dark:text-skin-text-dark sm:text-5xl;
+        @apply my-8 text-center text-3xl font-semibold text-skin-text dark:text-skin-text-dark sm:text-5xl;
     }
 
     h2 {
-      @apply my-4 text-xl font-semibold text-skin-text dark:text-skin-text-dark sm:text-2xl;
+        @apply my-4 text-xl font-semibold text-skin-text dark:text-skin-text-dark sm:text-2xl;
     }
 
     h3 {
-      @apply my-4 text-lg font-semibold text-skin-text dark:text-skin-text-dark sm:text-xl;
+        @apply my-4 text-lg font-semibold text-skin-text dark:text-skin-text-dark sm:text-xl;
     }
 
     h4 {
-      @apply my-2 text-lg font-semibold text-skin-text dark:text-skin-text-dark;
+        @apply my-2 text-lg font-semibold text-skin-text dark:text-skin-text-dark;
     }
 
     h5 {
-      @apply my-2 text-base font-semibold text-skin-text dark:text-skin-text-dark;
+        @apply my-2 text-base font-semibold text-skin-text dark:text-skin-text-dark;
     }
 
     h6 {
-      @apply my-2 text-base font-semibold text-skin-text dark:text-skin-text-dark;
+        @apply my-2 text-base font-semibold text-skin-text dark:text-skin-text-dark;
     }
 
-    p, blockquote, ul, ol, li {
-      @apply text-black dark:text-gray-300;
+    p,
+    blockquote,
+    ul,
+    ol,
+    li {
+        @apply text-black dark:text-gray-300;
     }
 
     :link {
-      @apply text-skin-link dark:text-skin-link-dark;
+        @apply text-skin-link dark:text-skin-link-dark;
     }
-  }
+}
 
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
+@utility round {
+    /* Rounded sliders */
+    &.slider {
+        border-radius: 34px;
+    }
 
-  .slider.round:before {
-    border-radius: 50%;
-  }
+    &.slider:before {
+        border-radius: 50%;
+    }
 }
 
 /** {
   @apply transition-colors duration-300 motion-reduce:transition-none;
 }*/
 
+@layer utilities {
+    :root {
+        --color-skin-background: rgb(254 240 240);
+        --color-skin-primary: rgb(239 68 68);
+        --color-skin-primary-foreground: rgb(252 252 252);
+        --color-skin-secondary: rgb(238 206 206);
+        --color-skin-secondary-foreground: rgb(48 48 48);
+        --color-skin-accent: rgb(166 48 48);
+        --color-skin-text: rgb(48 48 48);
+        --color-skin-header: rgb(239 68 68);
+        --color-skin-header-foreground: rgb(252 252 252);
+        --color-skin-heading: rgb(210 20 20);
+        --color-skin-link: rgb(210 20 20);
 
+        --color-skin-background-dark: rgb(20 3 3);
+        --color-skin-primary-dark: rgb(159 15 15);
+        --color-skin-primary-foreground-dark: rgb(252 252 252);
+        --color-skin-secondary-dark: rgb(140 56 56);
+        --color-skin-secondary-foreground-dark: rgb(252 252 252);
+        --color-skin-accent-dark: rgb(147 83 83);
+        --color-skin-text-dark: rgb(253 236 236);
+        --color-skin-header-dark: rgb(140 52 52);
+        --color-skin-header-foreground-dark: rgb(252 252 252);
+        --color-skin-heading-dark: rgb(254 203 203);
+        --color-skin-link-dark: rgb(254 203 203);
+
+        --color-holoen-red: #ef4444;
+
+        --color-skin-icon-primary: #fff;
+        --color-skin-icon-secondary: var(--color-holoen-red);
+
+        --color-skin-icon-primary-dark: #fff;
+        --color-skin-icon-secondary-dark: var(--color-holoen-red);
+    }
+}
 
 .dark {
-  input, textarea {
-    background-color: #2b2a33;
-  }
+    input, textarea {
+        background-color: #2b2a33;
+    }
 
-  ::placeholder {
-    color: #9ca3a1;
-  }
+    ::placeholder {
+        color: #9ca3a1;
+    }
 }
 
 .description-body {
-  background-color: inherit !important;
+    background-color: inherit !important;
 }
 
 .description-body code {
-  color: #000;
+    color: #000;
 }
 
 .blur-background-target {
-  animation-name: blur-background-target-animation;
-  animation-duration: 500ms;
-  animation-timing-function: ease-in-out;
+    animation-name: blur-background-target-animation;
+    animation-duration: 500ms;
+    animation-timing-function: ease-in-out;
 }
 
 @keyframes blur-background-target-animation {
-  from { opacity: 0; }
-  to { opacity: 1; }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .sana-message {
-  background-image: url('/assets/sanasendoff/message_bg.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 600px;
-  @apply flex text-center justify-center items-center !text-slate-700;
+    background-image: url('/assets/sanasendoff/message_bg.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 600px;
+    @apply flex text-center justify-center items-center text-slate-700!;
 }
 
 .sana-message span {
-  top: -25px;
-  width: 330px;
+    top: -25px;
+    width: 330px;
 }
 
 @media only screen and (max-width: 530px) {
-  .sana-message span {
-    width: 200px;
-  }
+    .sana-message span {
+        width: 200px;
+    }
 }
 
 .sana-letter {
-  transform: rotate(1deg);
-  transform-origin: 50% 50%;
+    transform: rotate(1deg);
+    transform-origin: 50% 50%;
 }
 
 div#stats {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 500;
-  width: max(200px, 10vw, 10vh);
-  height: max(100px, 6vh, 6vw);
-  opacity: 0.8;
-  user-select: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 500;
+    width: max(200px, 10vw, 10vh);
+    height: max(100px, 6vh, 6vw);
+    opacity: 0.8;
+    user-select: none;
 }

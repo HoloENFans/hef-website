@@ -9,9 +9,9 @@ import { Nunito } from 'next/font/google';
 
 interface IProps {
 	children: React.ReactNode;
-	params: {
+	params: Promise<{
 		lang: Language;
-	};
+	}>;
 }
 
 const nunito = Nunito({
@@ -19,10 +19,9 @@ const nunito = Nunito({
 	subsets: ['latin'],
 });
 
-export default async function RootLayout({
-	children,
-	params: { lang },
-}: IProps) {
+export default async function RootLayout({ params, children }: IProps) {
+	const { lang } = await params;
+
 	return (
 		<html
 			lang={lang}
@@ -44,9 +43,13 @@ export async function generateStaticParams() {
 	return languages.map((language) => ({ lang: language }));
 }
 
-export async function generateMetadata({
-	params: { lang },
-}: IProps): Promise<Metadata> {
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+	const params = await props.params;
+
+	const {
+		lang,
+	} = params;
+
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { t } = await useTranslation(lang, 'layout', 'head');
 

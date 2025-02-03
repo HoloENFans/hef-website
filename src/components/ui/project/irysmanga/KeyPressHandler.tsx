@@ -16,8 +16,8 @@ import {
 
 interface IProps {
 	setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-	readerContainerRef: React.RefObject<HTMLDivElement>;
-	modalRef: React.RefObject<HTMLDialogElement>;
+	readerContainerRef: React.RefObject<HTMLDivElement | null>;
+	modalRef: React.RefObject<HTMLDialogElement | null>;
 }
 
 export default function KeyPressHandler({
@@ -41,8 +41,8 @@ export default function KeyPressHandler({
 		setHeaderVisibility,
 	} = useMangaContext();
 
-	const scrollIntervalRef = useRef<any>();
-	const scrollDirectionRef = useRef<number>();
+	const scrollIntervalRef = useRef<any>(undefined);
+	const scrollDirectionRef = useRef<number>(undefined);
 
 	const { resolvedTheme, setTheme } = useTheme();
 

@@ -18,13 +18,18 @@ export interface IForm {
 }
 
 interface IProps {
-	params: {
+	params: Promise<{
 		id: string;
 		lang: Language;
-	};
+	}>;
 }
 
-export default async function FormPage({ params: { id, lang } }: IProps) {
+export default async function FormPage({ params }: IProps) {
+	const {
+		id,
+		lang,
+	} = await params;
+
 	const form = await fetchForm(id, lang);
 
 	if (!form) {
@@ -82,7 +87,9 @@ export default async function FormPage({ params: { id, lang } }: IProps) {
 	);
 }
 
-export async function generateStaticParams({ params: { lang } }: IProps) {
+export async function generateStaticParams({ params }: IProps) {
+	const { lang } = await params;
+
 	let forms: Form[] = [];
 	let moreForms = true;
 	let page = 1;
@@ -119,7 +126,14 @@ export async function generateStaticParams({ params: { lang } }: IProps) {
 	));
 }
 
-export async function generateMetadata({ params: { id, lang } }: IProps): Promise<Metadata> {
+export async function generateMetadata(props: IProps): Promise<Metadata> {
+	const params = await props.params;
+
+	const {
+		id,
+		lang,
+	} = params;
+
 	const formsRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/forms?where[id][equals]=${id}&depth=0&locale=${lang}&fallback-locale=en`, {
 		headers: {
 			'X-RateLimit-Bypass': process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY ?? undefined,

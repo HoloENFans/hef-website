@@ -1,19 +1,16 @@
 'use client';
 
 import React, {
-	Dispatch, SetStateAction, useCallback, useContext, useState,
+	Dispatch, SetStateAction, useCallback, useContext, useEffect, useRef, useState,
 } from 'react';
-import {
-	Container, Graphics, Sprite, Text, useApp,
-} from '@pixi/react';
-import { Graphics as PixiGraphics, TextStyle } from 'pixi.js';
+import { useApplication } from '@pixi/react';
+import { Graphics, TextStyle, Texture } from 'pixi.js';
 import ThemeContext from '@/components/ui/project/jigsawpuzzle/providers/ThemeContext';
 import usePuzzleStore from '../providers/PuzzleStoreConsumer';
-import TaggedText from './TaggedText';
 import Button from './Button';
-import Scrollbox from './Scrollbox';
 import PuzzleStoreContext from '../providers/PuzzleStoreContext';
 import CreditsRenderer, { CreditNode } from './CreditsRenderer';
+import type PixiScrollbox from './PixiScrollbox';
 
 export interface Credits {
 	length: number;
@@ -43,66 +40,80 @@ export default function AboutModal({
 	setShowSettingsModal,
 	setShowAllSubmissions,
 }: AboutModalProps) {
-	const app = useApp();
+	const { app } = useApplication();
 	const [message, setMessage] = useState<string | null>(null);
 
 	const puzzleStore = useContext(PuzzleStoreContext)!;
 	const difficultyName = usePuzzleStore((state) => state.difficultyName);
 	const setDifficulty = usePuzzleStore((state) => state.setDifficulty);
 
+	const aboutBoxRef = useRef<PixiScrollbox>(null);
+	const creditsBoxRef = useRef<PixiScrollbox>(null);
+
 	const { colors: themeColors, resolvedTheme } = useContext(ThemeContext);
 
-	const drawBackground = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].background);
-		g.drawRect(0, 0, width, height);
-		g.endFill();
+	const drawBackground = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.rect(0, 0, width, height)
+			.fill(themeColors[resolvedTheme].background);
 	}, [themeColors, resolvedTheme, width, height]);
 
-	const drawSettingsBox = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].secondary);
-		g.drawRoundedRect(0, 0, 700, 400, 8);
-		g.endFill();
+	const drawSettingsBox = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.roundRect(0, 0, 700, 400, 8)
+			.fill(themeColors[resolvedTheme].secondary);
 	}, [resolvedTheme, themeColors]);
 
-	const drawCreditsBox = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].secondary);
-		g.drawRoundedRect(0, 0, 700, 864, 8);
-		g.endFill();
+	const drawCreditsBox = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.roundRect(0, 0, 700, 864, 8)
+			.fill(themeColors[resolvedTheme].secondary);
 	}, [resolvedTheme, themeColors]);
 
-	const drawExitButton = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].secondary);
-		g.drawCircle(16, 16, 20);
-		g.endFill();
+	const drawExitButton = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.circle(16, 16, 20)
+			.fill(themeColors[resolvedTheme].secondary);
 	}, [resolvedTheme, themeColors]);
+
+	useEffect(() => {
+		if (aboutBoxRef.current) aboutBoxRef.current.overflowY = 'scroll';
+		if (creditsBoxRef.current) creditsBoxRef.current.overflowY = 'scroll';
+	}, [aboutBoxRef, creditsBoxRef]);
 
 	return (
-		<Container
+		<pixiContainer
 			x={x}
 			y={y}
 		>
-			<Graphics
+			<pixiGraphics
 				draw={drawBackground}
 			/>
-			<Container x={width / 2} y={height / 2} anchor={[0.5, 0.5]}>
-				<Container
+			<pixiContainer x={width / 2} y={height / 2} anchor={0.5}>
+				<pixiContainer
 					x={-732}
 					y={-432}
 				>
-					<Graphics
+					<pixiGraphics
 						draw={drawSettingsBox}
 					/>
-					<Scrollbox
+					<scrollbox
 						boxWidth={700}
+						scrollWidth={700}
 						boxHeight={400}
 						app={app}
+						scrollbarForeground={0x00000}
+						scrollbarOffsetHorizontal={-4}
+						overflowX="none"
 						overflowY="scroll"
+						passiveWheel
+						ref={aboutBoxRef}
 					>
-						<Text
+						<pixiText
 							text="About"
 							style={{
 								fill: themeColors[resolvedTheme].secondaryForeground,
@@ -111,50 +122,40 @@ export default function AboutModal({
 							} as TextStyle}
 							x={350}
 							y={32}
-							anchor={[0.5, 0]}
+							anchor={{ x: 0.5, y: 0 }}
 						/>
-						<TaggedText
+						<pixiText
 							text={aboutText}
-							styles={{
-								default: {
-									fill: themeColors[resolvedTheme].secondaryForeground,
-									fontSize: 18,
-									wordWrap: true,
-									wordWrapWidth: 636,
-								},
-								b: {
-									fontWeight: 'bold',
-								},
-								i: {
-									fontStyle: 'italic',
-								},
-								h: {
-									fontSize: 24,
-								},
+							style={{
+								fill: themeColors[resolvedTheme].secondaryForeground,
+								fontSize: 18,
+								wordWrap: true,
+								wordWrapWidth: 636,
 							}}
 							x={32}
 							y={64}
 							width={636}
-							scale={{ x: 1, y: 1 }}
+							scale={1}
 						/>
-						<Graphics
+						<pixiGraphics
 							y={600}
 							draw={(g) => {
-								g.beginFill(0);
-								g.drawRect(0, 0, 0, 0);
-								g.endFill();
+								g
+									.clear()
+									.rect(0, 0, 0, 0)
+									.fill(0);
 							}}
 						/>
-					</Scrollbox>
-				</Container>
-				<Container
+					</scrollbox>
+				</pixiContainer>
+				<pixiContainer
 					x={-732}
 					y={32}
 				>
-					<Graphics
+					<pixiGraphics
 						draw={drawSettingsBox}
 					/>
-					<Text
+					<pixiText
 						text="Settings"
 						style={{
 							fill: themeColors[resolvedTheme].secondaryForeground,
@@ -163,7 +164,7 @@ export default function AboutModal({
 						} as TextStyle}
 						x={350}
 						y={32}
-						anchor={[0.5, 0]}
+						anchor={{ x: 0.5, y: 0 }}
 					/>
 					<Button
 						x={180}
@@ -224,7 +225,7 @@ export default function AboutModal({
 						onClick={() => setShowAllSubmissions(true)}
 					/>
 					{message && (
-						<Text
+						<pixiText
 							text={message}
 							style={{
 								fill: themeColors[resolvedTheme].secondaryForeground,
@@ -232,26 +233,33 @@ export default function AboutModal({
 							} as TextStyle}
 							x={350}
 							y={352}
-							anchor={[0.5, 0]}
+							anchor={{ x: 0.5, y: 0 }}
 						/>
 					)}
-				</Container>
-				<Container
+				</pixiContainer>
+				<pixiContainer
 					x={32}
 					y={-432}
 				>
-					<Graphics
+					<pixiGraphics
 						draw={drawCreditsBox}
 						x={0}
 						y={0}
 					/>
-					<Scrollbox
+					<scrollbox
 						boxWidth={700}
+						scrollWidth={700}
 						boxHeight={864}
+						scrollHeight={credits.length}
 						app={app}
+						scrollbarForeground={0x00000}
+						scrollbarOffsetHorizontal={-4}
+						overflowX="none"
 						overflowY="scroll"
+						passiveWheel
+						ref={creditsBoxRef}
 					>
-						<Text
+						<pixiText
 							text="Credits"
 							style={{
 								fill: themeColors[resolvedTheme].secondaryForeground,
@@ -260,8 +268,8 @@ export default function AboutModal({
 							} as TextStyle}
 							x={350}
 							y={32}
-							anchor={[0.5, 0]}
-							scale={[1, 1]}
+							anchor={{ x: 0.5, y: 0 }}
+							scale={1}
 						/>
 						<CreditsRenderer
 							nodes={credits.nodes}
@@ -269,34 +277,35 @@ export default function AboutModal({
 							linkColor={themeColors[resolvedTheme].link}
 						/>
 
-						<Graphics
+						<pixiGraphics
 							y={credits.length}
 							draw={(g) => {
-								g.beginFill(0);
-								g.drawRect(0, 0, 0, 0);
-								g.endFill();
+								g
+									.clear()
+									.rect(0, 0, 0, 0)
+									.fill(0);
 							}}
 						/>
-					</Scrollbox>
-				</Container>
-			</Container>
-			<Container
+					</scrollbox>
+				</pixiContainer>
+			</pixiContainer>
+			<pixiContainer
 				x={width - 64}
 				y={32}
 				eventMode="static"
-				onclick={() => setShowSettingsModal(false)}
+				onClick={() => setShowSettingsModal(false)}
 				cursor="pointer"
 			>
-				<Graphics
+				<pixiGraphics
 					draw={drawExitButton}
 				/>
-				<Sprite
-					image="https://cdn.holoen.fans/hefw/assets/jigsawpuzzle/x-mark.svg"
+				<pixiSprite
+					texture={Texture.from('https://cdn.holoen.fans/hefw/assets/jigsawpuzzle/x-mark.svg')}
 					tint={themeColors[resolvedTheme].secondaryForeground}
 					width={32}
 					height={32}
 				/>
-			</Container>
-		</Container>
+			</pixiContainer>
+		</pixiContainer>
 	);
 }

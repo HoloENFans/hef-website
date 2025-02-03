@@ -3,7 +3,6 @@ module.exports = {
 		'airbnb',
 		'airbnb-typescript',
 		'next/core-web-vitals',
-		'plugin:tailwindcss/recommended',
 		'plugin:storybook/recommended',
 	],
 	plugins: ['@typescript-eslint', 'import'],

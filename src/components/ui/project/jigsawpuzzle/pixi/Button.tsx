@@ -1,5 +1,4 @@
 import React from 'react';
-import { Container, Graphics, Text } from '@pixi/react';
 import { TextStyle } from 'pixi.js';
 
 interface ButtonProps {
@@ -24,34 +23,34 @@ export default function Button({
 	};
 
 	return (
-		<Container
+		<pixiContainer
 			eventMode={onClick ? 'static' : 'auto'}
-			pointerdown={handleClick}
+			onPointerDown={handleClick}
 			x={x}
 			y={y}
 			cursor={onClick ? 'pointer' : undefined}
 		>
-			<Graphics
+			<pixiGraphics
 				draw={(g) => {
-					g.clear();
 					if (color) {
-						g.beginFill(color);
-						g.drawRoundedRect(0, 0, width, height, radius);
-						g.endFill();
+						g
+							.clear()
+							.roundRect(0, 0, width, height, radius)
+							.fill(color);
 					}
 				}}
 			/>
-			<Text
+			<pixiText
 				text={label}
 				style={{
 					fill: textColor,
 					fontSize: 18,
 					fontWeight: 'bold',
 				} as TextStyle}
-				anchor={[0.5, 0.5]}
+				anchor={0.5}
 				x={width / 2}
 				y={height / 2}
 			/>
-		</Container>
+		</pixiContainer>
 	);
 }

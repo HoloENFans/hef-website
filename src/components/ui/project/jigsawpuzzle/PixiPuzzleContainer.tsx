@@ -1,20 +1,18 @@
 'use client';
 
+import { useApplication } from '@pixi/react';
 import {
-	Container, Graphics, Text, useApp,
-} from '@pixi/react';
+	Assets, Graphics, GraphicsContextSystem, TextStyle,
+} from 'pixi.js';
 import React, {
-	Dispatch, SetStateAction,
-	useCallback, useContext, useEffect, useMemo, useRef, useState,
+	Dispatch, SetStateAction, useCallback, useContext, useEffect, useMemo, useState,
 } from 'react';
-import * as PIXI from 'pixi.js';
-import { Graphics as PixiGraphics, Renderer, TextStyle } from 'pixi.js';
-import type { Viewport as PixiViewport } from 'pixi-viewport';
 import { Submission } from '@/types/payload-types';
+import { initDevtools } from '@pixi/devtools';
+import AbritraryIntermittentGif from '@/components/ui/project/jigsawpuzzle/pixi/AbritraryIntermittentGif';
 import ThemeContext from './providers/ThemeContext';
 import PuzzleStoreContext from './providers/PuzzleStoreContext';
 import type { StageSize } from './PixiWrapper';
-import Viewport from './pixi/Viewport';
 import Sidebar from './pixi/Sidebar';
 import Puzzle, { BGMConfig } from './puzzle/Puzzle';
 import ViewportContext from './providers/ViewportContext';
@@ -28,7 +26,6 @@ import Button from './pixi/Button';
 import Preview from './pixi/Preview';
 import AboutModal from './pixi/AboutModal';
 import Cursor, { CursorOffsets } from './pixi/Cursor';
-import AnimatedGIF from './pixi/AnimatedGIF';
 import usePuzzleStore from './providers/PuzzleStoreConsumer';
 import PuzzleStartModal from './pixi/PuzzleStartModal';
 
@@ -67,7 +64,7 @@ export default function PixiPuzzleContainer({
 	// eslint-disable-next-line max-len
 	stageSize, aboutText, credits, puzzleImgUrl, gifsConfig, bgmConfig, victoryScreenConfig, cursorOffsets, kroniiEnabled, submissions, setShowAllSubmissions, setShowVictoryVideo,
 }: IProps) {
-	const app = useApp();
+	const { app, isInitialised } = useApplication();
 
 	const puzzleStore = useContext(PuzzleStoreContext)!;
 
@@ -76,12 +73,10 @@ export default function PixiPuzzleContainer({
 	const [showSettingsModal, setShowSettingsModal] = useState(false);
 	const [showPuzzleCompleteModal, setShowPuzzleCompleteModal] = useState(false);
 	const [disableDragging, setDisableDragging] = useState(false);
-	const [assetBundle, setAssetBundle] = useState<null | any>(null);
 	const [selectedPiece, setSelectedPiece] = useState<PieceInfo | undefined>(undefined);
 	const [resetTrigger, setResetTrigger] = useState(false);
 
 	const showPuzzleStartModal = usePuzzleStore((state) => state.firstLoad);
-	const viewportRef = useRef<PixiViewport | null>(null);
 
 	const { colors: themeColors, resolvedTheme } = useContext(ThemeContext);
 
@@ -96,34 +91,28 @@ export default function PixiPuzzleContainer({
 	);
 
 	useEffect(() => {
-		(app.renderer as unknown as Renderer).framebuffer.blit();
-		// @ts-ignore
-		globalThis.__PIXI_APP__ = app;
+		GraphicsContextSystem.defaultOptions.bezierSmoothness = 0.8;
+		// eslint-disable-next-line no-void
+		void initDevtools({ app }).catch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
+
+		// eslint-disable-next-line no-void
+		void Assets.loadBundle('puzzle');
 	}, []);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		app.renderer.resize(stageSize.width, stageSize.height);
 		viewportRef.current?.fit();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [stageSize]);
+	}, [stageSize]); */
 
-	useEffect(() => {
-		PIXI.Assets.loadBundle('puzzle')
-			.then((loadedBundle) => {
-				setAssetBundle(loadedBundle);
-			});
-	}, []);
-
-	const drawPuzzleContainer = useCallback((g: PixiGraphics) => {
-		g.clear();
-		g.beginFill(themeColors[resolvedTheme].background);
-		g.drawRect(SIDEBAR_WIDTH, 0, stageSize.width, stageSize.height);
-		g.endFill();
-		g.beginHole();
-		// eslint-disable-next-line max-len
-		g.drawRoundedRect(SIDEBAR_WIDTH, 16, stageSize.width - SIDEBAR_WIDTH - 16, stageSize.height - 32, 8);
-		g.endHole();
+	const drawPuzzleContainer = useCallback((g: Graphics) => {
+		g
+			.clear()
+			.rect(SIDEBAR_WIDTH, 0, stageSize.width, stageSize.height)
+			.fill(themeColors[resolvedTheme].background)
+			.roundRect(SIDEBAR_WIDTH, 16, stageSize.width - SIDEBAR_WIDTH - 16, stageSize.height - 32, 8)
+			.cut();
 	}, [stageSize.width, stageSize.height, resolvedTheme, themeColors]);
 
 	const gifs = useMemo(() => {
@@ -153,16 +142,16 @@ export default function PixiPuzzleContainer({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [window.innerWidth, window.innerHeight]);
 
+	if (!isInitialised) return null;
+
 	return (
 		<ViewportContext.Provider value={viewportContextMemo}>
-			<Viewport
-				width={stageSize.width}
-				height={stageSize.height}
+			<viewport
 				worldWidth={WORLD_WIDTH}
 				worldHeight={WORLD_HEIGHT}
 				disableDragging={disableDragging}
 				app={app}
-				viewportRef={viewportRef}
+				events={app.renderer.events}
 			>
 				<Puzzle
 					x={SIDEBAR_WIDTH + PUZZLE_WIDTH / 2}
@@ -191,8 +180,8 @@ export default function PixiPuzzleContainer({
 					}}
 					submissions={submissions}
 				/>
-			</Viewport>
-			<Graphics
+			</viewport>
+			<pixiGraphics
 				draw={drawPuzzleContainer}
 			/>
 			<Sidebar
@@ -211,12 +200,12 @@ export default function PixiPuzzleContainer({
 				/>
 			</Sidebar>
 
-			{assetBundle && gifs.map((gif) => (
-				<AnimatedGIF
+			{gifs.map((gif) => (
+				<AbritraryIntermittentGif
 					key={gif.key}
 					x={gif.x}
 					y={gif.y}
-					gif={assetBundle[gif.key]}
+					source={gif.key}
 					width={gif.width}
 					height={gif.height}
 					intermittence={gif.intermittence}
@@ -232,16 +221,16 @@ export default function PixiPuzzleContainer({
 
 			{
 				showExitModal && (
-					<Container>
-						<Graphics
-							draw={(g: PixiGraphics) => {
-								g.clear();
-								g.beginFill(0x222222);
-								g.drawRect(0, 0, stageSize.width, stageSize.height);
-								g.endFill();
+					<pixiContainer>
+						<pixiGraphics
+							draw={(g) => {
+								g
+									.clear()
+									.rect(0, 0, stageSize.width, stageSize.height)
+									.fill(0x222222);
 							}}
 						/>
-						<Text
+						<pixiText
 							text="Are you sure you want to leave?"
 							style={{
 								fill: 'white',
@@ -251,7 +240,7 @@ export default function PixiPuzzleContainer({
 							} as TextStyle}
 							x={stageSize.width / 2}
 							y={stageSize.height / 2 - 50}
-							anchor={[0.5, 0.5]}
+							anchor={0.5}
 							scale={1}
 						/>
 						<Button
@@ -275,7 +264,7 @@ export default function PixiPuzzleContainer({
 							radius={8}
 							onClick={() => setShowExitModal(false)}
 						/>
-					</Container>
+					</pixiContainer>
 				)
 			}
 

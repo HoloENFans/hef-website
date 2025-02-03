@@ -17,7 +17,7 @@ import LoadingIcon from './LoadingIcon';
 interface IProps {
 	openSidebar: boolean
 	setOpenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-	containerRef: React.RefObject<HTMLDivElement>;
+	containerRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export default function Reader({

@@ -1,8 +1,8 @@
 import { Project } from '@/types/payload-types';
 import { Language } from '@/lib/i18n/languages';
 import { Jura } from 'next/font/google';
-import dynamic from 'next/dynamic';
 import { MangaProvider } from './context/MangaContext';
+import IrysMangaClientWrapper from './IrysMangaClientWrapper';
 import getManga from './utils/data-helper';
 import { getImageUrl } from '../../legacy/Image';
 
@@ -56,7 +56,6 @@ async function fetchOptimizedImageURLs({ project }: IProps) {
 
 export default async function IrysMangaDataWrapper({ project, lang }: IProps) {
 	const optimizedImages = await fetchOptimizedImageURLs({ project, lang });
-	const IrysManga = dynamic(() => import('./IrysManga'), { ssr: false });
 
 	return (
 		<div className={jura.className}>
@@ -65,7 +64,7 @@ export default async function IrysMangaDataWrapper({ project, lang }: IProps) {
 				lang={lang}
 				optimizedImages={optimizedImages}
 			>
-				<IrysManga />
+				<IrysMangaClientWrapper />
 			</MangaProvider>
 		</div>
 	);

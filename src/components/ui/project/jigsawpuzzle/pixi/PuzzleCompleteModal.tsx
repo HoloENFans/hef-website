@@ -1,10 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import {
-	Container, Graphics, Sprite, Text,
-} from '@pixi/react';
-import * as PIXI from 'pixi.js';
-import { Graphics as PixiGraphics, TextStyle } from 'pixi.js';
-import AnimatedGIF from './AnimatedGIF';
+import { Assets, TextStyle, Texture } from 'pixi.js';
 import Button from './Button';
 
 interface ModalProps {
@@ -19,13 +14,13 @@ interface ModalProps {
 export default function PuzzleCompleteModal({
 	x, y, width, height, closeModal, openSettings,
 }: ModalProps) {
-	const [assetBundle, setAssetBundle] = useState<null | any>(null);
+	const [assetsLoaded, setAssetsLoaded] = useState(false);
 
 	useEffect(() => {
-		PIXI.Assets.loadBundle('puzzle')
-			.then((loadedBundle) => {
-				setAssetBundle(loadedBundle);
-			});
+		(async () => {
+			await Assets.load('congrats_kronii');
+			setAssetsLoaded(true);
+		})();
 	}, []);
 
 	const {
@@ -48,24 +43,26 @@ export default function PuzzleCompleteModal({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [window.innerWidth, window.innerHeight]);
 
+	if (!assetsLoaded) return null;
+
 	return (
-		<Container x={x} y={y}>
-			<Graphics
-				draw={(g: PixiGraphics) => {
-					g.clear();
-					g.beginFill(0x222222);
-					g.drawRect(0, 0, width, height);
-					g.endFill();
+		<pixiContainer x={x} y={y}>
+			<pixiGraphics
+				draw={(g) => {
+					g
+						.clear()
+						.rect(0, 0, width, height)
+						.fill(0x222222);
 				}}
 			/>
-			<Text
+			<pixiText
 				text="Happy 2 Year Anniversary, Kronii!"
 				style={{
 					fill: 'white',
 					fontSize: 40,
 					fontWeight: 'bold',
 				} as TextStyle}
-				anchor={[0.5, 0.5]}
+				anchor={0.5}
 				x={width / 2}
 				y={height / 2}
 			/>
@@ -78,38 +75,36 @@ export default function PuzzleCompleteModal({
 				label="Credits / reset puzzle"
 				onClick={openSettings}
 			/>
-			{assetBundle && (
-				<AnimatedGIF
-					x={-x + gifX}
-					y={-y + gifY}
-					gif={assetBundle.congrats_kronii}
-					width={gifWidth}
-					height={gifHeight}
-				/>
-			)}
+			<gifSprite
+				x={-x + gifX}
+				y={-y + gifY}
+				source={Assets.get('congrats_kronii')}
+				width={gifWidth}
+				height={gifHeight}
+			/>
 
-			<Container
+			<pixiContainer
 				x={width - 64}
 				y={32}
 				eventMode="static"
-				onclick={closeModal}
+				onClick={closeModal}
 				cursor="pointer"
 			>
-				<Graphics
+				<pixiGraphics
 					draw={(g) => {
-						g.clear();
-						g.beginFill(0xBDD1EC);
-						g.drawCircle(16, 16, 20);
-						g.endFill();
+						g
+							.clear()
+							.circle(16, 16, 20)
+							.fill(0xBDD1EC);
 					}}
 				/>
-				<Sprite
-					image="https://cdn.holoen.fans/hefw/assets/jigsawpuzzle/x-mark.svg"
+				<pixiSprite
+					texture={Texture.from('https://cdn.holoen.fans/hefw/assets/jigsawpuzzle/x-mark.svg')}
 					tint={0x000000}
 					width={32}
 					height={32}
 				/>
-			</Container>
-		</Container>
+			</pixiContainer>
+		</pixiContainer>
 	);
 }

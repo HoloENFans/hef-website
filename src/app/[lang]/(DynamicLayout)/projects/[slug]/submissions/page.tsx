@@ -13,10 +13,10 @@ import { ArrowLeftIcon, LinkIcon } from '@heroicons/react/20/solid';
 import ButtonLink from '@/components/ui/ButtonLink';
 
 interface IProps {
-	params: {
+	params: Promise<{
 		slug: string;
 		lang: Language;
-	}
+	}>
 }
 
 async function fetchProject(slug: string, lang: Language) {
@@ -129,7 +129,12 @@ export function RandomSubmissions({ submissions }: { submissions: ISubmission[] 
 	));
 }
 
-export default async function SubmissionsPage({ params: { slug, lang } }: IProps) {
+export default async function SubmissionsPage({ params }: IProps) {
+	const {
+		slug,
+		lang,
+	} = await params;
+
 	const project = await fetchProject(slug, lang);
 	if (!project || !project.hasSubmissions) {
 		notFound();
@@ -300,7 +305,12 @@ export default async function SubmissionsPage({ params: { slug, lang } }: IProps
 	);
 }
 
-export async function generateMetadata({ params: { slug, lang } }: IProps): Promise<Metadata> {
+export async function generateMetadata({ params }: IProps): Promise<Metadata> {
+	const {
+		slug,
+		lang,
+	} = await params;
+
 	const projectRes = await fetch(`${process.env.NEXT_PUBLIC_CMS_URL!}/api/projects?where[slug][like]=${slug}&depth=2&locale=${lang}&fallback-locale=en`, {
 		headers: {
 			'X-RateLimit-Bypass': process.env.PAYLOAD_BYPASS_RATE_LIMIT_KEY ?? undefined,

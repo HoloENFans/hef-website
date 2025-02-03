@@ -1,29 +1,29 @@
 .holoEN {}
 
 .fuwamoco {
-    --color-background: 249 241 228;
-    --color-primary: 34 137 224;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 148 201 247;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 0 0 0;
-    --color-text: 55 55 65;
-    --color-header: 34 137 224;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 13 75 128;
-    --color-link: 13 75 128;
+    --color-skin-background: rgb(249 241 228);
+    --color-skin-primary: rgb(34 137 224);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(148 201 247);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(0 0 0);
+    --color-skin-text: rgb(55 55 65);
+    --color-skin-header: rgb(34 137 224);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(13 75 128);
+    --color-skin-link: rgb(13 75 128);
 
-    --color-background-dark: 13 12 12;
-    --color-primary-dark: 34 137 224;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 51 92 128;
-    --color-secondary-foreground-dark: 0 0 0;
-    --color-secondary-heading-dark: 0 0 0;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 53 121 178;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 115 191 255;
-    --color-link-dark: 115 191 255;
+    --color-skin-background-dark: rgb(13 12 12);
+    --color-skin-primary-dark: rgb(34 137 224);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(51 92 128);
+    --color-skin-secondary-foreground-dark: rgb(0 0 0);
+    --color-skin-secondary-heading-dark: rgb(0 0 0);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(53 121 178);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(115 191 255);
+    --color-skin-link-dark: rgb(115 191 255);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -32,29 +32,29 @@
 }
 
 .mococo {
-    --color-background: 249 224 235;
-    --color-primary: 229 103 161;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 249 179 211;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 13 1 7;
-    --color-text: 55 55 65;
-    --color-header: 247 166 202;
-    --color-header-foreground: 0 0 0;
-    --color-heading: 191 29 104;
-    --color-link: 191 29 104;
+    --color-skin-background: rgb(249 224 235);
+    --color-skin-primary: rgb(229 103 161);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(249 179 211);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(13 1 7);
+    --color-skin-text: rgb(55 55 65);
+    --color-skin-header: rgb(247 166 202);
+    --color-skin-header-foreground: rgb(0 0 0);
+    --color-skin-heading: rgb(191 29 104);
+    --color-skin-link: rgb(191 29 104);
 
-    --color-background-dark: 77 45 59;
-    --color-primary-dark: 229 103 161;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 153 72 109;
-    --color-secondary-foreground-dark: 252 252 252;
-    --color-secondary-heading-dark: 249 237 242;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 178 80 125;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 250 175 209;
-    --color-link-dark: 250 175 209;
+    --color-skin-background-dark: rgb(77 45 59);
+    --color-skin-primary-dark: rgb(229 103 161);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(153 72 109);
+    --color-skin-secondary-foreground-dark: rgb(252 252 252);
+    --color-skin-secondary-heading-dark: rgb(249 237 242);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(178 80 125);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(250 175 209);
+    --color-skin-link-dark: rgb(250 175 209);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -63,29 +63,29 @@
 }
 
 .fuwawa {
-    --color-background: 209 229 255;
-    --color-primary: 34 137 224;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 148 201 247;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 1 7 13;
-    --color-text: 55 55 65;
-    --color-header: 103 178 255;
-    --color-header-foreground: 255 255 255;
-    --color-heading: 16 94 161;
-    --color-link: 16 94 161;
+    --color-skin-background: rgb(209 229 255);
+    --color-skin-primary: rgb(34 137 224);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(148 201 247);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(1 7 13);
+    --color-skin-text: rgb(55 55 65);
+    --color-skin-header: rgb(103 178 255);
+    --color-skin-header-foreground: rgb(255 255 255);
+    --color-skin-heading: rgb(16 94 161);
+    --color-skin-link: rgb(16 94 161);
 
-    --color-background-dark: 11 26 38;
-    --color-primary-dark: 34 137 224;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 51 92 128;
-    --color-secondary-foreground-dark: 252 252 252;
-    --color-secondary-heading-dark: 178 217 255;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 53 121 178;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 115 191 255;
-    --color-link-dark: 115 191 255;
+    --color-skin-background-dark: rgb(11 26 38);
+    --color-skin-primary-dark: rgb(34 137 224);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(51 92 128);
+    --color-skin-secondary-foreground-dark: rgb(252 252 252);
+    --color-skin-secondary-heading-dark: rgb(178 217 255);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(53 121 178);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(115 191 255);
+    --color-skin-link-dark: rgb(115 191 255);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -94,29 +94,29 @@
 }
 
 .nerissa {
-    --color-background: 217 220 255;
-    --color-primary: 34 51 251;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 178 191 255;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 3 5 26;
-    --color-text: 55 55 65;
-    --color-header: 54 67 217;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 34 51 251;
-    --color-link: 34 51 251;
+    --color-skin-background: rgb(217 220 255);
+    --color-skin-primary: rgb(34 51 251);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(178 191 255);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(3 5 26);
+    --color-skin-text: rgb(55 55 65);
+    --color-skin-header: rgb(54 67 217);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(34 51 251);
+    --color-skin-link: rgb(34 51 251);
 
-    --color-background-dark: 5 8 38;
-    --color-primary-dark: 34 51 251;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 66 74 166;
-    --color-secondary-foreground-dark: 252 252 252;
-    --color-secondary-heading-dark: 228 230 251;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 62 72 178;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 178 207 255;
-    --color-link-dark: 178 207 255;
+    --color-skin-background-dark: rgb(5 8 38);
+    --color-skin-primary-dark: rgb(34 51 251);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(66 74 166);
+    --color-skin-secondary-foreground-dark: rgb(252 252 252);
+    --color-skin-secondary-heading-dark: rgb(228 230 251);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(62 72 178);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(178 207 255);
+    --color-skin-link-dark: rgb(178 207 255);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -125,29 +125,29 @@
 }
 
 .bijou {
-    --color-background: 233 229 255;
-    --color-primary: 222 102 224;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 231 186 232;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 41 38 64;
-    --color-text: 55 55 65;
-    --color-header: 110 91 244;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 152 90 153;
-    --color-link: 152 90 153;
+    --color-skin-background: rgb(233 229 255);
+    --color-skin-primary: rgb(222 102 224);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(231 186 232);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(41 38 64);
+    --color-skin-text: rgb(55 55 65);
+    --color-skin-header: rgb(110 91 244);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(152 90 153);
+    --color-skin-link: rgb(152 90 153);
 
-    --color-background-dark: 15 11 38;
-    --color-primary-dark: 222 102 224;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 152 99 153;
-    --color-secondary-foreground-dark: 252 252 252;
-    --color-secondary-heading-dark: 255 250 255;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 80 67 178;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 241 145 242;
-    --color-link-dark: 241 145 242;
+    --color-skin-background-dark: rgb(15 11 38);
+    --color-skin-primary-dark: rgb(222 102 224);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(152 99 153);
+    --color-skin-secondary-foreground-dark: rgb(252 252 252);
+    --color-skin-secondary-heading-dark: rgb(255 250 255);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(80 67 178);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(241 145 242);
+    --color-skin-link-dark: rgb(241 145 242);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -156,29 +156,29 @@
 }
 
 .shiori {
-    --color-background: 249 242 255;
-    --color-primary: 157 103 205;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 221 202 237;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 50 4 89;
-    --color-text: 55 55 65;
-    --color-header: 184 160 205;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 138 62 205;
-    --color-link: 138 62 205;
+    --color-skin-background: rgb(249 242 255);
+    --color-skin-primary: rgb(157 103 205);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(221 202 237);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(50 4 89);
+    --color-skin-text: rgb(55 55 65);
+    --color-skin-header: rgb(184 160 205);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(138 62 205);
+    --color-skin-link: rgb(138 62 205);
 
-    --color-background-dark: 57 50 64;
-    --color-primary-dark: 157 103 205;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 112 91 130;
-    --color-secondary-foreground-dark: 252 252 252;
-    --color-secondary-heading-dark: 247 237 255;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 137 119 153;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 206 179 229;
-    --color-link-dark: 206 179 229;
+    --color-skin-background-dark: rgb(57 50 64);
+    --color-skin-primary-dark: rgb(157 103 205);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(112 91 130);
+    --color-skin-secondary-foreground-dark: rgb(252 252 252);
+    --color-skin-secondary-heading-dark: rgb(247 237 255);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(137 119 153);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(206 179 229);
+    --color-skin-link-dark: rgb(206 179 229);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -187,29 +187,29 @@
 }
 
 .baelz {
-    --color-background: 255 245 245;
-    --color-primary: 215 37 23;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 238 206 206;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 166 12 0;
-    --color-text: 47 47 47;
-    --color-header: 215 37 23;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 215 37 23;
-    --color-link: 215 37 23;
+    --color-skin-background: rgb(255 245 245);
+    --color-skin-primary: rgb(215 37 23);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(238 206 206);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(166 12 0);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(215 37 23);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(215 37 23);
+    --color-skin-link: rgb(215 37 23);
 
-    --color-background-dark: 22 3 3;
-    --color-primary-dark: 159 15 15;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 242 197 194;
-    --color-secondary-foreground-dark: 0 0 0;
-    --color-secondary-heading-dark: 13 11 9;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 128 22 14;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 255 160 153;
-    --color-link-dark: 255 160 153;
+    --color-skin-background-dark: rgb(22 3 3);
+    --color-skin-primary-dark: rgb(159 15 15);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(242 197 194);
+    --color-skin-secondary-foreground-dark: rgb(0 0 0);
+    --color-skin-secondary-heading-dark: rgb(13 11 9);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(128 22 14);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(255 160 153);
+    --color-skin-link-dark: rgb(255 160 153);
 
     --color-icon-primary: #FFF;
     --color-icon-secondary: var(--color-holoen-red);
@@ -218,27 +218,27 @@
 }
 
 .mumei {
-    --color-background: 255 248 245;
-    --color-primary: 71 153 165;
-    --color-secondary: 188 224 229;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 27 59 64;
-    --color-text: 47 47 47;
-    --color-header: 153 130 116;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 71 153 165;
-    --color-link: 71 153 165;
+    --color-skin-background: rgb(255 248 245);
+    --color-skin-primary: rgb(71 153 165);
+    --color-skin-secondary: rgb(188 224 229);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(27 59 64);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(153 130 116);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(71 153 165);
+    --color-skin-link: rgb(71 153 165);
 
-    --color-background-dark: 38 37 37;
-    --color-primary-dark: 71 153 165;
-    --color-secondary-dark: 45 97 105;
-    --color-secondary-foreground-dark: 255 255 255;
-    --color-secondary-heading-dark: 217 233 255;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 153 130 116;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 115 197 209;
-    --color-link-dark: 115 197 209;
+    --color-skin-background-dark: rgb(38 37 37);
+    --color-skin-primary-dark: rgb(71 153 165);
+    --color-skin-secondary-dark: rgb(45 97 105);
+    --color-skin-secondary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-heading-dark: rgb(217 233 255);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(153 130 116);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(115 197 209);
+    --color-skin-link-dark: rgb(115 197 209);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -247,29 +247,29 @@
 }
 
 .kronii {
-    --color-background: 230 240 255;
-    --color-primary: 8 105 236;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 189 209 236;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 0 30 71;
-    --color-text: 47 47 47;
-    --color-header: 41 110 204;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 8 105 236;
-    --color-link: 8 105 236;
+    --color-skin-background: rgb(230 240 255);
+    --color-skin-primary: rgb(8 105 236);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(189 209 236);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(0 30 71);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(41 110 204);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(8 105 236);
+    --color-skin-link: rgb(8 105 236);
 
-    --color-background-dark: 2 16 38;
-    --color-primary-dark: 33 111 217;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 37 84 148;
-    --color-secondary-foreground-dark: 255 255 255;
-    --color-secondary-heading-dark: 217 233 255;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 54 73 178;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 76 152 255;
-    --color-link-dark: 76 152 255;
+    --color-skin-background-dark: rgb(2 16 38);
+    --color-skin-primary-dark: rgb(33 111 217);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(37 84 148);
+    --color-skin-secondary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-heading-dark: rgb(217 233 255);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(54 73 178);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(76 152 255);
+    --color-skin-link-dark: rgb(76 152 255);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -278,29 +278,29 @@
 }
 
 .fauna {
-    --color-background: 224 229 220;
-    --color-primary: 78 178 17;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 179 217 158;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 16 38 2;
-    --color-text: 47 47 47;
-    --color-header: 173 209 152;
-    --color-header-foreground: 0 0 0;
-    --color-heading: 50 115 11;
-    --color-link: 50 115 11;
+    --color-skin-background: rgb(224 229 220);
+    --color-skin-primary: rgb(78 178 17);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(179 217 158);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(16 38 2);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(173 209 152);
+    --color-skin-header-foreground: rgb(0 0 0);
+    --color-skin-heading: rgb(50 115 11);
+    --color-skin-link: rgb(50 115 11);
 
-    --color-background-dark: 13 27 1;
-    --color-primary-dark: 105 153 77;
-    --color-primary-foreground-dark: 255 255 255;
-    --color-secondary-dark: 76 92 67;
-    --color-secondary-foreground-dark: 255 255 255;
-    --color-secondary-heading-dark: 212 242 194;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 106 128 93;
-    --color-header-foreground-dark: 233 233 233;
-    --color-heading-dark: 140 204 102;
-    --color-link-dark: 140 204 102;
+    --color-skin-background-dark: rgb(13 27 1);
+    --color-skin-primary-dark: rgb(105 153 77);
+    --color-skin-primary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-dark: rgb(76 92 67);
+    --color-skin-secondary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-heading-dark: rgb(212 242 194);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(106 128 93);
+    --color-skin-header-foreground-dark: rgb(233 233 233);
+    --color-skin-heading-dark: rgb(140 204 102);
+    --color-skin-link-dark: rgb(140 204 102);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -309,29 +309,29 @@
 }
 
 .sana {
-    --color-background: 255 249 245;
-    --color-primary: 254 222 74;
-    --color-primary-foreground: 0 0 0;
-    --color-secondary: 242 220 116;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 77 54 34;
-    --color-text: 47 47 47;
-    --color-header: 242 215 196;
-    --color-header-foreground: 51 51 51;
-    --color-heading: 113 87 64;
-    --color-link: 113 87 64;
+    --color-skin-background: rgb(255 249 245);
+    --color-skin-primary: rgb(254 222 74);
+    --color-skin-primary-foreground: rgb(0 0 0);
+    --color-skin-secondary: rgb(242 220 116);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(77 54 34);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(242 215 196);
+    --color-skin-header-foreground: rgb(51 51 51);
+    --color-skin-heading: rgb(113 87 64);
+    --color-skin-link: rgb(113 87 64);
 
-    --color-background-dark: 38 16 2;
-    --color-primary-dark: 229 191 11;
-    --color-primary-foreground-dark: 0 0 0;
-    --color-secondary-dark: 128 77 51;
-    --color-secondary-foreground-dark: 255 255 255;
-    --color-secondary-heading-dark: 242 215 196;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 153 108 77;
-    --color-header-foreground-dark: 238 238 238;
-    --color-heading-dark: 242 215 196;
-    --color-link-dark: 242 215 196;
+    --color-skin-background-dark: rgb(38 16 2);
+    --color-skin-primary-dark: rgb(229 191 11);
+    --color-skin-primary-foreground-dark: rgb(0 0 0);
+    --color-skin-secondary-dark: rgb(128 77 51);
+    --color-skin-secondary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-heading-dark: rgb(242 215 196);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(153 108 77);
+    --color-skin-header-foreground-dark: rgb(238 238 238);
+    --color-skin-heading-dark: rgb(242 215 196);
+    --color-skin-link-dark: rgb(242 215 196);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -340,27 +340,27 @@
 }
 
 .irys {
-    --color-background: 242 228 232;
-    --color-primary: 140 18 54;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 235 188 202;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 102 0 30;
-    --color-text: 47 47 47;
-    --color-header: 140 18 54;
-    --color-heading: 140 18 54;
-    --color-link: 140 18 54;
+    --color-skin-background: rgb(242 228 232);
+    --color-skin-primary: rgb(140 18 54);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(235 188 202);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(102 0 30);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(140 18 54);
+    --color-skin-heading: rgb(140 18 54);
+    --color-skin-link: rgb(140 18 54);
 
-    --color-background-dark: 38 2 12;
-    --color-primary-dark: 140 18 54;
-    --color-primary-foreground-dark: 238 238 238;
-    --color-secondary-dark: 140 56 81;
-    --color-secondary-foreground-dark: 238 238 238;
-    --color-secondary-heading-dark: 245 196 199;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 166 21 64;
-    --color-heading-dark: 255 191 210;
-    --color-link-dark: 255 191 210;
+    --color-skin-background-dark: rgb(38 2 12);
+    --color-skin-primary-dark: rgb(140 18 54);
+    --color-skin-primary-foreground-dark: rgb(238 238 238);
+    --color-skin-secondary-dark: rgb(140 56 81);
+    --color-skin-secondary-foreground-dark: rgb(238 238 238);
+    --color-skin-secondary-heading-dark: rgb(245 196 199);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(166 21 64);
+    --color-skin-heading-dark: rgb(255 191 210);
+    --color-skin-link-dark: rgb(255 191 210);
 
     --color-icon-primary: #FFF;
     --color-icon-secondary: var(--color-holoen-red);
@@ -369,27 +369,27 @@
 }
 
 .mori {
-    --color-background: 229 207 208;
-    --color-primary: 161 2 11;
-    --color-primary-foreground: 255 255 255;
-    --color-secondary: 229 161 164;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 59 3 6;
-    --color-text: 47 47 47;
-    --color-header: 201 13 64;
-    --color-heading: 161 2 11;
-    --color-link: 161 2 11;
+    --color-skin-background: rgb(229 207 208);
+    --color-skin-primary: rgb(161 2 11);
+    --color-skin-primary-foreground: rgb(255 255 255);
+    --color-skin-secondary: rgb(229 161 164);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(59 3 6);
+    --color-skin-text: rgb(47 47 47);
+    --color-skin-header: rgb(201 13 64);
+    --color-skin-heading: rgb(161 2 11);
+    --color-skin-link: rgb(161 2 11);
 
-    --color-background-dark: 38 0 3;
-    --color-primary-dark: 161 2 11;
-    --color-primary-foreground-dark: 238 238 238;
-    --color-secondary-dark: 140 56 60;
-    --color-secondary-foreground-dark: 254 254 254;
-    --color-secondary-heading-dark: 245 196 199;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 166 11 53;
-    --color-heading-dark: 242 109 117;
-    --color-link-dark: 242 109 117;
+    --color-skin-background-dark: rgb(38 0 3);
+    --color-skin-primary-dark: rgb(161 2 11);
+    --color-skin-primary-foreground-dark: rgb(238 238 238);
+    --color-skin-secondary-dark: rgb(140 56 60);
+    --color-skin-secondary-foreground-dark: rgb(254 254 254);
+    --color-skin-secondary-heading-dark: rgb(245 196 199);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(166 11 53);
+    --color-skin-heading-dark: rgb(242 109 117);
+    --color-skin-link-dark: rgb(242 109 117);
 
     --color-icon-primary: #FFF;
     --color-icon-secondary: var(--color-holoen-red);
@@ -398,25 +398,25 @@
 }
 
 .kiara {
-    --color-background: 255 226 217;
-    --color-primary: 255 81 28;
-    --color-secondary: 245 190 174;
-    --color-secondary-foreground: 0 0 0;
-    --color-secondary-heading: 128 34 26;
-    --color-text: 48 48 48;
-    --color-header: 255 81 28;
-    --color-heading: 220 57 7;
-    --color-link: 220 57 7;
+    --color-skin-background: rgb(255 226 217);
+    --color-skin-primary: rgb(255 81 28);
+    --color-skin-secondary: rgb(245 190 174);
+    --color-skin-secondary-foreground: rgb(0 0 0);
+    --color-skin-secondary-heading: rgb(128 34 26);
+    --color-skin-text: rgb(48 48 48);
+    --color-skin-header: rgb(255 81 28);
+    --color-skin-heading: rgb(220 57 7);
+    --color-skin-link: rgb(220 57 7);
 
-    --color-background-dark: 51 20 10;
-    --color-primary-dark: 255 81 28;
-    --color-secondary-dark: 191 89 57;
-    --color-secondary-foreground-dark: 255 255 255;
-    --color-secondary-heading-dark: 250 231 225;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 191 67 29;
-    --color-heading-dark: 250 106 62;
-    --color-link-dark: 250 106 62;
+    --color-skin-background-dark: rgb(51 20 10);
+    --color-skin-primary-dark: rgb(255 81 28);
+    --color-skin-secondary-dark: rgb(191 89 57);
+    --color-skin-secondary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-heading-dark: rgb(250 231 225);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(191 67 29);
+    --color-skin-heading-dark: rgb(250 106 62);
+    --color-skin-link-dark: rgb(250 106 62);
 
     --color-icon-primary: #FFF;
     --color-icon-secondary: var(--color-holoen-red);
@@ -425,23 +425,23 @@
 }
 
 .gura {
-    --color-background: 218 222 229;
-    --color-primary: 60 107 199;
-    --color-secondary: 178 191 217;
-    --color-secondary-heading: 10 41 102;
-    --color-text: 48 48 48;
-    --color-header: 93 129 199;
-    --color-heading: 46 82 153;
-    --color-link: 46 82 153;
+    --color-skin-background: rgb(218 222 229);
+    --color-skin-primary: rgb(60 107 199);
+    --color-skin-secondary: rgb(178 191 217);
+    --color-skin-secondary-heading: rgb(10 41 102);
+    --color-skin-text: rgb(48 48 48);
+    --color-skin-header: rgb(93 129 199);
+    --color-skin-heading: rgb(46 82 153);
+    --color-skin-link: rgb(46 82 153);
 
-    --color-background-dark: 24 33 51;
-    --color-primary-dark: 60 107 199;
-    --color-secondary-dark: 77 94 128;
-    --color-secondary-heading-dark: 194 215 255;
-    --color-text-dark: 238 238 238;
-    --color-header-dark: 66 91 140;
-    --color-heading-dark: 149 182 245;
-    --color-link-dark: 149 182 245;
+    --color-skin-background-dark: rgb(24 33 51);
+    --color-skin-primary-dark: rgb(60 107 199);
+    --color-skin-secondary-dark: rgb(77 94 128);
+    --color-skin-secondary-heading-dark: rgb(194 215 255);
+    --color-skin-text-dark: rgb(238 238 238);
+    --color-skin-header-dark: rgb(66 91 140);
+    --color-skin-heading-dark: rgb(149 182 245);
+    --color-skin-link-dark: rgb(149 182 245);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -450,27 +450,27 @@
 }
 
 .amelia {
-    --color-background: 247 246 242;
-    --color-primary: 248 206 99;
-    --color-secondary: 242 211 167;
-    --color-secondary-foreground: 48 48 48;
-    --color-secondary-heading: 64 48 43;
-    --color-text: 78 78 78;
-    --color-header: 248 219 146;
-    --color-header-foreground: 64 48 43;
-    --color-heading: 229 138 11;
-    --color-link: 229 138 11;
+    --color-skin-background: rgb(247 246 242);
+    --color-skin-primary: rgb(248 206 99);
+    --color-skin-secondary: rgb(242 211 167);
+    --color-skin-secondary-foreground: rgb(48 48 48);
+    --color-skin-secondary-heading: rgb(64 48 43);
+    --color-skin-text: rgb(78 78 78);
+    --color-skin-header: rgb(248 219 146);
+    --color-skin-header-foreground: rgb(64 48 43);
+    --color-skin-heading: rgb(229 138 11);
+    --color-skin-link: rgb(229 138 11);
 
-    --color-background-dark: 26 19 17;
-    --color-primary-dark: 242 215 181;
-    --color-secondary-dark: 135 119 100;
-    --color-secondary-foreground-dark: 255 255 255;
-    --color-secondary-heading-dark: 248 241 223;
-    --color-text-dark: 255 255 255;
-    --color-header-dark: 140 123 104;
-    --color-header-foreground-dark: 254 254 254;
-    --color-heading-dark: 242 215 181;
-    --color-link-dark: 242 215 181;
+    --color-skin-background-dark: rgb(26 19 17);
+    --color-skin-primary-dark: rgb(242 215 181);
+    --color-skin-secondary-dark: rgb(135 119 100);
+    --color-skin-secondary-foreground-dark: rgb(255 255 255);
+    --color-skin-secondary-heading-dark: rgb(248 241 223);
+    --color-skin-text-dark: rgb(255 255 255);
+    --color-skin-header-dark: rgb(140 123 104);
+    --color-skin-header-foreground-dark: rgb(254 254 254);
+    --color-skin-heading-dark: rgb(242 215 181);
+    --color-skin-link-dark: rgb(242 215 181);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;
@@ -479,27 +479,27 @@
 }
 
 .ina {
-    --color-background: 239 235 247;
-    --color-primary: 149 117 226;
-    --color-primary-foreground: 252 252 252;
-    --color-secondary: 210 202 229;
-    --color-secondary-foreground: 48 48 48;
-    --color-text: 48 48 48;
-    --color-header: 149 117 226;
-    --color-header-foreground: 252 252 252;
-    --color-heading: 86 70 128;
-    --color-link: 86 70 128;
+    --color-skin-background: rgb(239 235 247);
+    --color-skin-primary: rgb(149 117 226);
+    --color-skin-primary-foreground: rgb(252 252 252);
+    --color-skin-secondary: rgb(210 202 229);
+    --color-skin-secondary-foreground: rgb(48 48 48);
+    --color-skin-text: rgb(48 48 48);
+    --color-skin-header: rgb(149 117 226);
+    --color-skin-header-foreground: rgb(252 252 252);
+    --color-skin-heading: rgb(86 70 128);
+    --color-skin-link: rgb(86 70 128);
 
-    --color-background-dark: 63 62 105;
-    --color-primary-dark: 149 117 226;
-    --color-primary-foreground-dark: 252 252 252;
-    --color-secondary-dark: 91 77 128;
-    --color-secondary-foreground-dark: 252 252 252;
-    --color-text-dark: 252 252 252;
-    --color-header-dark: 98 86 126;
-    --color-header-foreground-dark: 252 252 252;
-    --color-heading-dark: 219 204 255;
-    --color-link-dark: 219 204 255;
+    --color-skin-background-dark: rgb(63 62 105);
+    --color-skin-primary-dark: rgb(149 117 226);
+    --color-skin-primary-foreground-dark: rgb(252 252 252);
+    --color-skin-secondary-dark: rgb(91 77 128);
+    --color-skin-secondary-foreground-dark: rgb(252 252 252);
+    --color-skin-text-dark: rgb(252 252 252);
+    --color-skin-header-dark: rgb(98 86 126);
+    --color-skin-header-foreground-dark: rgb(252 252 252);
+    --color-skin-heading-dark: rgb(219 204 255);
+    --color-skin-link-dark: rgb(219 204 255);
 
     --color-icon-primary: var(--color-holoen-red);
     --color-icon-secondary: #FFF;

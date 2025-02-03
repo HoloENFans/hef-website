@@ -1,3 +1,5 @@
+@reference '../../../../../styles/globals.css';
+
 .progressOuterContainer {
     @apply sticky z-10 w-full h-[60px] flex items-end transition-all opacity-0;
 }
