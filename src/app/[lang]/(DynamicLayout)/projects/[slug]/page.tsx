@@ -23,6 +23,7 @@ import fetchSubmissions from '@/lib/fetchSubmissions';
 import { RandomSubmissions } from '@/app/[lang]/(DynamicLayout)/projects/[slug]/submissions/page';
 import ButtonLink from '@/components/ui/ButtonLink';
 import IrysMangaDataWrapper from '@/components/ui/project/irysmanga/IrysMangaDataWrapper';
+import PixiClientWrapper from '@/components/ui/project/oceanodyssey/PixiClientWrapper';
 
 interface IProps {
 	params: Promise<{
@@ -121,6 +122,12 @@ export default async function ProjectPage({ params }: IProps) {
 	if (project.flags.includes('manga-reader')) {
 		return (
 			<IrysMangaDataWrapper project={project} lang={lang} />
+		);
+	}
+
+	if (project.flags.includes('kronii-fishing')) {
+		return (
+			<PixiClientWrapper />
 		);
 	}
 

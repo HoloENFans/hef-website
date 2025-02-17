@@ -39,16 +39,6 @@ export interface StageSize {
 	height: number;
 }
 
-function rgbToHex(rgb: string) {
-	const [r, g, b] = rgb.substring(4, rgb.length - 1).split(' ');
-	const red = parseInt(r, 10);
-	const green = parseInt(g, 10);
-	const blue = parseInt(b, 10);
-
-	// eslint-disable-next-line no-bitwise
-	return (red << 16) + (green << 8) + blue;
-}
-
 GraphicsContextSystem.defaultOptions.bezierSmoothness = 0.8;
 
 extend({
@@ -126,7 +116,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 			if (firstRun && !assetsHasBeenInit) {
 				setAssetsHasBeenInit(true);
 				firstRun = false;
-				await Assets.init({ manifest: '/assets/dev/gura-xmas-2024/manifest.json' });
+				await Assets.init({ manifest: project.devprops.manifestUrl });
 			}
 			await Assets.loadBundle('puzzle', (progress) => {
 				setLoadProgress(progress * 100);
@@ -137,56 +127,7 @@ export default function PixiWrapper({ project, submissions }: IProps) {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	useEffect(() => {
-		// @ts-ignore
-		if (typeof InstallTrigger !== 'undefined') {
-			// eslint-disable-next-line no-alert
-			alert("Hello there!\nIt seems like you're one of the few others using Firefox. Sadly this game is known to perform quite poorly on Firefox, so we recommend you use Chrome/Edge to play this.");
-		} else if (
-			// @ts-ignore
-			!window.chrome
-			// @ts-ignore
-			|| typeof window.opr !== 'undefined'
-		) {
-			// eslint-disable-next-line no-alert
-			alert("Unsupported browser\nIt seems like you're not using Chrome or Edge, your browser has not been tested and you may encounter issues while playing. We recommend you use Chrome/Edge to play this.");
-		}
-	}, []);
-
-	const themeColors = useMemo((): IThemeContext['colors'] => {
-		if (project.devprops.customTheme) return JSON.parse(project.devprops.customTheme);
-
-		const computedStyle = getComputedStyle(document.body);
-
-		return {
-			light: {
-				background: rgbToHex(computedStyle.getPropertyValue('--color-background')),
-				primary: rgbToHex(computedStyle.getPropertyValue('--color-primary')),
-				primaryForeground: rgbToHex(computedStyle.getPropertyValue('--color-primary-foreground')),
-				secondary: rgbToHex(computedStyle.getPropertyValue('--color-secondary')),
-				secondaryForeground: rgbToHex(computedStyle.getPropertyValue('--color-secondary-foreground')),
-				secondaryHeading: rgbToHex(computedStyle.getPropertyValue('--color-secondary-heading')),
-				text: rgbToHex(computedStyle.getPropertyValue('--color-text')),
-				header: rgbToHex(computedStyle.getPropertyValue('--color-header')),
-				headerForeground: rgbToHex(computedStyle.getPropertyValue('--color-header-foreground')),
-				heading: rgbToHex(computedStyle.getPropertyValue('--color-heading')),
-				link: rgbToHex(computedStyle.getPropertyValue('--color-link')),
-			},
-			dark: {
-				background: rgbToHex(computedStyle.getPropertyValue('--color-background-dark')),
-				primary: rgbToHex(computedStyle.getPropertyValue('--color-primary-dark')),
-				primaryForeground: rgbToHex(computedStyle.getPropertyValue('--color-primary-foreground-dark')),
-				secondary: rgbToHex(computedStyle.getPropertyValue('--color-secondary-dark')),
-				secondaryForeground: rgbToHex(computedStyle.getPropertyValue('--color-secondary-foreground-dark')),
-				secondaryHeading: rgbToHex(computedStyle.getPropertyValue('--color-secondary-heading-dark')),
-				text: rgbToHex(computedStyle.getPropertyValue('--color-text-dark')),
-				header: rgbToHex(computedStyle.getPropertyValue('--color-header-dark')),
-				headerForeground: rgbToHex(computedStyle.getPropertyValue('--color-header-foreground-dark')),
-				heading: rgbToHex(computedStyle.getPropertyValue('--color-heading-dark')),
-				link: rgbToHex(computedStyle.getPropertyValue('--color-link-dark')),
-			},
-		} satisfies IThemeContext['colors'];
-	}, [project.devprops.customTheme]);
+	const themeColors = useMemo((): IThemeContext['colors'] => JSON.parse(project.devprops.customTheme), [project.devprops.customTheme]);
 
 	const puzzleConfig = useMemo(() => ({
 		aboutText: project.devprops.aboutText.replace(/\\n/g, '\n'),
